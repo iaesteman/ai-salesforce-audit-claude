@@ -12,10 +12,36 @@ RED='\033[0;31m'
 BOLD='\033[1m'
 NC='\033[0m'
 
+REPO="iaesteman/ai-salesforce-audit-claude"
+
 # ─── Paths ────────────────────────────────────────────────────────────────────
 SKILLS_DIR="$HOME/.claude/skills"
 AGENTS_DIR="$HOME/.claude/agents"
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# ─── Detect: local clone vs curl | bash ───────────────────────────────────────
+# When piped via curl, BASH_SOURCE[0] is empty or "bash" — no local files exist.
+# Detect by checking whether the sf-audit skill file exists next to this script.
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd 2>/dev/null || echo "")"
+
+if [ -f "$SCRIPT_DIR/sf-audit/SKILL.md" ]; then
+  # Running from a local git clone
+  SOURCE_DIR="$SCRIPT_DIR"
+  CLEANUP_TMP=false
+else
+  # Running via curl | bash — download repo to a temp directory
+  TMP_DIR=$(mktemp -d)
+  CLEANUP_TMP=true
+  SOURCE_DIR="$TMP_DIR"
+
+  if command -v git &>/dev/null; then
+    git clone --quiet --depth 1 "https://github.com/$REPO.git" "$TMP_DIR"
+  else
+    echo -e "${RED}ERROR: git is required for remote installation but was not found.${NC}"
+    echo "Install git or clone the repo manually:"
+    echo "  git clone https://github.com/$REPO.git"
+    exit 1
+  fi
+fi
 
 # ─── Banner ───────────────────────────────────────────────────────────────────
 echo ""
@@ -28,6 +54,7 @@ echo ""
 if ! command -v claude &>/dev/null; then
   echo -e "${RED}ERROR: Claude Code CLI not found in PATH.${NC}"
   echo "Install from: https://claude.ai/code"
+  [ "$CLEANUP_TMP" = true ] && rm -rf "$TMP_DIR"
   exit 1
 fi
 
@@ -39,6 +66,7 @@ if ! command -v sf &>/dev/null; then
   else
     echo -e "${RED}ERROR: Salesforce CLI (sf) not found in PATH.${NC}"
     echo "Install from: https://developer.salesforce.com/tools/salesforcecli"
+    [ "$CLEANUP_TMP" = true ] && rm -rf "$TMP_DIR"
     exit 1
   fi
 else
@@ -64,13 +92,8 @@ echo -e "${GREEN}✓ Directories ready${NC}"
 echo ""
 echo -e "${CYAN}Installing main skill (router)...${NC}"
 
-if [ -f "$SCRIPT_DIR/sf-audit/SKILL.md" ]; then
-  cp "$SCRIPT_DIR/sf-audit/SKILL.md" "$SKILLS_DIR/sf-audit/SKILL.md"
-  echo -e "${GREEN}✓ Installed:${NC} sf-audit (router)"
-else
-  echo -e "${RED}ERROR: sf-audit/SKILL.md not found in $SCRIPT_DIR${NC}"
-  exit 1
-fi
+cp "$SOURCE_DIR/sf-audit/SKILL.md" "$SKILLS_DIR/sf-audit/SKILL.md"
+echo -e "${GREEN}✓ Installed:${NC} sf-audit (router)"
 
 # ─── Install sub-skills ───────────────────────────────────────────────────────
 echo ""
@@ -88,13 +111,8 @@ SKILLS=(
 for entry in "${SKILLS[@]}"; do
   skill_name="${entry%%:*}"
   skill_src="${entry##*:}"
-
-  if [ -f "$SCRIPT_DIR/$skill_src" ]; then
-    cp "$SCRIPT_DIR/$skill_src" "$SKILLS_DIR/$skill_name/SKILL.md"
-    echo -e "${GREEN}✓ Installed skill:${NC} $skill_name"
-  else
-    echo -e "${YELLOW}⚠  Skipping $skill_name — file not found: $SCRIPT_DIR/$skill_src${NC}"
-  fi
+  cp "$SOURCE_DIR/$skill_src" "$SKILLS_DIR/$skill_name/SKILL.md"
+  echo -e "${GREEN}✓ Installed skill:${NC} $skill_name"
 done
 
 # ─── Install agents ───────────────────────────────────────────────────────────
@@ -110,13 +128,12 @@ AGENTS=(
 )
 
 for agent in "${AGENTS[@]}"; do
-  if [ -f "$SCRIPT_DIR/agents/$agent.md" ]; then
-    cp "$SCRIPT_DIR/agents/$agent.md" "$AGENTS_DIR/$agent.md"
-    echo -e "${GREEN}✓ Installed agent:${NC} $agent"
-  else
-    echo -e "${YELLOW}⚠  Skipping agent $agent — file not found${NC}"
-  fi
+  cp "$SOURCE_DIR/agents/$agent.md" "$AGENTS_DIR/$agent.md"
+  echo -e "${GREEN}✓ Installed agent:${NC} $agent"
 done
+
+# ─── Cleanup temp dir (curl install only) ─────────────────────────────────────
+[ "$CLEANUP_TMP" = true ] && rm -rf "$TMP_DIR"
 
 # ─── Check for authenticated orgs ─────────────────────────────────────────────
 echo ""
@@ -143,6 +160,8 @@ echo ""
 echo -e "${GREEN}${BOLD}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo -e "${GREEN}${BOLD}  Installation complete!                              ${NC}"
 echo -e "${GREEN}${BOLD}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo ""
+echo -e "  Installed: 1 router + 6 skills + 5 agents"
 echo ""
 echo -e "  Start a new Claude Code session, then use:"
 echo ""

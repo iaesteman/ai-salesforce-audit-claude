@@ -7,12 +7,17 @@ AI-powered Salesforce org health auditing tool for [Claude Code](https://claude.
 ## Quick Install
 
 ```bash
-git clone https://github.com/your-username/ai-salesforce-audit-claude.git
-cd ai-salesforce-audit-claude
-./install.sh
+curl -fsSL https://raw.githubusercontent.com/iaesteman/ai-salesforce-audit-claude/main/install.sh | bash
 ```
 
 Then start a new Claude Code session.
+
+> **Manual install (alternative):**
+> ```bash
+> git clone https://github.com/iaesteman/ai-salesforce-audit-claude.git
+> cd ai-salesforce-audit-claude
+> ./install.sh
+> ```
 
 ---
 
