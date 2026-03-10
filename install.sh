@@ -51,27 +51,28 @@ echo -e "${CYAN}${BOLD}━━━━━━━━━━━━━━━━━━━
 echo ""
 
 # ─── Prerequisite: Claude Code ────────────────────────────────────────────────
-if ! command -v claude &>/dev/null; then
-  echo -e "${RED}ERROR: Claude Code CLI not found in PATH.${NC}"
-  echo "Install from: https://claude.ai/code"
-  [ "$CLEANUP_TMP" = true ] && rm -rf "$TMP_DIR"
-  exit 1
+if command -v claude &>/dev/null; then
+  CLAUDE_VERSION=$(claude --version 2>/dev/null | head -1 || echo "unknown")
+  echo -e "${GREEN}✓ Claude Code found:${NC} $CLAUDE_VERSION"
+elif [ -d "$HOME/.claude" ]; then
+  echo -e "${GREEN}✓ Claude Code detected${NC} (~/.claude directory exists)"
+else
+  echo -e "${YELLOW}⚠  Claude Code not detected in PATH.${NC}"
+  echo "   Install from: https://claude.ai/code"
+  echo "   Continuing install — files will be ready once Claude Code is installed."
 fi
 
 # ─── Prerequisite: Salesforce CLI ─────────────────────────────────────────────
-if ! command -v sf &>/dev/null; then
-  if command -v sfdx &>/dev/null; then
-    echo -e "${YELLOW}⚠  Found 'sfdx' but not 'sf'. Consider upgrading to the unified Salesforce CLI.${NC}"
-    echo "   Install from: https://developer.salesforce.com/tools/salesforcecli"
-  else
-    echo -e "${RED}ERROR: Salesforce CLI (sf) not found in PATH.${NC}"
-    echo "Install from: https://developer.salesforce.com/tools/salesforcecli"
-    [ "$CLEANUP_TMP" = true ] && rm -rf "$TMP_DIR"
-    exit 1
-  fi
-else
+if command -v sf &>/dev/null; then
   SF_VERSION=$(sf --version 2>/dev/null | head -1 || echo "unknown")
   echo -e "${GREEN}✓ Salesforce CLI found:${NC} $SF_VERSION"
+elif command -v sfdx &>/dev/null; then
+  echo -e "${YELLOW}⚠  Found 'sfdx' but not 'sf'. Consider upgrading to the unified Salesforce CLI.${NC}"
+  echo "   Install from: https://developer.salesforce.com/tools/salesforcecli"
+else
+  echo -e "${YELLOW}⚠  Salesforce CLI (sf) not found in PATH.${NC}"
+  echo "   Install from: https://developer.salesforce.com/tools/salesforcecli"
+  echo "   Continuing install — authenticate an org before running /sf-audit."
 fi
 
 # ─── Create directories ───────────────────────────────────────────────────────
