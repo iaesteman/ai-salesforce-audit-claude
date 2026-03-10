@@ -85,6 +85,7 @@ mkdir -p "$SKILLS_DIR/sf-data-quality"
 mkdir -p "$SKILLS_DIR/sf-automation"
 mkdir -p "$SKILLS_DIR/sf-architecture"
 mkdir -p "$SKILLS_DIR/sf-test-coverage"
+mkdir -p "$SKILLS_DIR/sf-report-pdf"
 mkdir -p "$AGENTS_DIR"
 
 echo -e "${GREEN}✓ Directories ready${NC}"
@@ -107,6 +108,7 @@ SKILLS=(
   "sf-automation:skills/sf-automation/SKILL.md"
   "sf-architecture:skills/sf-architecture/SKILL.md"
   "sf-test-coverage:skills/sf-test-coverage/SKILL.md"
+  "sf-report-pdf:skills/sf-report-pdf/SKILL.md"
 )
 
 for entry in "${SKILLS[@]}"; do
@@ -132,6 +134,39 @@ for agent in "${AGENTS[@]}"; do
   cp "$SOURCE_DIR/agents/$agent.md" "$AGENTS_DIR/$agent.md"
   echo -e "${GREEN}✓ Installed agent:${NC} $agent"
 done
+
+# ─── Install Python scripts ───────────────────────────────────────────────────
+echo ""
+echo -e "${CYAN}Installing PDF report script...${NC}"
+
+SCRIPTS_DEST="$HOME/.claude/scripts"
+mkdir -p "$SCRIPTS_DEST"
+
+if [ -f "$SOURCE_DIR/scripts/generate_sf_pdf_report.py" ]; then
+  cp "$SOURCE_DIR/scripts/generate_sf_pdf_report.py" "$SCRIPTS_DEST/generate_sf_pdf_report.py"
+  chmod +x "$SCRIPTS_DEST/generate_sf_pdf_report.py"
+  echo -e "${GREEN}✓ Installed script:${NC} generate_sf_pdf_report.py"
+
+  # Also copy to current working directory so /sf-audit report-pdf can find it
+  cp "$SOURCE_DIR/scripts/generate_sf_pdf_report.py" "./generate_sf_pdf_report.py" 2>/dev/null || true
+fi
+
+# Check for Python 3 and reportlab
+echo ""
+echo -e "${CYAN}Checking Python dependencies (required for PDF reports)...${NC}"
+
+if command -v python3 &>/dev/null; then
+  echo -e "${GREEN}✓ Python3 found:${NC} $(python3 --version 2>&1)"
+  if python3 -c "import reportlab" &>/dev/null; then
+    echo -e "${GREEN}✓ reportlab found${NC}"
+  else
+    echo -e "${YELLOW}⚠  reportlab not installed.${NC}"
+    echo -e "  Required for PDF reports. Install with:"
+    echo -e "  ${CYAN}pip3 install reportlab${NC}"
+  fi
+else
+  echo -e "${YELLOW}⚠  Python3 not found — PDF report generation will not be available.${NC}"
+fi
 
 # ─── Cleanup temp dir (curl install only) ─────────────────────────────────────
 [ "$CLEANUP_TMP" = true ] && rm -rf "$TMP_DIR"
@@ -162,7 +197,7 @@ echo -e "${GREEN}${BOLD}━━━━━━━━━━━━━━━━━━�
 echo -e "${GREEN}${BOLD}  Installation complete!                              ${NC}"
 echo -e "${GREEN}${BOLD}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo ""
-echo -e "  Installed: 1 router + 6 skills + 5 agents"
+echo -e "  Installed: 1 router + 7 skills + 5 agents + 1 PDF script"
 echo ""
 echo -e "  Start a new Claude Code session, then use:"
 echo ""
@@ -172,6 +207,7 @@ echo -e "  ${CYAN}/sf-audit data [org]${NC}         Data quality & completeness"
 echo -e "  ${CYAN}/sf-audit automation [org]${NC}   Automation health & legacy debt"
 echo -e "  ${CYAN}/sf-audit architecture [org]${NC} Org architecture & limits"
 echo -e "  ${CYAN}/sf-audit coverage [org]${NC}     Apex test coverage"
+echo -e "  ${CYAN}/sf-audit report-pdf [org]${NC}   Generate PDF report → SF-AUDIT-REPORT.pdf"
 echo ""
 echo -e "  ${YELLOW}[org]${NC} is optional — omit to use the default authenticated org"
 echo ""

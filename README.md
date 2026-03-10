@@ -29,6 +29,10 @@ Then start a new Claude Code session.
   ```bash
   sf org login web --alias my-org
   ```
+- *(PDF reports only)* Python 3 + reportlab:
+  ```bash
+  pip3 install reportlab
+  ```
 
 ---
 
@@ -57,6 +61,7 @@ Run any single domain for a focused, faster report:
 | `/sf-audit automation [org]` | `SF-AUTOMATION.md` | Flows, Process Builder, Workflow Rules, Apex triggers |
 | `/sf-audit architecture [org]` | `SF-ARCHITECTURE.md` | Limits, custom objects, Apex API versions, packages |
 | `/sf-audit coverage [org]` | `SF-TEST-COVERAGE.md` | Apex test coverage %, classes below 75%, test failures |
+| `/sf-audit report-pdf [org]` | `SF-AUDIT-REPORT.pdf` | Generate a clean PDF report from any prior audit data |
 
 The `[org-alias]` is optional — omit to audit your default authenticated org.
 
