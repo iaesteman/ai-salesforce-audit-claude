@@ -18,3 +18,28 @@ SF-FIELD-SPRAWL.md
 
 # Org-specific naming convention config (user-created, not committed)
 sf-audit-naming-config.md
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+env/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Node
+node_modules/
+
+# Temp
+*.tmp
+*.bak
