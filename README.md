@@ -1,6 +1,6 @@
 # AI Salesforce Audit with Claude Code
 
-![AI Salesforce Audit](readme-banner.svg)
+![AI Salesforce Audit](images/readme-banner.svg)
 
 AI-powered Salesforce org health auditing tool for [Claude Code](https://claude.ai/code). Runs 9 parallel AI agents to audit your org across security, data quality, automation health, architecture, and test coverage - producing a scored health report in seconds.
 

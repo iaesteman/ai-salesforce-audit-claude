@@ -1,5 +1,7 @@
 # Getting Started with sf-audit
 
+![Getting Started](images/getting-started-banner.svg)
+
 Everything you need to know before running your first audit.
 
 ---

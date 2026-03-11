@@ -1,0 +1,117 @@
+<svg width="900" height="340" viewBox="0 0 900 340" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%"   stop-color="#F7FBFE"/>
+      <stop offset="100%" stop-color="#EDF4F9"/>
+    </linearGradient>
+    <linearGradient id="topBar2" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#1E7FA4"/>
+      <stop offset="60%"  stop-color="#2E9E8A"/>
+      <stop offset="100%" stop-color="#F5A623"/>
+    </linearGradient>
+    <linearGradient id="bottomBar2" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#F5A623"/>
+      <stop offset="40%"  stop-color="#2E9E8A"/>
+      <stop offset="100%" stop-color="#1E7FA4"/>
+    </linearGradient>
+    <clipPath id="rounded2">
+      <rect width="900" height="340" rx="14" ry="14"/>
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#rounded2)">
+
+    <!-- Background -->
+    <rect width="900" height="340" fill="url(#bg2)"/>
+
+    <!-- Top accent bar -->
+    <rect x="0" y="0" width="900" height="5" fill="url(#topBar2)"/>
+
+    <!-- Left teal sidebar stripe -->
+    <rect x="0" y="5" width="4" height="282" fill="#1E7FA4" opacity="0.35"/>
+
+    <!-- Gold accent line above title -->
+    <rect x="28" y="24" width="72" height="4" fill="#F5A623" rx="2"/>
+
+    <!-- Main title -->
+    <text x="28" y="64"
+          font-family="'Segoe UI', Helvetica, Arial, sans-serif"
+          font-size="40" font-weight="700" fill="#155A76" letter-spacing="0.5">
+      Getting Started
+    </text>
+
+    <!-- Subtitle -->
+    <text x="28" y="86"
+          font-family="'Segoe UI', Helvetica, Arial, sans-serif"
+          font-size="14.5" fill="#5A7A8A" letter-spacing="0.2">
+      Set up sf-audit for your Salesforce org in minutes
+    </text>
+
+    <!-- Horizontal divider -->
+    <line x1="28" y1="100" x2="872" y2="100" stroke="#C8DCE6" stroke-width="1"/>
+
+    <!-- ─── STEP 1 ── x=28, circle cx=50 ─── -->
+    <!-- Step circle -->
+    <circle cx="50" cy="133" r="16" fill="#1E7FA4"/>
+    <text x="50" y="138" font-family="'Segoe UI', Helvetica, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">1</text>
+    <!-- Step title -->
+    <text x="76" y="128" font-family="'Segoe UI', Helvetica, sans-serif" font-size="13" font-weight="700" fill="#155A76">Install Prerequisites</text>
+    <!-- Step desc lines -->
+    <text x="76" y="145" font-family="'Courier New', monospace" font-size="11" fill="#1E7FA4">Claude Code</text>
+    <text x="168" y="145" font-family="'Segoe UI', Helvetica, sans-serif" font-size="11" fill="#8BA8B5">  claude.ai/code</text>
+    <text x="76" y="161" font-family="'Courier New', monospace" font-size="11" fill="#1E7FA4">Salesforce CLI</text>
+    <text x="172" y="161" font-family="'Segoe UI', Helvetica, sans-serif" font-size="11" fill="#8BA8B5">  developer.salesforce.com/tools</text>
+    <text x="76" y="177" font-family="'Courier New', monospace" font-size="11" fill="#1E7FA4">Python 3 + reportlab</text>
+    <text x="230" y="177" font-family="'Segoe UI', Helvetica, sans-serif" font-size="11" fill="#8BA8B5">  for PDF reports</text>
+
+    <!-- ─── STEP 2 ── y=210 ─── -->
+    <circle cx="50" cy="213" r="16" fill="#2E9E8A"/>
+    <text x="50" y="218" font-family="'Segoe UI', Helvetica, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">2</text>
+    <text x="76" y="208" font-family="'Segoe UI', Helvetica, sans-serif" font-size="13" font-weight="700" fill="#155A76">Install sf-audit</text>
+    <text x="76" y="225" font-family="'Courier New', monospace" font-size="11" fill="#1E7FA4">curl -fsSL …/install.sh | bash</text>
+    <text x="76" y="241" font-family="'Segoe UI', Helvetica, sans-serif" font-size="11" fill="#8BA8B5">Or: git clone → cd → ./install.sh</text>
+    <text x="76" y="257" font-family="'Segoe UI', Helvetica, sans-serif" font-size="11" fill="#8BA8B5">Then start a new Claude Code session</text>
+
+    <!-- Connector line col 1→2 -->
+    <line x1="50" y1="149" x2="50" y2="197" stroke="#C8DCE6" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+    <!-- ─── STEP 3 ── x=470 ─── -->
+    <circle cx="492" cy="133" r="16" fill="#E09B20"/>
+    <text x="492" y="138" font-family="'Segoe UI', Helvetica, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">3</text>
+    <text x="518" y="128" font-family="'Segoe UI', Helvetica, sans-serif" font-size="13" font-weight="700" fill="#155A76">Authenticate Your Org</text>
+    <text x="518" y="145" font-family="'Courier New', monospace" font-size="11" fill="#1E7FA4">sf org login web --alias my-org</text>
+    <text x="518" y="161" font-family="'Segoe UI', Helvetica, sans-serif" font-size="11" fill="#8BA8B5">For sandbox add:</text>
+    <text x="518" y="177" font-family="'Courier New', monospace" font-size="11" fill="#1E7FA4">--instance-url https://test.salesforce.com</text>
+
+    <!-- ─── STEP 4 ── x=470, y=210 ─── -->
+    <circle cx="492" cy="213" r="16" fill="#7B5EA7"/>
+    <text x="492" y="218" font-family="'Segoe UI', Helvetica, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">4</text>
+    <text x="518" y="208" font-family="'Segoe UI', Helvetica, sans-serif" font-size="13" font-weight="700" fill="#155A76">Run Your First Audit</text>
+    <text x="518" y="225" font-family="'Courier New', monospace" font-size="11" fill="#1E7FA4">/sf-audit my-org</text>
+    <text x="518" y="241" font-family="'Segoe UI', Helvetica, sans-serif" font-size="11" fill="#8BA8B5">Full audit — all 9 domains in parallel</text>
+    <text x="518" y="257" font-family="'Segoe UI', Helvetica, sans-serif" font-size="11" fill="#8BA8B5">Produces SF-AUDIT.md + SF-AUDIT-REPORT.pdf</text>
+
+    <!-- Connector line col 3→4 -->
+    <line x1="492" y1="149" x2="492" y2="197" stroke="#C8DCE6" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+    <!-- Vertical divider between col 1/2 and col 3/4 -->
+    <line x1="460" y1="108" x2="460" y2="270" stroke="#C8DCE6" stroke-width="1"/>
+
+    <!-- ─── FOOTER ─────────────────────────────────────── -->
+    <rect x="0" y="287" width="900" height="53" fill="#DFF0F7" opacity="0.7"/>
+    <line x1="0" y1="287" x2="900" y2="287" stroke="#C8DCE6" stroke-width="1"/>
+
+    <text x="450" y="319"
+          font-family="'Segoe UI', Helvetica, Arial, sans-serif"
+          font-size="11.5" fill="#3D5166" text-anchor="middle" letter-spacing="0.3">
+      read-only · no data modified · reports saved locally · never committed to git
+    </text>
+
+    <!-- Bottom accent bar -->
+    <rect x="0" y="335" width="900" height="5" fill="url(#bottomBar2)"/>
+
+  </g>
+
+  <!-- Outer border -->
+  <rect width="900" height="340" rx="14" ry="14" fill="none" stroke="#C8DCE6" stroke-width="1"/>
+</svg>
