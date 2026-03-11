@@ -18,7 +18,7 @@ Output file: `SF-AUDIT-REPORT.pdf` (written to current directory)
 Check the current directory for existing audit reports (most recent run):
 
 ```bash
-ls -la SF-AUDIT.md SF-SECURITY.md SF-DATA-QUALITY.md SF-AUTOMATION.md SF-ARCHITECTURE.md SF-TEST-COVERAGE.md SF-NAMING.md 2>/dev/null
+ls -la SF-AUDIT.md SF-SECURITY.md SF-DATA-QUALITY.md SF-AUTOMATION.md SF-ARCHITECTURE.md SF-TEST-COVERAGE.md SF-NAMING.md SF-ORPHANED.md SF-DESCRIPTIONS.md SF-FIELD-SPRAWL.md 2>/dev/null
 ```
 
 **If `SF-AUDIT.md` exists:** Use it as the primary data source — extract all 5 section scores and findings.
@@ -39,13 +39,13 @@ Parse the available audit markdown files and extract:
 
 - **Org name, username, edition, audit date** (from report header)
 - **Overall score** (0–100) and grade (if SF-AUDIT.md exists)
-- **Per-domain scores** (Security, Data Quality, Automation, Architecture, Test Coverage, Naming Conventions)
+- **Per-domain scores** (Security, Data Quality, Automation, Architecture, Test Coverage, Naming Conventions, Orphaned Metadata, Description Completeness, Custom Field Sprawl)
 - **Top findings per domain** (Critical and Important items from recommendations sections)
 - **Priority Action Matrix items** (Critical / Important / Strategic)
 
 If the full composite score doesn't exist (individual reports only), calculate it:
 ```
-overall_score = (security × 0.25) + (data_quality × 0.20) + (automation × 0.20) + (architecture × 0.15) + (test_coverage × 0.10) + (naming × 0.10)
+overall_score = (security × 0.20) + (data_quality × 0.15) + (automation × 0.15) + (architecture × 0.12) + (test_coverage × 0.08) + (naming × 0.08) + (orphaned × 0.08) + (descriptions × 0.07) + (field_sprawl × 0.07)
 ```
 
 ---
@@ -64,12 +64,15 @@ Write a temporary JSON file at `/tmp/sf_report_data.json` with this exact struct
   "grade": "B",
   "executive_summary": "2-4 sentence summary of org health, top risk, top strength, and immediate priority.",
   "domains": {
-    "Security & Access": {"score": 65, "weight": "25%"},
-    "Data Quality": {"score": 78, "weight": "20%"},
-    "Automation Health": {"score": 70, "weight": "20%"},
-    "Org Architecture": {"score": 82, "weight": "15%"},
-    "Test Coverage": {"score": 68, "weight": "10%"},
-    "Naming Conventions": {"score": 74, "weight": "10%"}
+    "Security & Access": {"score": 65, "weight": "20%"},
+    "Data Quality": {"score": 78, "weight": "15%"},
+    "Automation Health": {"score": 70, "weight": "15%"},
+    "Org Architecture": {"score": 82, "weight": "12%"},
+    "Test Coverage": {"score": 68, "weight": "8%"},
+    "Naming Conventions": {"score": 74, "weight": "8%"},
+    "Orphaned Metadata": {"score": 72, "weight": "8%"},
+    "Description Completeness": {"score": 55, "weight": "7%"},
+    "Custom Field Sprawl": {"score": 80, "weight": "7%"}
   },
   "findings": [
     {"severity": "Critical", "domain": "Security", "finding": "Specific finding text"},
@@ -92,7 +95,7 @@ Write a temporary JSON file at `/tmp/sf_report_data.json` with this exact struct
   "audit_metadata": {
     "queries_run": "42",
     "api_version": "v62.0",
-    "execution_mode": "Parallel (6 agents)"
+    "execution_mode": "Parallel (9 agents)"
   }
 }
 ```
