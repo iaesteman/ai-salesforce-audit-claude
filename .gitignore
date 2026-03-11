@@ -15,3 +15,6 @@ SF-FIELD-SPRAWL.md
 
 # Temporary PDF data
 /tmp/sf_report_data.json
+
+# Org-specific naming convention config (user-created, not committed)
+sf-audit-naming-config.md

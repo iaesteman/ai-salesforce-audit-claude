@@ -13,7 +13,27 @@ Output file: `SF-NAMING.md` (written to current directory)
 
 ---
 
-## Phase 1: Connectivity Check
+## Phase 1: Load Config & Connectivity Check
+
+### Step 1a — Check for local naming config
+
+```bash
+ls sf-audit-naming-config.md 2>/dev/null && echo "CONFIG FOUND" || echo "USING DEFAULTS"
+```
+
+If `sf-audit-naming-config.md` exists in the current directory, read it and use the naming conventions defined there **instead of the built-in defaults** in Phase 3. Print to terminal:
+
+```
+  Config: sf-audit-naming-config.md (org-specific conventions loaded)
+```
+
+If no config file is found, use the built-in default conventions and print:
+
+```
+  Config: built-in defaults (create sf-audit-naming-config.md to customise)
+```
+
+### Step 1b — Verify org connection
 
 ```bash
 sf org display --target-org [org-alias] --json

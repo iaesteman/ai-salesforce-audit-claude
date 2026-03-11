@@ -1,0 +1,62 @@
+# sf-audit Naming Convention Config
+#
+# Copy this file to sf-audit-naming-config.md in your working directory
+# to override the default naming conventions for your org.
+#
+#   cp sf-audit-naming-config.md.example sf-audit-naming-config.md
+#
+# The skill will detect this file automatically and use these rules
+# instead of the built-in defaults.
+# This file is excluded from git (.gitignore) — it is org-specific.
+
+---
+
+## Apex Class Suffixes
+
+Classes must end in one of these recognised suffixes. Classes without
+a matching suffix will be flagged as violations.
+
+- `_CTRL` — Visualforce / Aura controllers
+- `_SERVICE` — Business logic service classes
+- `_HANDLER` — Apex trigger handler classes
+- `_BATCH` — Batch Apex jobs
+- `_TEST` — Test classes
+- `_SCHEDULER` — Scheduled Apex jobs
+- `_SELECTOR` — Data access / query classes
+- `_BUILDER` — Builder / factory classes
+- `_FACTORY` — Factory pattern classes
+
+## Generic Class Names to Flag (standalone words only)
+
+Flag any class whose entire name is one of these generic words:
+
+- Utility, Utils, Manager, Common, Misc, Helper
+
+## Apex Trigger Naming
+
+- Required pattern: `[ObjectName]Trigger`
+  Example: `AccountTrigger`, `ContactTrigger`
+- Multiple triggers per object: **not allowed** (flag as violation)
+
+## Custom Field Violations
+
+Flag a field if its API name (before `__c`) matches any of these:
+
+- Single characters: `A`, `X`, `Z` etc.
+- Numeric-only descriptors: `Field1`, `F1`, `Col2`
+- Generic standalone words: `Test`, `Temp`, `Flag`, `Data`, `Misc`, `Value`
+
+## Flow Naming
+
+Recommended pattern: `[Object]_[Action]_[Trigger]`
+Example: `Account_SendWelcomeEmail_AfterInsert`
+
+Flag a flow if:
+- API name is a single word with no underscores
+- Label is generic: `Flow`, `New Flow`, `Untitled`, `My Flow`, `Test Flow`
+
+## Validation Rule Naming
+
+Flag a rule if:
+- Name is fewer than 3 segments (e.g., `Rule1`, `VR_1`)
+- Name is a generic word: `Check`, `Validate`, `Error`

@@ -95,6 +95,20 @@ The `[org-alias]` is optional — omit to audit your default authenticated org.
 
 ---
 
+## Customising Naming Conventions
+
+> **Want to enforce your own naming standards?** The `/sf-audit-naming` skill supports a local config file that overrides the built-in defaults — no need to edit any installed files.
+>
+> **How to set it up:**
+> ```bash
+> cp sf-audit-naming-config.md.example sf-audit-naming-config.md
+> # Open sf-audit-naming-config.md and edit the suffixes, patterns, and
+> # generic-name lists to match your org's standards.
+> ```
+> The skill detects this file automatically at runtime. It is excluded from git so it stays local to your project. See [sf-audit-naming-config.md.example](sf-audit-naming-config.md.example) for the full list of configurable options.
+
+---
+
 ## What Gets Audited
 
 ### Security & Access (30% weight)
@@ -157,31 +171,42 @@ Each domain is scored 0–100, then weighted into a composite Org Health Score:
 
 ```
 ai-salesforce-audit-claude/
-├── sf-audit/SKILL.md                    ← /sf-audit — full parallel audit
+├── sf-audit/SKILL.md                        ← /sf-audit — full parallel audit
 ├── skills/
-│   ├── sf-audit-security/SKILL.md       ← /sf-audit-security
-│   ├── sf-audit-data/SKILL.md           ← /sf-audit-data
-│   ├── sf-audit-automation/SKILL.md     ← /sf-audit-automation
-│   ├── sf-audit-architecture/SKILL.md   ← /sf-audit-architecture
-│   ├── sf-audit-coverage/SKILL.md       ← /sf-audit-coverage
-│   └── sf-audit-report-pdf/SKILL.md     ← /sf-audit-report-pdf
+│   ├── sf-audit-security/SKILL.md           ← /sf-audit-security
+│   ├── sf-audit-data/SKILL.md               ← /sf-audit-data
+│   ├── sf-audit-automation/SKILL.md         ← /sf-audit-automation
+│   ├── sf-audit-architecture/SKILL.md       ← /sf-audit-architecture
+│   ├── sf-audit-coverage/SKILL.md           ← /sf-audit-coverage
+│   ├── sf-audit-naming/SKILL.md             ← /sf-audit-naming
+│   ├── sf-audit-orphaned/SKILL.md           ← /sf-audit-orphaned
+│   ├── sf-audit-descriptions/SKILL.md       ← /sf-audit-descriptions
+│   ├── sf-audit-field-sprawl/SKILL.md       ← /sf-audit-field-sprawl
+│   └── sf-audit-report-pdf/SKILL.md         ← /sf-audit-report-pdf
 ├── agents/
-│   ├── sf-security.md                   ← Security agent (used by /sf-audit)
-│   ├── sf-data-quality.md               ← Data quality agent
-│   ├── sf-automation.md                 ← Automation agent
-│   ├── sf-architecture.md               ← Architecture agent
-│   └── sf-coverage.md              ← Test coverage agent
+│   ├── sf-security.md                       ← Security agent
+│   ├── sf-data-quality.md                   ← Data quality agent
+│   ├── sf-automation.md                     ← Automation agent
+│   ├── sf-architecture.md                   ← Architecture agent
+│   ├── sf-coverage.md                       ← Test coverage agent
+│   ├── sf-naming.md                         ← Naming conventions agent
+│   ├── sf-orphaned.md                       ← Orphaned metadata agent
+│   ├── sf-descriptions.md                   ← Description completeness agent
+│   └── sf-field-sprawl.md                   ← Custom field sprawl agent
 ├── scripts/
-│   └── generate_sf_pdf_report.py        ← PDF generation (requires reportlab)
+│   └── generate_sf_pdf_report.py            ← PDF generation (requires reportlab)
+├── sf-audit-naming-config.md.example        ← Naming convention config template
+├── GETTING_STARTED.md                       ← Setup guide for new users
+├── NAMING-CONVENTION-GUIDE.md               ← Detailed naming skill guide
 ├── install.sh
 └── uninstall.sh
 ```
 
 **How it works:**
-1. `/sf-audit [org]` runs Phase 1 (discovery) → Phase 2 (dispatches 5 agents in parallel) → Phase 3 (synthesis)
+1. `/sf-audit [org]` runs Phase 1 (discovery) → Phase 2 (dispatches 9 agents in parallel) → Phase 3 (synthesis)
 2. Each `/sf-audit-*` command is an independent skill — run any one on its own
 3. Each agent queries the live org via `sf` CLI and Tooling API, scores its domain, returns a section
-4. Orchestrator combines sections into the final weighted score and `SF-AUDIT.md`
+4. Orchestrator combines sections into the final weighted score and writes `SF-AUDIT.md` + `SF-AUDIT-REPORT.pdf`
 
 ---
 

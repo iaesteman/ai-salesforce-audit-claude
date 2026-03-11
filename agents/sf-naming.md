@@ -27,6 +27,23 @@ Use `ORG_ALIAS` as the `--target-org` value for all `sf` CLI commands.
 
 ---
 
+## Step 0: Load Naming Config
+
+Before running any queries, check for a local config file:
+
+```bash
+ls sf-audit-naming-config.md 2>/dev/null && echo "CONFIG FOUND" || echo "USING DEFAULTS"
+```
+
+If `sf-audit-naming-config.md` exists in the current directory:
+- Read its contents using the Read tool
+- Use the suffixes, patterns, and generic-name lists defined in it for all violation classification in Step 2
+- Note in the output section: `*Conventions sourced from sf-audit-naming-config.md*`
+
+If no config file is found, use the built-in default conventions defined in Step 2 below.
+
+---
+
 ## Step 1: Run Naming Queries
 
 Execute each query using the Bash tool.
