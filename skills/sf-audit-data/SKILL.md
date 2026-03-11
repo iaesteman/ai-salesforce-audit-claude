@@ -3,7 +3,7 @@
 Run a standalone Salesforce data quality audit on a live org.
 
 ## Activated by
-`/sf-audit data [org-alias]`
+`/sf-audit-data [org-alias]`
 
 ## What This Skill Does
 

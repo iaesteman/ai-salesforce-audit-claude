@@ -3,7 +3,7 @@
 Run a standalone Salesforce Apex test coverage audit on a live org.
 
 ## Activated by
-`/sf-audit coverage [org-alias]`
+`/sf-audit-coverage [org-alias]`
 
 ## What This Skill Does
 

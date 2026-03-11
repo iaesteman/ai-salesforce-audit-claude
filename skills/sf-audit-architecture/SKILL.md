@@ -3,7 +3,7 @@
 Run a standalone Salesforce org architecture audit on a live org.
 
 ## Activated by
-`/sf-audit architecture [org-alias]`
+`/sf-audit-architecture [org-alias]`
 
 ## What This Skill Does
 

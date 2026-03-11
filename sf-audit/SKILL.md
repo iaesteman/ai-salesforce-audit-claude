@@ -1,122 +1,262 @@
-# SF Audit — Main Orchestrator
+# SF Audit — Full Org Health Audit
 
-AI-powered Salesforce org health auditing tool. Run a full audit or target a specific domain.
+Run a comprehensive Salesforce org health audit across all 5 domains simultaneously. And create a synthesized `SF-AUDIT.md` report with an overall health score, executive summary, and prioritized action matrix.
 
-## Commands
+## Activated by
+`/sf-audit [org-alias]`
 
-| Command | Description |
-|---------|-------------|
-| `/sf-audit [org-alias]` | Full audit — all 5 domains in parallel → `SF-AUDIT.md` |
-| `/sf-audit security [org-alias]` | Security & access controls → `SF-SECURITY.md` |
-| `/sf-audit data [org-alias]` | Data quality & completeness → `SF-DATA-QUALITY.md` |
-| `/sf-audit automation [org-alias]` | Automation health & legacy debt → `SF-AUTOMATION.md` |
-| `/sf-audit architecture [org-alias]` | Org architecture & limits → `SF-ARCHITECTURE.md` |
-| `/sf-audit coverage [org-alias]` | Apex test coverage → `SF-TEST-COVERAGE.md` |
-| `/sf-audit report-pdf [org-alias]` | Generate clean PDF report from audit data → `SF-AUDIT-REPORT.pdf` |
+## Available Commands
+
+| Command | Output | Description |
+|---------|--------|-------------|
+| `/sf-audit [org-alias]` | `SF-AUDIT.md` | Full audit — all 5 domains in parallel |
+| `/sf-audit-security [org-alias]` | `SF-SECURITY.md` | Security & access controls |
+| `/sf-audit-data [org-alias]` | `SF-DATA-QUALITY.md` | Data quality & completeness |
+| `/sf-audit-automation [org-alias]` | `SF-AUTOMATION.md` | Automation health & legacy debt |
+| `/sf-audit-architecture [org-alias]` | `SF-ARCHITECTURE.md` | Org architecture & limits |
+| `/sf-audit-coverage [org-alias]` | `SF-TEST-COVERAGE.md` | Apex test coverage |
+| `/sf-audit-report-pdf [org-alias]` | `SF-AUDIT-REPORT.pdf` | Generate PDF from audit data |
 
 The `[org-alias]` is optional — if omitted, the default authenticated org is used.
 
 ---
 
-## Routing Logic
+## What This Skill Does
 
-Parse the user's input after `/sf-audit` to determine the action:
+Dispatches 5 specialized subagents in parallel — each auditing a specific domain of the Salesforce org. Synthesizes results into a weighted Org Health Score (0–100) and produces a comprehensive `SF-AUDIT.md` report with executive summary and prioritized action matrix.
 
-1. **No arguments** or **only an org alias** (no keyword match):
-   → Route to: `skills/sf-audit` (full audit)
-   → Pass: `[org-alias]` (if provided) or `--target-org` default org
-
-2. **First argument is `security`**:
-   → Route to: `skills/sf-security`
-   → Pass: remaining argument as `[org-alias]`
-
-3. **First argument is `data`**:
-   → Route to: `skills/sf-data-quality`
-   → Pass: remaining argument as `[org-alias]`
-
-4. **First argument is `automation`**:
-   → Route to: `skills/sf-automation`
-   → Pass: remaining argument as `[org-alias]`
-
-5. **First argument is `architecture`**:
-   → Route to: `skills/sf-architecture`
-   → Pass: remaining argument as `[org-alias]`
-
-6. **First argument is `coverage`**:
-   → Route to: `skills/sf-test-coverage`
-   → Pass: remaining argument as `[org-alias]`
-
-7. **First argument is `report-pdf`**:
-   → Route to: `skills/sf-report-pdf`
-   → Pass: remaining argument as `[org-alias]`
-
-8. **Unrecognized argument**:
-   → Print the commands table above and ask the user to try again
+**The 5 domains audited in parallel:**
+| Agent | Domain | Weight |
+|-------|--------|--------|
+| `sf-security` | Security & Access Controls | 30% |
+| `sf-data-quality` | Data Quality & Completeness | 20% |
+| `sf-automation` | Automation Health & Legacy Debt | 20% |
+| `sf-architecture` | Org Architecture & Limits | 15% |
+| `sf-test-coverage` | Apex Test Coverage | 15% |
 
 ---
 
-## Org Alias Resolution
+## Phase 1: Discovery
 
-If an org alias is provided, use it as `--target-org [alias]` in all `sf` CLI calls.
-
-If no alias is provided:
-1. Run `sf org display --json` (uses the default org)
-2. If that fails, run `sf org list --json` to show available orgs
-3. Ask the user to specify an alias from the list
-
----
-
-## Context Detection
-
-Before routing, detect the business context to help agents tailor their output:
+### Step 1a — Verify org access
 
 ```bash
+sf org display --target-org [org-alias] --json
+```
+
+If this fails:
+- If no org-alias was provided: run `sf org list --json` to list available orgs, then ask the user to specify an alias
+- If authentication expired: instruct the user to run `sf org login web --alias [alias]`
+- Do not proceed until confirmed
+
+Extract and store: `ORG_NAME`, `ORG_ID`, `ORG_EDITION`, `ORG_USERNAME`, `ORG_INSTANCE_URL`
+
+### Step 1b — Gather shared context
+
+```bash
+# Active user count
+sf data query --target-org [org-alias] \
+  --query "SELECT COUNT() FROM User WHERE IsActive = true" --json
+
+# Custom object count
+sf data query --target-org [org-alias] --use-tooling-api \
+  --query "SELECT COUNT() FROM EntityDefinition WHERE IsCustomizable = true AND IsCustomSetting = false" --json
+
+# Org edition
 sf data query --target-org [org-alias] --use-tooling-api \
   --query "SELECT Id, Name, OrganizationType FROM Organization" --json
 ```
 
-Pass the `OrganizationType` (e.g., "Enterprise Edition", "Developer Edition", "Professional Edition") to the routed skill so it can adjust limit thresholds and recommendations accordingly.
+Print to terminal:
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  SALESFORCE ORG AUDIT STARTING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Org:       [ORG_NAME]
+  Username:  [ORG_USERNAME]
+  Edition:   [ORG_EDITION]
+  Users:     [ACTIVE_USERS] active
+  Objects:   [CUSTOM_OBJECT_COUNT] custom
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Launching 6 parallel audit agents...
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+---
+
+## Phase 2: Parallel Agent Dispatch
+
+**CRITICAL: Launch all 5 agents simultaneously using the Task tool. Do NOT run them sequentially.**
+
+Dispatch each Task with the following prompt structure:
+
+```
+You are the [AGENT_NAME] agent for a Salesforce org audit.
+
+SHARED ORG CONTEXT:
+ORG_ALIAS: [org-alias]
+ORG_ID: [ORG_ID]
+ORG_EDITION: [ORG_EDITION]
+ORG_USERNAME: [ORG_USERNAME]
+ACTIVE_USERS: [ACTIVE_USERS]
+CUSTOM_OBJECT_COUNT: [CUSTOM_OBJECT_COUNT]
+
+Run your full analysis following your agent instructions exactly.
+Return your complete scored markdown section using your output template.
+Do not truncate or summarize — return the full section.
+```
+
+**Task dispatches (all at once):**
+1. Agent: `sf-security` — prompt as above
+2. Agent: `sf-data-quality` — prompt as above
+3. Agent: `sf-automation` — prompt as above
+4. Agent: `sf-architecture` — prompt as above
+5. Agent: `sf-test-coverage` — prompt as above
+
+Wait for all 5 agents to complete before proceeding to Phase 3.
+
+---
+
+## Phase 3: Synthesis
+
+### Calculate composite score
+
+```
+org_health_score = (
+  security_score      × 0.30 +
+  data_quality_score  × 0.20 +
+  automation_score    × 0.20 +
+  architecture_score  × 0.15 +
+  test_coverage_score × 0.15
+)
+```
+
+### Assign grade
+
+| Score  | Grade | Label                                   |
+|--------|-------|-----------------------------------------|
+| 90–100 |   A+  | Excellent — Production-grade org        |
+| 80–89  |   A   | Strong — Minor improvements recommended |
+| 70–79  |   B   | Good — Some areas need attention        |
+| 60–69  |   C   | Fair — Multiple risk areas identified   |
+| 50–59  |   D   | Poor — Significant remediation required |
+| < 50   |   F   | Critical — Immediate action required    |
+
+### Build Priority Action Matrix
+
+- **Critical (act within 1 week):** Any dimension < 40, security data exposure, any limit ≥ 95%, org coverage < 60%
+- **Important (act within 1 month):** Dimensions 40–65, legacy automation, inactive users, stale data, legacy API versions
+- **Strategic (this quarter):** Dimensions 65–79, migration roadmaps, architecture improvements
+
+---
+
+## Phase 4: Write SF-AUDIT.md
+
+Write this complete file to the current working directory:
+
+```markdown
+# Salesforce Org Health Audit
+**Org:** [ORG_NAME] | **Username:** [ORG_USERNAME] | **Edition:** [ORG_EDITION]
+**Audit Date:** [YYYY-MM-DD HH:MM UTC]
+**Instance:** [ORG_INSTANCE_URL]
+**Generated by:** sf-audit (Claude Code)
+
+---
+
+## Overall Org Health Score
+
+╔═══════════════════════════════════════╗
+║   ORG HEALTH SCORE:  [XX] / 100      ║
+║   Grade: [X]  —  [Label]             ║
+╚═══════════════════════════════════════╝
+
+| Domain            | Weight |  Score  | Grade |  Status |
+|-------------------|--------|---------|-------|---------|
+| Security & Access |   30%  |[XX]/100 |  [X]  | ✅/⚠️/❌ |
+| Data Quality      |   20%  |[XX]/100 |  [X]  | ✅/⚠️/❌ |
+| Automation Health |   20%  |[XX]/100 |  [X]  | ✅/⚠️/❌ |
+| Org Architecture  |   15%  |[XX]/100 |  [X]  | ✅/⚠️/❌ |
+| Test Coverage     |   15%  |[XX]/100 |  [X]  | ✅/⚠️/❌ |
+
+*✅ PASS ≥ 70 | ⚠️ WARN 50–69 | ❌ FAIL < 50*
+
+---
+
+## Executive Summary
+[3–5 paragraphs, non-technical language]
+
+---
+
+## Priority Action Matrix
+### ❌ Critical — Act Within 1 Week
+### ⚠️ Important — Act Within 1 Month
+### 📋 Strategic — Plan for This Quarter
+
+---
+
+[PASTE FULL SECTION 1 from sf-security agent]
+[PASTE FULL SECTION 2 from sf-data-quality agent]
+[PASTE FULL SECTION 3 from sf-automation agent]
+[PASTE FULL SECTION 4 from sf-architecture agent]
+[PASTE FULL SECTION 5 from sf-test-coverage agent]
+
+---
+
+## Audit Metadata
+| Item | Value |
+|------|-------|
+| sf CLI version | [sf --version] |
+| API version | v62.0 |
+| Execution mode | Parallel (5 agents) |
+| Report generated | [timestamp] |
+| Limitations | [any skipped queries] |
+
+---
+*Run individual domain commands for focused reports:*
+- `/sf-audit-security [org]` → SF-SECURITY.md
+- `/sf-audit-data [org]` → SF-DATA-QUALITY.md
+- `/sf-audit-automation [org]` → SF-AUTOMATION.md
+- `/sf-audit-architecture [org]` → SF-ARCHITECTURE.md
+- `/sf-audit-coverage [org]` → SF-TEST-COVERAGE.md
+- `/sf-audit-report-pdf [org]` → SF-AUDIT-REPORT.pdf
+```
+
+---
+
+## Phase 5: Terminal Summary
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  SALESFORCE ORG HEALTH AUDIT COMPLETE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Org:    [ORG_NAME] ([ORG_EDITION])
+
+  OVERALL HEALTH SCORE: [XX]/100 — Grade [X]
+
+  ┌─────────────────────────┬────────┬────────┐
+  │ Domain                  │ Weight │ Score  │
+  ├─────────────────────────┼────────┼────────┤
+  │ Security & Access       │  30%   │ [XX]   │
+  │ Data Quality            │  20%   │ [XX]   │
+  │ Automation Health       │  20%   │ [XX]   │
+  │ Org Architecture        │  15%   │ [XX]   │
+  │ Test Coverage           │  15%   │ [XX]   │
+  └─────────────────────────┴────────┴────────┘
+
+  TOP PRIORITIES:
+  1. [Top critical finding]
+  2. [Second priority]
+  3. [Third priority]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Full report saved: SF-AUDIT.md
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
 
 ---
 
 ## Output Standards
 
-- All reports are saved as markdown or PDF files in the current working directory
-- Full audit: `SF-AUDIT.md`
-- Individual skills: `SF-SECURITY.md`, `SF-DATA-QUALITY.md`, `SF-AUTOMATION.md`, `SF-ARCHITECTURE.md`, `SF-TEST-COVERAGE.md`
-- PDF report: `SF-AUDIT-REPORT.pdf` (requires `reportlab`: `pip3 install reportlab`)
-- Reports reference each other: a `SF-SECURITY.md` from a prior run is noted in the full `SF-AUDIT.md` executive summary if it exists
-- Scores use a 0–100 scale with letter grades: A+ (90-100), A (80-89), B (70-79), C (60-69), D (50-59), F (<50)
-- All recommendations are specific, actionable, and reference exact Salesforce Setup paths or component names
-
----
-
-## Prerequisites
-
-- Salesforce CLI (`sf`) installed and in PATH
-- At least one authenticated org: `sf org login web --alias my-org`
-- For Tooling API queries: the authenticated user must have API access enabled on their profile
-
----
-
-## Quick Start Examples
-
-```bash
-# Audit your default org
-/sf-audit
-
-# Audit a specific sandbox
-/sf-audit my-sandbox
-
-# Check only security on production
-/sf-audit security prod
-
-# Check only test coverage on developer org
-/sf-audit coverage dev-org
-
-# Check data quality issues
-/sf-audit data my-sandbox
-
-# Generate a PDF report from a previous audit
-/sf-audit report-pdf my-sandbox
-```
+- Phase 2 MUST dispatch all 5 agents simultaneously — parallel execution is required
+- Paste full agent sections verbatim into SF-AUDIT.md — do not summarize
+- Executive summary must be in plain language — no SOQL, no technical jargon
+- Score thresholds: ✅ PASS ≥ 70 | ⚠️ WARN 50–69 | ❌ FAIL < 50

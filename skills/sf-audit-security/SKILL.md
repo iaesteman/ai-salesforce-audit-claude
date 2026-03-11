@@ -3,7 +3,7 @@
 Run a standalone Salesforce security & access audit on a live org.
 
 ## Activated by
-`/sf-audit security [org-alias]`
+`/sf-audit-security [org-alias]`
 
 ## What This Skill Does
 

@@ -12,11 +12,11 @@ AI-powered Salesforce org health auditing tool for [Claude Code](https://claude.
   ```bash
   sf org login web --alias my-org
   ```
-- *(PDF reports only)* Python 3 + reportlab(Optional):
+- *(PDF reports only)* Python 3 + reportlab:
   ```bash
   pip3 install reportlab
   ```
-  
+
 ---
 
 ## Quick Install
@@ -56,12 +56,12 @@ Run any single domain for a focused, faster report:
 
 | Command | Output | Domain |
 |---------|--------|--------|
-| `/sf-audit security [org]` | `SF-SECURITY.md` | Profiles, perm sets, sharing model, MFA, login activity |
-| `/sf-audit data [org]` | `SF-DATA-QUALITY.md` | Contact/Account/Lead completeness, duplicates, stale records |
-| `/sf-audit automation [org]` | `SF-AUTOMATION.md` | Flows, Process Builder, Workflow Rules, Apex triggers |
-| `/sf-audit architecture [org]` | `SF-ARCHITECTURE.md` | Limits, custom objects, Apex API versions, packages |
-| `/sf-audit coverage [org]` | `SF-TEST-COVERAGE.md` | Apex test coverage %, classes below 75%, test failures |
-| `/sf-audit report-pdf [org]` | `SF-AUDIT-REPORT.pdf` | Generate a clean PDF report from any prior audit data |
+| `/sf-audit-security [org]` | `SF-SECURITY.md` | Profiles, perm sets, sharing model, MFA, login activity |
+| `/sf-audit-data [org]` | `SF-DATA-QUALITY.md` | Contact/Account/Lead completeness, duplicates, stale records |
+| `/sf-audit-automation [org]` | `SF-AUTOMATION.md` | Flows, Process Builder, Workflow Rules, Apex triggers |
+| `/sf-audit-architecture [org]` | `SF-ARCHITECTURE.md` | Limits, custom objects, Apex API versions, packages |
+| `/sf-audit-coverage [org]` | `SF-TEST-COVERAGE.md` | Apex test coverage %, classes below 75%, test failures |
+| `/sf-audit-report-pdf [org]` | `SF-AUDIT-REPORT.pdf` | Generate a clean PDF report from any prior audit data |
 
 The `[org-alias]` is optional — omit to audit your default authenticated org.
 
@@ -129,27 +129,29 @@ Each domain is scored 0–100, then weighted into a composite Org Health Score:
 
 ```
 ai-salesforce-audit-claude/
-├── sf-audit/SKILL.md              ← Main router (handles all /sf-audit commands)
+├── sf-audit/SKILL.md                    ← /sf-audit — full parallel audit
 ├── skills/
-│   ├── sf-audit/SKILL.md          ← Full parallel audit orchestrator
-│   ├── sf-security/SKILL.md       ← Standalone security skill
-│   ├── sf-data-quality/SKILL.md   ← Standalone data quality skill
-│   ├── sf-automation/SKILL.md     ← Standalone automation skill
-│   ├── sf-architecture/SKILL.md   ← Standalone architecture skill
-│   └── sf-test-coverage/SKILL.md  ← Standalone test coverage skill
+│   ├── sf-audit-security/SKILL.md       ← /sf-audit-security
+│   ├── sf-audit-data/SKILL.md           ← /sf-audit-data
+│   ├── sf-audit-automation/SKILL.md     ← /sf-audit-automation
+│   ├── sf-audit-architecture/SKILL.md   ← /sf-audit-architecture
+│   ├── sf-audit-coverage/SKILL.md       ← /sf-audit-coverage
+│   └── sf-audit-report-pdf/SKILL.md     ← /sf-audit-report-pdf
 ├── agents/
-│   ├── sf-security.md             ← Security agent (used in full audit)
-│   ├── sf-data-quality.md         ← Data quality agent
-│   ├── sf-automation.md           ← Automation agent
-│   ├── sf-architecture.md         ← Architecture agent
-│   └── sf-test-coverage.md        ← Test coverage agent
+│   ├── sf-security.md                   ← Security agent (used by /sf-audit)
+│   ├── sf-data-quality.md               ← Data quality agent
+│   ├── sf-automation.md                 ← Automation agent
+│   ├── sf-architecture.md               ← Architecture agent
+│   └── sf-test-coverage.md              ← Test coverage agent
+├── scripts/
+│   └── generate_sf_pdf_report.py        ← PDF generation (requires reportlab)
 ├── install.sh
 └── uninstall.sh
 ```
 
 **How it works:**
-1. `/sf-audit [org]` → router parses input → routes to full audit skill
-2. Full audit skill runs Phase 1 (discovery) → Phase 2 (dispatches 5 agents in parallel) → Phase 3 (synthesis)
+1. `/sf-audit [org]` runs Phase 1 (discovery) → Phase 2 (dispatches 5 agents in parallel) → Phase 3 (synthesis)
+2. Each `/sf-audit-*` command is an independent skill — run any one on its own
 3. Each agent queries the live org via `sf` CLI and Tooling API, scores its domain, returns a section
 4. Orchestrator combines sections into the final weighted score and `SF-AUDIT.md`
 

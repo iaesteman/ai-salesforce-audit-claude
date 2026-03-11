@@ -3,7 +3,7 @@
 Generate a professional, print-ready PDF report from a Salesforce org audit.
 
 ## Activated by
-`/sf-audit report-pdf [org-alias]`
+`/sf-audit-report-pdf [org-alias]`
 
 ## What This Skill Does
 

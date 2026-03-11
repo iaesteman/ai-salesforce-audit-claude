@@ -25,11 +25,12 @@ echo -e "${CYAN}Removing skills...${NC}"
 
 SKILL_DIRS=(
   "sf-audit"
-  "sf-security"
-  "sf-data-quality"
-  "sf-automation"
-  "sf-architecture"
-  "sf-test-coverage"
+  "sf-audit-security"
+  "sf-audit-data"
+  "sf-audit-automation"
+  "sf-audit-architecture"
+  "sf-audit-coverage"
+  "sf-audit-report-pdf"
 )
 
 for skill in "${SKILL_DIRS[@]}"; do

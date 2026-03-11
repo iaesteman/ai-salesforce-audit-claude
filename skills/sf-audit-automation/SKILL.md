@@ -3,7 +3,7 @@
 Run a standalone Salesforce automation health audit on a live org.
 
 ## Activated by
-`/sf-audit automation [org-alias]`
+`/sf-audit-automation [org-alias]`
 
 ## What This Skill Does
 

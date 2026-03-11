@@ -80,35 +80,28 @@ echo ""
 echo -e "${CYAN}Creating install directories...${NC}"
 
 mkdir -p "$SKILLS_DIR/sf-audit"
-mkdir -p "$SKILLS_DIR/sf-security"
-mkdir -p "$SKILLS_DIR/sf-data-quality"
-mkdir -p "$SKILLS_DIR/sf-automation"
-mkdir -p "$SKILLS_DIR/sf-architecture"
-mkdir -p "$SKILLS_DIR/sf-test-coverage"
-mkdir -p "$SKILLS_DIR/sf-report-pdf"
+mkdir -p "$SKILLS_DIR/sf-audit-security"
+mkdir -p "$SKILLS_DIR/sf-audit-data"
+mkdir -p "$SKILLS_DIR/sf-audit-automation"
+mkdir -p "$SKILLS_DIR/sf-audit-architecture"
+mkdir -p "$SKILLS_DIR/sf-audit-coverage"
+mkdir -p "$SKILLS_DIR/sf-audit-report-pdf"
 mkdir -p "$AGENTS_DIR"
 
 echo -e "${GREEN}✓ Directories ready${NC}"
 
-# ─── Install main router skill ────────────────────────────────────────────────
+# ─── Install all skills ───────────────────────────────────────────────────────
 echo ""
-echo -e "${CYAN}Installing main skill (router)...${NC}"
-
-cp "$SOURCE_DIR/sf-audit/SKILL.md" "$SKILLS_DIR/sf-audit/SKILL.md"
-echo -e "${GREEN}✓ Installed:${NC} sf-audit (router)"
-
-# ─── Install sub-skills ───────────────────────────────────────────────────────
-echo ""
-echo -e "${CYAN}Installing standalone skills...${NC}"
+echo -e "${CYAN}Installing skills...${NC}"
 
 SKILLS=(
-  "sf-audit:skills/sf-audit/SKILL.md"
-  "sf-security:skills/sf-security/SKILL.md"
-  "sf-data-quality:skills/sf-data-quality/SKILL.md"
-  "sf-automation:skills/sf-automation/SKILL.md"
-  "sf-architecture:skills/sf-architecture/SKILL.md"
-  "sf-test-coverage:skills/sf-test-coverage/SKILL.md"
-  "sf-report-pdf:skills/sf-report-pdf/SKILL.md"
+  "sf-audit:sf-audit/SKILL.md"
+  "sf-audit-security:skills/sf-audit-security/SKILL.md"
+  "sf-audit-data:skills/sf-audit-data/SKILL.md"
+  "sf-audit-automation:skills/sf-audit-automation/SKILL.md"
+  "sf-audit-architecture:skills/sf-audit-architecture/SKILL.md"
+  "sf-audit-coverage:skills/sf-audit-coverage/SKILL.md"
+  "sf-audit-report-pdf:skills/sf-audit-report-pdf/SKILL.md"
 )
 
 for entry in "${SKILLS[@]}"; do
