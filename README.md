@@ -12,7 +12,7 @@ AI-powered Salesforce org health auditing tool for [Claude Code](https://claude.
   ```bash
   sf org login web --alias my-org
   ```
-- *(PDF reports only)* Python 3 + reportlab:
+- *(PDF reports only)* Python 3 + reportlab(Optional):
   ```bash
   pip3 install reportlab
   ```
