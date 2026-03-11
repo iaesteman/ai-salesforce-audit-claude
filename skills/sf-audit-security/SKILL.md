@@ -108,28 +108,28 @@ MFA enforcement cannot always be verified via SOQL. If you cannot determine stat
 
 **Scoring (0–10 per dimension):**
 
-| Dimension | Weight | Criteria |
-|-----------|--------|----------|
-| Profile hygiene | 20% | Only SysAdmin has ModifyAll=10; 1 extra profile=7; 2-3=4; 4+=1 |
-| Permission set sprawl | 20% | No users >5 perm sets, no dangerous perm sets=10; minor=7; 1-2 dangerous=4; widespread=1 |
-| Sharing model | 20% | All sensitive objects Private=10; 1-2 ReadOnly=7; any ReadWrite on sensitive=3 |
-| MFA enforcement | 15% | Enforced org-wide=10; partial=6; not enforced=2; unknown=5 |
-| IP/Session restrictions | 15% | IP ranges on admin profiles + low failed logins=10; partial=6; none=3 |
-| Field-Level Security | 10% | No obvious gaps=10; some gaps=6; widespread access to sensitive fields=2 |
+|        Dimension        | Weight |                                         Criteria                                         |
+|:-----------------------:|:------:|:----------------------------------------------------------------------------------------:|
+|     Profile hygiene     |  20%   |              Only SysAdmin has ModifyAll=10; 1 extra profile=7; 2-3=4; 4+=1              |
+|  Permission set sprawl  |  20%   | No users >5 perm sets, no dangerous perm sets=10; minor=7; 1-2 dangerous=4; widespread=1 |
+|      Sharing model      |  20%   |      All sensitive objects Private=10; 1-2 ReadOnly=7; any ReadWrite on sensitive=3      |
+|     MFA enforcement     |  15%   |                Enforced org-wide=10; partial=6; not enforced=2; unknown=5                |
+| IP/Session restrictions |  15%   |          IP ranges on admin profiles + low failed logins=10; partial=6; none=3           |
+|  Field-Level Security   |  10%   |         No obvious gaps=10; some gaps=6; widespread access to sensitive fields=2         |
 
 ```
 section_score = (profile×0.20 + permset×0.20 + sharing×0.20 + mfa×0.15 + ip×0.15 + fls×0.10) × 10
 ```
 
 **Grade:**
-| Score | Grade |
-|-------|-------|
-| 90–100 | A+ |
-| 80–89 | A |
-| 70–79 | B |
-| 60–69 | C |
-| 50–59 | D |
-| < 50 | F |
+| Score  | Grade |
+|:------:|:-----:|
+| 90–100 |  A+   |
+| 80–89  |   A   |
+| 70–79  |   B   |
+| 60–69  |   C   |
+| 50–59  |   D   |
+|  < 50  |   F   |
 
 ---
 
@@ -156,23 +156,23 @@ section_score = (profile×0.20 + permset×0.20 + sharing×0.20 + mfa×0.15 + ip�
 |   Field-Level Security    | [X]/10 |                [finding]                |
 
 ### Profile Analysis
-| Profile | Users | ModifyAll | ViewAll | ManageUsers | Risk |
-|---------|-------|-----------|---------|-------------|------|
-| System Administrator | [n] | ✓ | ✓ | ✓ | Expected |
-| [Other elevated profiles...] | [n] | ✓/✗ | ✓/✗ | ✓/✗ | HIGH/MED/LOW |
+|           Profile            | Users | ModifyAll | ViewAll | ManageUsers |     Risk     |
+|:----------------------------:|:-----:|:---------:|:-------:|:-----------:|:------------:|
+|     System Administrator     |  [n]  |     ✓     |    ✓    |      ✓      |   Expected   |
+| [Other elevated profiles...] |  [n]  |    ✓/✗    |   ✓/✗   |     ✓/✗     | HIGH/MED/LOW |
 
 **Total active profiles in use:** [n]
 **Profiles with ModifyAllData:** [n] (expected: 1)
 
 ### Permission Set Risks
 | Permission Set | ModifyAll | ManageUsers | Assigned Users |
-|----------------|-----------|-------------|----------------|
-| [Name] | ✓/✗ | ✓/✗ | [n] |
+|:--------------:|:---------:|:-----------:|:--------------:|
+|     [Name]     |    ✓/✗    |     ✓/✗     |      [n]       |
 
 **Users with >5 permission sets:**
-| User | Username | Count |
-|------|----------|-------|
-| [name] | [username] | [n] |
+|  User  |  Username  | Count |
+|:------:|:----------:|:-----:|
+| [name] | [username] |  [n]  |
 
 ### Sharing Model (Object-Wide Defaults)
 **High Risk (Public Read/Write):**
@@ -185,19 +185,19 @@ section_score = (profile×0.20 + permset×0.20 + sharing×0.20 + mfa×0.15 + ip�
 [Count of Private / ControlledByParent objects]
 
 ### User Access Health
-| Issue | Count | Action |
-|-------|-------|--------|
-| Active users — no login in 90+ days | [n] | Deactivate |
-| Active users — never logged in | [n] | Deactivate if unused |
-| Active guest users | [n] | Review |
+|                Issue                | Count |        Action        |
+|:-----------------------------------:|:-----:|:--------------------:|
+| Active users — no login in 90+ days |  [n]  |      Deactivate      |
+|   Active users — never logged in    |  [n]  | Deactivate if unused |
+|         Active guest users          |  [n]  |        Review        |
 
 ### Login Activity (Last 30 Days)
 **Failed logins:** [n]
 [If > 50: "WARNING: High failed login volume — possible brute force activity."]
 
 | Login Type | Count |
-|------------|-------|
-| [type] | [n] |
+|:----------:|:-----:|
+|   [type]   |  [n]  |
 
 ### IP Restrictions
 [n] admin profiles have IP range restrictions.

@@ -95,14 +95,14 @@ sf data query --target-org ORG_ALIAS --use-tooling-api \
 
 Apply this null/missing rate → score table:
 
-| Missing Rate |  Score  |
-|:------------:|:-------:|
-|    < 10%     |   10    |
-|   10–24%     |    8    |
-|   25–39%     |    6    |
-|   40–59%     |    4    |
-|   60–79%     |    2    |
-|    ≥ 80%     |    0    |
+| Missing Rate | Score |
+|:------------:|:-----:|
+|    < 10%     |  10   |
+|    10–24%    |   8   |
+|    25–39%    |   6   |
+|    40–59%    |   4   |
+|    60–79%    |   2   |
+|    ≥ 80%     |   0   |
 
 **Custom field help text score:**
 - `field_missing_rate` = fields missing InlineHelpText / total custom fields × 100 → apply table
@@ -156,26 +156,26 @@ Return the following markdown block — filled in with real data:
 **Total custom fields:** [n] | **Missing InlineHelpText:** [n] ([x]%)
 
 Top 10 fields missing help text (sorted by object):
-| Field API Name | Object | Label |
-|----------------|--------|-------|
-| [Field__c] | [Object__c] | [Label] |
+| Field API Name |   Object    |  Label  |
+|:--------------:|:-----------:|:-------:|
+|   [Field__c]   | [Object__c] | [Label] |
 
 [Or: "All custom fields have help text configured."]
 
 ### Flow Descriptions
 **Total active flows:** [n] | **Missing Description:** [n] ([x]%)
 
-| Flow API Name | Label | Process Type |
-|---------------|-------|-------------|
-| [ApiName] | [Label] | [ProcessType] |
+| Flow API Name |  Label  | Process Type  |
+|:-------------:|:-------:|:-------------:|
+|   [ApiName]   | [Label] | [ProcessType] |
 
 [Or: "All active flows have a description."]
 
 ### Validation Rule Descriptions
 **Total active validation rules:** [n] | **Missing Description:** [n] ([x]%)
 
-| Rule Name | Object |
-|-----------|--------|
+| Rule Name  |  Object  |
+|:----------:|:--------:|
 | [RuleName] | [Object] |
 
 [Or: "All active validation rules have a description."]
@@ -183,17 +183,17 @@ Top 10 fields missing help text (sorted by object):
 ### Custom Object Descriptions
 **Total custom objects:** [n] | **Missing Description:** [n] ([x]%)
 
-| Object API Name | Label |
-|-----------------|-------|
-| [Object__c] | [Label] |
+| Object API Name |  Label  |
+|:---------------:|:-------:|
+|   [Object__c]   | [Label] |
 
 [Or: "All custom objects have a description."]
 
 ### Apex Class Doc Comments
 **Classes sampled:** [n] | **Missing doc comment:** [n] ([x]%)
 
-| Class Name | Issue |
-|------------|-------|
+| Class Name  |                      Issue                       |
+|:-----------:|:------------------------------------------------:|
 | [ClassName] | No /** */ or // doc comment found at class level |
 
 [Or: "All sampled Apex classes have a doc comment."]

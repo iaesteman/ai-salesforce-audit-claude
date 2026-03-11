@@ -108,15 +108,15 @@ sf data query --target-org ORG_ALIAS --use-tooling-api \
 ## Step 2: Analyze Findings
 
 **Flow type mapping** (for `ProcessType` field):
-| ProcessType | Technology | Status |
-|------------|------------|--------|
-| `Flow` | Screen Flow | Current |
-| `AutoLaunchedFlow` | Record-Triggered / Autolaunched Flow | Current |
-| `Workflow` | Process Builder | DEPRECATED |
-| `CustomEvent` | Platform Event Flow | Current |
-| `InvocableProcess` | Invocable Process Builder | DEPRECATED |
-| `Journey` | Marketing Cloud Journey | Specialty |
-| `Orchestrator` | Flow Orchestration | Current |
+|    ProcessType     |              Technology              |   Status   |
+|:------------------:|:------------------------------------:|:----------:|
+|       `Flow`       |             Screen Flow              |  Current   |
+| `AutoLaunchedFlow` | Record-Triggered / Autolaunched Flow |  Current   |
+|     `Workflow`     |           Process Builder            | DEPRECATED |
+|   `CustomEvent`    |         Platform Event Flow          |  Current   |
+| `InvocableProcess` |      Invocable Process Builder       | DEPRECATED |
+|     `Journey`      |       Marketing Cloud Journey        | Specialty  |
+|   `Orchestrator`   |          Flow Orchestration          |  Current   |
 
 **Legacy debt score:**
 ```
@@ -146,13 +146,13 @@ Flows on API version < 50 (Summer '20) should be reviewed for outdated features.
 
 ## Step 3: Score Each Dimension (0–10)
 
-| Dimension | Weight | Scoring Criteria |
-|-----------|--------|-----------------|
-| Flow health | 25% | All flows on current API, 0 errors in 30 days = 10; some errors = 7; frequent errors = 4; many outdated = 2 |
-| Process Builder legacy | 20% | 0 active = 10; 1-2 = 7; 3-5 = 5; 6-10 = 3; >10 = 1 |
-| Workflow Rules legacy | 20% | 0 active = 10; 1-3 = 7; 4-10 = 5; 11-20 = 3; >20 = 1 |
-| Apex trigger hygiene | 20% | All use handler pattern, no multi-trigger objects = 10; minor issues = 7; no handler pattern + multi-triggers = 3 |
-| Validation rule quality | 15% | All documented + good messages = 10; mostly good = 7; many undocumented = 4 |
+|        Dimension        | Weight |                                                 Scoring Criteria                                                  |
+|:-----------------------:|:------:|:-----------------------------------------------------------------------------------------------------------------:|
+|       Flow health       |  25%   |    All flows on current API, 0 errors in 30 days = 10; some errors = 7; frequent errors = 4; many outdated = 2    |
+| Process Builder legacy  |  20%   |                                0 active = 10; 1-2 = 7; 3-5 = 5; 6-10 = 3; >10 = 1                                 |
+|  Workflow Rules legacy  |  20%   |                               0 active = 10; 1-3 = 7; 4-10 = 5; 11-20 = 3; >20 = 1                                |
+|  Apex trigger hygiene   |  20%   | All use handler pattern, no multi-trigger objects = 10; minor issues = 7; no handler pattern + multi-triggers = 3 |
+| Validation rule quality |  15%   |                    All documented + good messages = 10; mostly good = 7; many undocumented = 4                    |
 
 **Section score (0–100):**
 ```
@@ -185,15 +185,15 @@ Return the following markdown block — filled in with real data:
 | Validation Rule Quality  | [X]/10 |      [n] active rules; [n] undocumented      |
 
 ### Automation Inventory
-| Technology | Active | Inactive | Status | Risk |
-|-----------|--------|----------|--------|------|
-| Record-Triggered Flows | [n] | [n] | Current | LOW |
-| Screen Flows | [n] | [n] | Current | LOW |
-| Autolaunched Flows | [n] | [n] | Current | LOW |
-| Process Builder | [n] | [n] | DEPRECATED | HIGH |
-| Workflow Rules | [n] | [n] | DEPRECATED | HIGH |
-| Apex Triggers | [n] | [n] | Current | Varies |
-| Validation Rules | [n] | — | Current | LOW |
+|       Technology       | Active | Inactive |   Status   |  Risk  |
+|:----------------------:|:------:|:--------:|:----------:|:------:|
+| Record-Triggered Flows |  [n]   |   [n]    |  Current   |  LOW   |
+|      Screen Flows      |  [n]   |   [n]    |  Current   |  LOW   |
+|   Autolaunched Flows   |  [n]   |   [n]    |  Current   |  LOW   |
+|    Process Builder     |  [n]   |   [n]    | DEPRECATED |  HIGH  |
+|     Workflow Rules     |  [n]   |   [n]    | DEPRECATED |  HIGH  |
+|     Apex Triggers      |  [n]   |   [n]    |  Current   | Varies |
+|    Validation Rules    |  [n]   |    —     |  Current   |  LOW   |
 
 **Legacy Automation Debt Score: [n]**
 ([n] active Workflow Rules × 2) + ([n] active Process Builder × 1) = [n]
@@ -201,32 +201,32 @@ Return the following markdown block — filled in with real data:
 
 ### Flow Error Analysis (Last 30 Days)
 [If errors found:]
-| Flow | Element | Error Message | Count |
-|------|---------|---------------|-------|
-| [FlowLabel] | [ElementName] | [truncated error] | [n] |
+|    Flow     |    Element    |   Error Message   | Count |
+|:-----------:|:-------------:|:-----------------:|:-----:|
+| [FlowLabel] | [ElementName] | [truncated error] |  [n]  |
 
 [If no errors: "No flow errors detected in the last 30 days."]
 
 ### Process Builder — Migration Required
 [List each active Process Builder process:]
-| Process | Object | API Version | Last Modified | Migration Priority |
-|---------|--------|-------------|---------------|-------------------|
-| [Label] | [Object] | [v] | [date] | HIGH |
+| Process |  Object  | API Version | Last Modified | Migration Priority |
+|:-------:|:--------:|:-----------:|:-------------:|:------------------:|
+| [Label] | [Object] |     [v]     |    [date]     |        HIGH        |
 
 [If none: "No active Process Builder processes found. Excellent!"]
 
 ### Workflow Rules — Migration Required
 [List each active Workflow Rule:]
-| Rule | Object | Description | Migration Priority |
-|------|--------|-------------|-------------------|
-| [Name] | [Object] | [description or 'No description'] | HIGH |
+|  Rule  |  Object  |            Description            | Migration Priority |
+|:------:|:--------:|:---------------------------------:|:------------------:|
+| [Name] | [Object] | [description or 'No description'] |        HIGH        |
 
 [If none: "No active Workflow Rules found. Excellent!"]
 
 ### Apex Trigger Analysis
-| Object | Trigger Count | Handler Class Exists | Issue |
-|--------|--------------|---------------------|-------|
-| [Object] | [n] | ✓/✗ | [None / No handler / Multiple triggers] |
+|  Object  | Trigger Count | Handler Class Exists |                  Issue                  |
+|:--------:|:-------------:|:--------------------:|:---------------------------------------:|
+| [Object] |      [n]      |         ✓/✗          | [None / No handler / Multiple triggers] |
 
 **Triggers without handler pattern:**
 [List trigger names missing a corresponding Handler class]
@@ -235,9 +235,9 @@ Return the following markdown block — filled in with real data:
 [List objects with >1 trigger]
 
 ### Validation Rule Quality
-| Object | Rule Count | Undocumented | Poor Error Message |
-|--------|-----------|-------------|-------------------|
-| [Object] | [n] | [n] | [n] |
+|  Object  | Rule Count | Undocumented | Poor Error Message |
+|:--------:|:----------:|:------------:|:------------------:|
+| [Object] |    [n]     |     [n]      |        [n]         |
 
 ### Recommendations
 **Critical:**

@@ -96,14 +96,14 @@ sf data query --target-org [org-alias] --use-tooling-api \
 ## Phase 3: Analyze & Score
 
 **Flow type classification** (by `ProcessType`):
-| ProcessType | Technology | Current? |
-|------------|------------|----------|
-| `Flow` | Screen Flow | Yes |
-| `AutoLaunchedFlow` | Record-Triggered / Autolaunched Flow | Yes |
-| `Workflow` | Process Builder | DEPRECATED |
-| `InvocableProcess` | Invocable Process Builder | DEPRECATED |
-| `CustomEvent` | Platform Event Flow | Yes |
-| `Orchestrator` | Flow Orchestration | Yes |
+|    ProcessType     |              Technology              |  Current?  |
+|:------------------:|:------------------------------------:|:----------:|
+|       `Flow`       |             Screen Flow              |    Yes     |
+| `AutoLaunchedFlow` | Record-Triggered / Autolaunched Flow |    Yes     |
+|     `Workflow`     |           Process Builder            | DEPRECATED |
+| `InvocableProcess` |      Invocable Process Builder       | DEPRECATED |
+|   `CustomEvent`    |         Platform Event Flow          |    Yes     |
+|   `Orchestrator`   |          Flow Orchestration          |    Yes     |
 
 **Legacy debt score:**
 ```
@@ -121,27 +121,27 @@ For each trigger named `[X]Trigger`, check if `[X]TriggerHandler` exists in Apex
 
 **Scoring (0–10 per dimension):**
 
-| Dimension | Weight | Criteria |
-|-----------|--------|----------|
-| Flow health | 25% | All current API + 0 errors=10; some errors=7; frequent errors=4; many outdated=2 |
-| Process Builder | 20% | 0 active=10; 1-2=7; 3-5=5; 6-10=3; >10=1 |
-| Workflow Rules | 20% | 0 active=10; 1-3=7; 4-10=5; 11-20=3; >20=1 |
-| Trigger hygiene | 20% | All handler pattern + no multi-trigger=10; minor=7; no handlers + conflicts=3 |
-| Validation quality | 15% | All documented=10; mostly ok=7; many undocumented=4 |
+|     Dimension      | Weight |                                     Criteria                                     |
+|:------------------:|:------:|:--------------------------------------------------------------------------------:|
+|    Flow health     |  25%   | All current API + 0 errors=10; some errors=7; frequent errors=4; many outdated=2 |
+|  Process Builder   |  20%   |                     0 active=10; 1-2=7; 3-5=5; 6-10=3; >10=1                     |
+|   Workflow Rules   |  20%   |                    0 active=10; 1-3=7; 4-10=5; 11-20=3; >20=1                    |
+|  Trigger hygiene   |  20%   |  All handler pattern + no multi-trigger=10; minor=7; no handlers + conflicts=3   |
+| Validation quality |  15%   |               All documented=10; mostly ok=7; many undocumented=4                |
 
 ```
 section_score = (flow×0.25 + pb×0.20 + wf×0.20 + trigger×0.20 + validation×0.15) × 10
 ```
 
 **Grade:**
-| Score | Grade |
-|-------|-------|
-| 90–100 | A+ |
-| 80–89 | A |
-| 70–79 | B |
-| 60–69 | C |
-| 50–59 | D |
-| < 50 | F |
+| Score  | Grade |
+|:------:|:-----:|
+| 90–100 |  A+   |
+| 80–89  |   A   |
+| 70–79  |   B   |
+| 60–69  |   C   |
+| 50–59  |   D   |
+|  < 50  |   F   |
 
 ---
 
@@ -167,15 +167,15 @@ section_score = (flow×0.25 + pb×0.20 + wf×0.20 + trigger×0.20 + validation×
 | Validation Rule Quality  | [X]/10 |        [n] rules; [n] undocumented        |
 
 ### Automation Inventory
-| Technology | Active | Inactive | Status | Risk |
-|-----------|--------|----------|--------|------|
-| Record-Triggered Flows | [n] | [n] | Current | LOW |
-| Screen Flows | [n] | [n] | Current | LOW |
-| Autolaunched Flows | [n] | [n] | Current | LOW |
-| Process Builder | [n] | [n] | DEPRECATED | HIGH |
-| Workflow Rules | [n] | [n] | DEPRECATED | HIGH |
-| Apex Triggers | [n] | — | Current | Varies |
-| Validation Rules | [n] | — | Current | LOW |
+|       Technology       | Active | Inactive |   Status   |  Risk  |
+|:----------------------:|:------:|:--------:|:----------:|:------:|
+| Record-Triggered Flows |  [n]   |   [n]    |  Current   |  LOW   |
+|      Screen Flows      |  [n]   |   [n]    |  Current   |  LOW   |
+|   Autolaunched Flows   |  [n]   |   [n]    |  Current   |  LOW   |
+|    Process Builder     |  [n]   |   [n]    | DEPRECATED |  HIGH  |
+|     Workflow Rules     |  [n]   |   [n]    | DEPRECATED |  HIGH  |
+|     Apex Triggers      |  [n]   |    —     |  Current   | Varies |
+|    Validation Rules    |  [n]   |    —     |  Current   |  LOW   |
 
 **Legacy Automation Debt Score: [n]** ([LOW/MEDIUM/HIGH/CRITICAL])
 
@@ -191,14 +191,14 @@ section_score = (flow×0.25 + pb×0.20 + wf×0.20 + trigger×0.20 + validation×
 [Or: "No active Workflow Rules. Excellent!"]
 
 ### Apex Trigger Analysis
-| Object | Trigger Count | Handler Exists | Issue |
-|--------|--------------|----------------|-------|
-| [Object] | [n] | ✓/✗ | None / No handler / Multiple triggers |
+|  Object  | Trigger Count | Handler Exists |                 Issue                 |
+|:--------:|:-------------:|:--------------:|:-------------------------------------:|
+| [Object] |      [n]      |      ✓/✗       | None / No handler / Multiple triggers |
 
 ### Validation Rule Quality
-| Object | Rules | Undocumented | Poor Error Messages |
-|--------|-------|-------------|---------------------|
-| [Object] | [n] | [n] | [n] |
+|  Object  | Rules | Undocumented | Poor Error Messages |
+|:--------:|:-----:|:------------:|:-------------------:|
+| [Object] |  [n]  |     [n]      |         [n]         |
 
 ### Migration Roadmap
 **Priority 1 — Workflow Rules (retired technology, no Salesforce investment):**

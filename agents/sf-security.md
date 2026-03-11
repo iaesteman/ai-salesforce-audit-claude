@@ -137,14 +137,14 @@ For each custom object and key standard objects (Account, Contact, Opportunity, 
 
 ## Step 3: Score Each Dimension (0–10)
 
-| Dimension | Weight | Scoring Criteria |
-|-----------|--------|-----------------|
-| Profile hygiene | 20% | No non-SysAdmin profiles with ModifyAll = 10, 1 profile = 7, 2-3 = 4, 4+ = 1 |
-| Permission set sprawl | 20% | No users >5 perm sets + no dangerous perm sets = 10, minor issues = 7, 1-2 dangerous perm sets = 4, widespread = 1 |
-| Sharing model | 20% | All sensitive objects Private/ControlledByParent = 10, 1-2 ReadOnly on sensitive = 7, any ReadWrite on sensitive = 3 |
-| MFA enforcement | 15% | MFA enforced org-wide = 10, partially enforced = 6, not enforced = 2 |
-| IP/Session restrictions | 15% | IP ranges defined for all admin profiles + low failed login rate = 10, partial = 6, no restrictions = 3 |
-| Field-Level Security | 10% | No obvious FLS gaps on sensitive standard fields = 10, some gaps = 6, widespread access to sensitive fields = 2 |
+|        Dimension        | Weight |                                                   Scoring Criteria                                                   |
+|:-----------------------:|:------:|:--------------------------------------------------------------------------------------------------------------------:|
+|     Profile hygiene     |  20%   |                     No non-SysAdmin profiles with ModifyAll = 10, 1 profile = 7, 2-3 = 4, 4+ = 1                     |
+|  Permission set sprawl  |  20%   |  No users >5 perm sets + no dangerous perm sets = 10, minor issues = 7, 1-2 dangerous perm sets = 4, widespread = 1  |
+|      Sharing model      |  20%   | All sensitive objects Private/ControlledByParent = 10, 1-2 ReadOnly on sensitive = 7, any ReadWrite on sensitive = 3 |
+|     MFA enforcement     |  15%   |                         MFA enforced org-wide = 10, partially enforced = 6, not enforced = 2                         |
+| IP/Session restrictions |  15%   |       IP ranges defined for all admin profiles + low failed login rate = 10, partial = 6, no restrictions = 3        |
+|  Field-Level Security   |  10%   |   No obvious FLS gaps on sensitive standard fields = 10, some gaps = 6, widespread access to sensitive fields = 2    |
 
 **Section score (0–100):**
 ```
@@ -185,10 +185,10 @@ Return the following markdown block — filled in with real data:
 |   Field-Level Security    | [X]/10 |                      [finding]                       |
 
 ### Profile Analysis
-| Profile | Users | ModifyAll | ViewAll | ManageUsers | Risk |
-|---------|-------|-----------|---------|-------------|------|
-| System Administrator | [n] | ✓ | ✓ | ✓ | Expected |
-| [Other Profile with elevated perms] | [n] | ✓/✗ | ✓/✗ | ✓/✗ | HIGH/MED/LOW |
+|               Profile               | Users | ModifyAll | ViewAll | ManageUsers |     Risk     |
+|:-----------------------------------:|:-----:|:---------:|:-------:|:-----------:|:------------:|
+|        System Administrator         |  [n]  |     ✓     |    ✓    |      ✓      |   Expected   |
+| [Other Profile with elevated perms] |  [n]  |    ✓/✗    |   ✓/✗   |     ✓/✗     | HIGH/MED/LOW |
 [... list all profiles with any elevated permission ...]
 
 **Profiles with ModifyAllData:** [n] (expected: 1 — System Administrator only)
@@ -196,14 +196,14 @@ Return the following markdown block — filled in with real data:
 
 ### Permission Set Risks
 | Permission Set | ModifyAll | ManageUsers | Assigned To |
-|----------------|-----------|-------------|-------------|
-| [Name] | ✓/✗ | ✓/✗ | [n] users |
+|:--------------:|:---------:|:-----------:|:-----------:|
+|     [Name]     |    ✓/✗    |     ✓/✗     |  [n] users  |
 [... dangerous perm sets only ...]
 
 **Users with >5 permission sets:**
-| User | Username | Perm Set Count |
-|------|----------|----------------|
-| [Name] | [username] | [n] |
+|  User  |  Username  | Perm Set Count |
+|:------:|:----------:|:--------------:|
+| [Name] | [username] |      [n]       |
 
 ### Sharing Model (Object-Wide Defaults)
 **High Risk — Public Read/Write:**
@@ -216,16 +216,16 @@ Return the following markdown block — filled in with real data:
 [Count of objects with private sharing]
 
 ### User Access Health
-| Issue | Count | Action Required |
-|-------|-------|-----------------|
-| Active users — no login in 90+ days | [n] | Deactivate or review |
-| Active users — never logged in | [n] | Deactivate if not needed |
-| Active guest users | [n] | Review site/community access |
+|                Issue                | Count |       Action Required        |
+|:-----------------------------------:|:-----:|:----------------------------:|
+| Active users — no login in 90+ days |  [n]  |     Deactivate or review     |
+|   Active users — never logged in    |  [n]  |   Deactivate if not needed   |
+|         Active guest users          |  [n]  | Review site/community access |
 
 ### Login Activity (Last 30 Days)
 | Login Type | Count |
-|------------|-------|
-| [type] | [n] |
+|:----------:|:-----:|
+|   [type]   |  [n]  |
 
 **Failed Logins:** [n] failures in last 30 days
 [If > 50: "WARNING: High failed login volume detected — review for brute force activity. Top source IPs: [list top 3]"]

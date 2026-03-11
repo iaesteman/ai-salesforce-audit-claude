@@ -83,14 +83,14 @@ sf data query --target-org ORG_ALIAS --use-tooling-api \
 
 Apply this violation rate → score table to each dimension:
 
-| Violation Rate |  Score  |
-|:--------------:|:-------:|
-|     < 5%       |   10    |
-|    5–14%       |    8    |
-|   15–29%       |    6    |
-|   30–49%       |    4    |
-|   50–74%       |    2    |
-|    ≥ 75%       |    0    |
+| Violation Rate | Score |
+|:--------------:|:-----:|
+|      < 5%      |  10   |
+|     5–14%      |   8   |
+|     15–29%     |   6   |
+|     30–49%     |   4   |
+|     50–74%     |   2   |
+|     ≥ 75%      |   0   |
 
 **Inactive flows score:**
 - `inactive_flow_rate` = inactive flows / total flows × 100 → apply table
@@ -137,17 +137,17 @@ Return the following markdown block — filled in with real data:
 ### Inactive Flows
 **Total flows:** [n] | **Inactive (no active version):** [n] ([x]%)
 
-| Flow API Name | Label | Process Type | Status |
-|---------------|-------|-------------|--------|
-| [ApiName] | [Label] | [ProcessType] | Inactive — no active version |
+| Flow API Name |  Label  | Process Type  |            Status            |
+|:-------------:|:-------:|:-------------:|:----------------------------:|
+|   [ApiName]   | [Label] | [ProcessType] | Inactive — no active version |
 
 [Or: "All flows have an active version."]
 
 ### Dead Validation Rules
 **Total validation rules:** [n] | **Deactivated:** [n] ([x]%)
 
-| Rule Name | Object | Description | Issue |
-|-----------|--------|-------------|-------|
+| Rule Name  |  Object  |       Description       |             Issue              |
+|:----------:|:--------:|:-----------------------:|:------------------------------:|
 | [RuleName] | [Object] | [Description or "None"] | Deactivated — review or delete |
 
 [Or: "All validation rules are active."]
@@ -155,8 +155,8 @@ Return the following markdown block — filled in with real data:
 ### Deactivated Workflow Rules
 **Total workflow rules:** [n] | **Deactivated:** [n] ([x]%)
 
-| Rule Name | Object | Issue |
-|-----------|--------|-------|
+| Rule Name  |  Object  |                        Issue                         |
+|:----------:|:--------:|:----------------------------------------------------:|
 | [RuleName] | [Object] | Deactivated — consider migrating to Flow or deleting |
 
 [Or: "All workflow rules are active." / "No workflow rules found in org."]
@@ -165,9 +165,9 @@ Return the following markdown block — filled in with real data:
 **Total custom fields:** [n] | **Unmodified >365 days:** [n] ([x]%)
 
 Top 10 oldest unmodified fields:
-| Field API Name | Object | Label | Last Modified |
-|----------------|--------|-------|---------------|
-| [Field__c] | [Object__c] | [Label] | [Date] |
+| Field API Name |   Object    |  Label  | Last Modified |
+|:--------------:|:-----------:|:-------:|:-------------:|
+|   [Field__c]   | [Object__c] | [Label] |    [Date]     |
 
 ### Recommendations
 **Critical:**

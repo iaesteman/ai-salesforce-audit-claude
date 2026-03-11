@@ -105,14 +105,14 @@ Flag a validation rule if:
 
 Apply this violation rate → score table:
 
-| Violation Rate |  Score  |
-|:--------------:|:-------:|
-|     < 5%       |   10    |
-|    5–14%       |    8    |
-|   15–29%       |    6    |
-|   30–49%       |    4    |
-|   50–74%       |    2    |
-|    ≥ 75%       |    0    |
+| Violation Rate | Score |
+|:--------------:|:-----:|
+|      < 5%      |  10   |
+|     5–14%      |   8   |
+|     15–29%     |   6   |
+|     30–49%     |   4   |
+|     50–74%     |   2   |
+|     ≥ 75%      |   0   |
 
 If a dimension has 0 records, score it 10 and note it.
 
@@ -149,44 +149,44 @@ Return the following markdown block — filled in with real data:
 ### Apex Class Naming
 **Total active classes:** [n] | **Violations:** [n] ([x]%) | **Managed (excluded):** [n]
 
-| Violation Type | Count | Examples (up to 5) |
-|----------------|-------|-------------------|
-| Missing type suffix (_CTRL/_TEST/_HANDLER etc.) | [n] | [Class1, Class2] |
-| Generic/vague name | [n] | [Class1, Class2] |
-| Non-PascalCase | [n] | [Class1, Class2] |
+|                 Violation Type                  | Count | Examples (up to 5) |
+|:-----------------------------------------------:|:-----:|:------------------:|
+| Missing type suffix (_CTRL/_TEST/_HANDLER etc.) |  [n]  |  [Class1, Class2]  |
+|               Generic/vague name                |  [n]  |  [Class1, Class2]  |
+|                 Non-PascalCase                  |  [n]  |  [Class1, Class2]  |
 
 ### Apex Trigger Naming
 **Total active triggers:** [n] | **Objects with multiple triggers:** [n]
 
-| Object | Trigger Name | Follows Convention? | Notes |
-|--------|-------------|---------------------|-------|
-| [Object] | [TriggerName] | Yes / No | [issue] |
+|  Object  | Trigger Name  | Follows Convention? |  Notes  |
+|:--------:|:-------------:|:-------------------:|:-------:|
+| [Object] | [TriggerName] |      Yes / No       | [issue] |
 
 [Or: "All active triggers follow the [ObjectName]Trigger naming pattern."]
 
 ### Custom Field Naming
 **Fields sampled:** [n] | **Violations:** [n] ([x]%)
 
-| Field API Name | Object | Issue |
-|----------------|--------|-------|
-| [Field__c] | [Object] | [Single char / Numeric suffix / Generic name] |
+| Field API Name |  Object  |                     Issue                     |
+|:--------------:|:--------:|:---------------------------------------------:|
+|   [Field__c]   | [Object] | [Single char / Numeric suffix / Generic name] |
 
 [Or: "No naming violations detected in sampled fields."]
 
 ### Flow Naming
 **Total active flows:** [n] | **Violations:** [n] ([x]%)
 
-| Flow API Name | Label | Process Type | Issue |
-|---------------|-------|-------------|-------|
-| [FlowApiName] | [Label] | [Type] | [Single word / No context / Generic label] |
+| Flow API Name |  Label  | Process Type |                   Issue                    |
+|:-------------:|:-------:|:------------:|:------------------------------------------:|
+| [FlowApiName] | [Label] |    [Type]    | [Single word / No context / Generic label] |
 
 [Or: "All active flows have descriptive names."]
 
 ### Validation Rule Naming
 **Total active validation rules:** [n] | **Violations:** [n] ([x]%)
 
-| Rule Name | Object | Issue |
-|-----------|--------|-------|
+| Rule Name  |  Object  |                    Issue                    |
+|:----------:|:--------:|:-------------------------------------------:|
 | [RuleName] | [Object] | [Too short / Generic / No business context] |
 
 [Or: "All active validation rules have descriptive names."]

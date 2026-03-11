@@ -71,46 +71,46 @@ sf data query --target-org ORG_ALIAS --use-tooling-api \
 ## Step 2: Score Each Dimension (0–10)
 
 **Objects ≥100 custom fields score:**
-| Objects over limit |  Score  |
-|:------------------:|:-------:|
-|         0          |   10    |
-|        1–2         |    7    |
-|        3–5         |    4    |
-|        6–9         |    2    |
-|        10+         |    0    |
+| Objects over limit | Score |
+|:------------------:|:-----:|
+|         0          |  10   |
+|        1–2         |   7   |
+|        3–5         |   4   |
+|        6–9         |   2   |
+|        10+         |   0   |
 
 **Objects 50–99 fields (warning zone) score:**
-| Objects in warning zone |  Score  |
-|:-----------------------:|:-------:|
-|            0            |   10    |
-|           1–3           |    8    |
-|           4–7           |    6    |
-|          8–12           |    4    |
-|           13+           |    2    |
+| Objects in warning zone | Score |
+|:-----------------------:|:-----:|
+|            0            |  10   |
+|           1–3           |   8   |
+|           4–7           |   6   |
+|          8–12           |   4   |
+|           13+           |   2   |
 
 **Stale fields score:**
 Apply this rate → score table:
-| Stale Rate |  Score  |
-|:----------:|:-------:|
-|   < 10%    |   10    |
-|  10–24%    |    8    |
-|  25–39%    |    6    |
-|  40–59%    |    4    |
-|  60–79%    |    2    |
-|   ≥ 80%    |    0    |
+| Stale Rate | Score |
+|:----------:|:-----:|
+|   < 10%    |  10   |
+|   10–24%   |   8   |
+|   25–39%   |   6   |
+|   40–59%   |   4   |
+|   60–79%   |   2   |
+|   ≥ 80%    |   0   |
 - `stale_field_rate` = fields not modified in 730+ days / total custom fields × 100
 
 **Duplicate-purpose field score:**
 Analyze the field name list per object. Flag an object if it has ≥2 fields whose names share the same semantic root word (strip `__c`, lowercase, compare stems):
 - Examples of duplicates: `Email__c` and `Email_Address__c` on the same object; `Phone__c` and `Phone_Number__c`; `Revenue__c` and `Annual_Revenue__c`
 
-| Objects with duplicate-purpose fields |  Score  |
-|:-------------------------------------:|:-------:|
-|                   0                   |   10    |
-|                  1–2                  |    8    |
-|                  3–5                  |    6    |
-|                 6–10                  |    4    |
-|                  11+                  |    2    |
+| Objects with duplicate-purpose fields | Score |
+|:-------------------------------------:|:-----:|
+|                   0                   |  10   |
+|                  1–2                  |   8   |
+|                  3–5                  |   6   |
+|                 6–10                  |   4   |
+|                  11+                  |   2   |
 
 **Composite section score (0–100):**
 ```
@@ -141,37 +141,37 @@ Return the following markdown block — filled in with real data:
 |  Duplicate-Purpose Fields   | [X]/10 | [n] objects with potentially duplicate fields |
 
 ### Field Density — Top Objects
-| Object | Label | Custom Field Count | Status |
-|--------|-------|--------------------|--------|
-| [Object__c] | [Label] | [n] | CRITICAL / WARN / OK |
+|   Object    |  Label  | Custom Field Count |        Status        |
+|:-----------:|:-------:|:------------------:|:--------------------:|
+| [Object__c] | [Label] |        [n]         | CRITICAL / WARN / OK |
 
 ### Objects at Critical Threshold (≥100 custom fields)
 [If none: "No objects exceed 100 custom fields."]
 
-| Object | Custom Field Count | Recommendation |
-|--------|--------------------|----------------|
-| [Object__c] | [n] | Review for consolidation, archiving, or object splitting |
+|   Object    | Custom Field Count |                      Recommendation                      |
+|:-----------:|:------------------:|:--------------------------------------------------------:|
+| [Object__c] |        [n]         | Review for consolidation, archiving, or object splitting |
 
 ### Objects in Warning Zone (50–99 custom fields)
 [If none: "No objects in the 50–99 field warning zone."]
 
-| Object | Custom Field Count |
-|--------|--------------------|
-| [Object__c] | [n] |
+|   Object    | Custom Field Count |
+|:-----------:|:------------------:|
+| [Object__c] |        [n]         |
 
 ### Stale Fields (Not Modified in 2+ Years)
 **Total custom fields:** [n] | **Stale (>730 days):** [n] ([x]%)
 
 Top 10 oldest unmodified fields:
-| Field API Name | Object | Label | Last Modified |
-|----------------|--------|-------|---------------|
-| [Field__c] | [Object__c] | [Label] | [Date] |
+| Field API Name |   Object    |  Label  | Last Modified |
+|:--------------:|:-----------:|:-------:|:-------------:|
+|   [Field__c]   | [Object__c] | [Label] |    [Date]     |
 
 ### Potential Duplicate-Purpose Fields
 [If none: "No objects with obvious duplicate-purpose fields detected."]
 
-| Object | Field 1 | Field 2 | Detected Pattern |
-|--------|---------|---------|-----------------|
+|   Object    |   Field 1   |   Field 2   |                Detected Pattern                |
+|:-----------:|:-----------:|:-----------:|:----------------------------------------------:|
 | [Object__c] | [Field1__c] | [Field2__c] | [e.g., "Both appear to capture email address"] |
 
 ### Recommendations

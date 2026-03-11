@@ -107,16 +107,16 @@ sf data query --target-org ORG_ALIAS \
 
 From the REST API limits response, extract these key limits:
 
-| Limit Name (API key) | Display Name |
-|---------------------|-------------|
-| `DailyApiRequests` | Daily API Calls |
-| `DataStorageMB` | Data Storage |
-| `FileStorageMB` | File Storage |
-| `ActiveFlowVersions` or `ActiveFlows` | Active Flows |
-| `DailyBulkApiRequests` | Daily Bulk API Requests |
-| `DailyWorkflowEmails` | Daily Workflow Emails |
-| `HourlyTimeBasedWorkflow` | Hourly Time-Based Workflow |
-| `DailyDuplicateRuleReviewCount` | Daily Duplicate Rule Jobs |
+|         Limit Name (API key)          |        Display Name        |
+|:-------------------------------------:|:--------------------------:|
+|          `DailyApiRequests`           |      Daily API Calls       |
+|            `DataStorageMB`            |        Data Storage        |
+|            `FileStorageMB`            |        File Storage        |
+| `ActiveFlowVersions` or `ActiveFlows` |        Active Flows        |
+|        `DailyBulkApiRequests`         |  Daily Bulk API Requests   |
+|         `DailyWorkflowEmails`         |   Daily Workflow Emails    |
+|       `HourlyTimeBasedWorkflow`       | Hourly Time-Based Workflow |
+|    `DailyDuplicateRuleReviewCount`    | Daily Duplicate Rule Jobs  |
 
 For each limit:
 ```
@@ -137,14 +137,14 @@ If the REST limits endpoint is unavailable, note this and skip the limits table.
 
 From the Apex class API version distribution:
 
-| API Version | Release | Approx Year | Status |
-|------------|---------|-------------|--------|
-| v60+ | Spring '24+ | 2024+ | Current |
-| v55-59 | 2022–2023 | Recent | OK |
-| v50-54 | 2020–2021 | Aging | WARN |
-| v40-49 | 2018–2019 | Legacy | HIGH |
-| v30-39 | 2015–2017 | Very Legacy | CRITICAL |
-| Below v30 | Pre-2015 | Ancient | CRITICAL |
+| API Version |   Release   | Approx Year |  Status  |
+|:-----------:|:-----------:|:-----------:|:--------:|
+|    v60+     | Spring '24+ |    2024+    | Current  |
+|   v55-59    |  2022–2023  |   Recent    |    OK    |
+|   v50-54    |  2020–2021  |    Aging    |   WARN   |
+|   v40-49    |  2018–2019  |   Legacy    |   HIGH   |
+|   v30-39    |  2015–2017  | Very Legacy | CRITICAL |
+|  Below v30  |  Pre-2015   |   Ancient   | CRITICAL |
 
 **API version score:**
 - All classes v55+: 10
@@ -169,13 +169,13 @@ Score:
 
 ## Step 4: Score Each Dimension (0–10)
 
-| Dimension | Weight | Scoring Criteria |
-|-----------|--------|-----------------|
-| Object/field sprawl | 25% | See usage % table above |
-| Governor limits usage | 25% | All limits < 50% = 10; any limit 50-79% = 7; any 80-94% = 4; any ≥ 95% = 1 |
-| Apex API version debt | 20% | See API version table above |
-| Package/dependency health | 15% | No unmanaged packages, all licenses in use = 10; minor issues = 7; over-licensed or unused packages = 4 |
-| Custom settings vs. CMDT | 15% | 0 custom settings, using CMDT = 10; few custom settings = 7; heavy custom settings usage = 3 |
+|         Dimension         | Weight |                                            Scoring Criteria                                             |
+|:-------------------------:|:------:|:-------------------------------------------------------------------------------------------------------:|
+|    Object/field sprawl    |  25%   |                                         See usage % table above                                         |
+|   Governor limits usage   |  25%   |               All limits < 50% = 10; any limit 50-79% = 7; any 80-94% = 4; any ≥ 95% = 1                |
+|   Apex API version debt   |  20%   |                                       See API version table above                                       |
+| Package/dependency health |  15%   | No unmanaged packages, all licenses in use = 10; minor issues = 7; over-licensed or unused packages = 4 |
+| Custom settings vs. CMDT  |  15%   |      0 custom settings, using CMDT = 10; few custom settings = 7; heavy custom settings usage = 3       |
 
 **Section score (0–100):**
 ```
@@ -208,13 +208,13 @@ Return the following markdown block — filled in with real data:
 | Custom Settings vs. CMDT | [X]/10 |  [n] custom settings; [n] custom metadata types  |
 
 ### Org Limits Dashboard
-| Limit | Used | Maximum | % Used | Status |
-|-------|------|---------|--------|--------|
-| Daily API Calls | [n] | [n] | [x]% | OK/WARN/HIGH/CRITICAL |
-| Data Storage | [n] MB | [n] MB | [x]% | OK/WARN/HIGH/CRITICAL |
-| File Storage | [n] MB | [n] MB | [x]% | OK/WARN/HIGH/CRITICAL |
-| Active Flows | [n] | [n] | [x]% | OK/WARN/HIGH/CRITICAL |
-| Daily Bulk API Requests | [n] | [n] | [x]% | OK/WARN/HIGH/CRITICAL |
+|          Limit          |  Used  | Maximum | % Used |        Status         |
+|:-----------------------:|:------:|:-------:|:------:|:---------------------:|
+|     Daily API Calls     |  [n]   |   [n]   |  [x]%  | OK/WARN/HIGH/CRITICAL |
+|      Data Storage       | [n] MB | [n] MB  |  [x]%  | OK/WARN/HIGH/CRITICAL |
+|      File Storage       | [n] MB | [n] MB  |  [x]%  | OK/WARN/HIGH/CRITICAL |
+|      Active Flows       |  [n]   |   [n]   |  [x]%  | OK/WARN/HIGH/CRITICAL |
+| Daily Bulk API Requests |  [n]   |   [n]   |  [x]%  | OK/WARN/HIGH/CRITICAL |
 [Include all available limits from the REST endpoint]
 
 [If limits unavailable: "Org limits data unavailable via REST API — check Setup > Company Information for manual review."]
@@ -224,39 +224,39 @@ Return the following markdown block — filled in with real data:
 **Total active Apex classes:** [n]
 
 **Objects with highest field counts:**
-| Object | Custom Field Count | Notes |
-|--------|-------------------|-------|
-| [Object] | [n] | [flag if > 100 custom fields] |
+|  Object  | Custom Field Count |             Notes             |
+|:--------:|:------------------:|:-----------------------------:|
+| [Object] |        [n]         | [flag if > 100 custom fields] |
 [... top 10 ...]
 
 ### Apex API Version Distribution
-| API Version | Class Count | Release Era | Status |
-|------------|------------|-------------|--------|
-| v60+ | [n] | Current | OK |
-| v55-59 | [n] | Recent | OK |
-| v50-54 | [n] | Aging | WARN |
-| v40-49 | [n] | Legacy | HIGH |
-| v30-39 | [n] | Very Legacy | CRITICAL |
-| Below v30 | [n] | Ancient | CRITICAL |
+| API Version | Class Count | Release Era |  Status  |
+|:-----------:|:-----------:|:-----------:|:--------:|
+|    v60+     |     [n]     |   Current   |    OK    |
+|   v55-59    |     [n]     |   Recent    |    OK    |
+|   v50-54    |     [n]     |    Aging    |   WARN   |
+|   v40-49    |     [n]     |   Legacy    |   HIGH   |
+|   v30-39    |     [n]     | Very Legacy | CRITICAL |
+|  Below v30  |     [n]     |   Ancient   | CRITICAL |
 
 **Classes not modified in 2+ years (potential dead code):**
-| Class | API Version | Last Modified | Lines |
-|-------|------------|---------------|-------|
-| [Name] | v[n] | [date] | [n] |
+| Class  | API Version | Last Modified | Lines |
+|:------:|:-----------:|:-------------:|:-----:|
+| [Name] |    v[n]     |    [date]     |  [n]  |
 [... up to 10 oldest ...]
 
 ### Installed Packages
-| Namespace | Version | Status | Licenses Used/Total |
-|-----------|---------|--------|---------------------|
-| [namespace] | [v] | [Active] | [n]/[n] |
+|  Namespace  | Version |  Status  | Licenses Used/Total |
+|:-----------:|:-------:|:--------:|:-------------------:|
+| [namespace] |   [v]   | [Active] |       [n]/[n]       |
 [If no packages: "No managed packages installed."]
 
 ### Configuration Patterns
-| Pattern | Count | Recommendation |
-|---------|-------|----------------|
-| Custom Settings | [n] | Migrate to Custom Metadata Types |
-| Custom Metadata Types | [n] | Current — continue using |
-| Large Static Resources (>1MB) | [n] | Review for CDN migration |
+|            Pattern            | Count |          Recommendation          |
+|:-----------------------------:|:-----:|:--------------------------------:|
+|        Custom Settings        |  [n]  | Migrate to Custom Metadata Types |
+|     Custom Metadata Types     |  [n]  |     Current — continue using     |
+| Large Static Resources (>1MB) |  [n]  |     Review for CDN migration     |
 
 ### Recommendations
 **Critical:**

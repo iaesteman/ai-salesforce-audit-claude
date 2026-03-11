@@ -121,13 +121,13 @@ null_rate = null_count / total_count × 100
 
 Apply this scoring table to each field:
 | Null Rate | Score |
-|-----------|-------|
-| < 5% | 10 |
-| 5–14% | 8 |
-| 15–29% | 6 |
-| 30–49% | 4 |
-| 50–74% | 2 |
-| ≥ 75% | 0 |
+|:---------:|:-----:|
+|   < 5%    |  10   |
+|   5–14%   |   8   |
+|  15–29%   |   6   |
+|  30–49%   |   4   |
+|  50–74%   |   2   |
+|   ≥ 75%   |   0   |
 
 **Contact score** = average of: Email score, Phone score, AccountId score
 
@@ -152,13 +152,13 @@ Apply this scoring table to each field:
 
 ## Step 3: Score Each Dimension (0–10)
 
-| Dimension | Weight |
-|-----------|--------|
-| Contact completeness | 25% |
-| Account completeness | 20% |
-| Lead hygiene | 20% |
-| Duplicate rule coverage | 20% |
-| Stale record rate (Opps) | 15% |
+|        Dimension         | Weight |
+|:------------------------:|:------:|
+|   Contact completeness   |  25%   |
+|   Account completeness   |  20%   |
+|       Lead hygiene       |  20%   |
+| Duplicate rule coverage  |  20%   |
+| Stale record rate (Opps) |  15%   |
 
 **Section score (0–100):**
 ```
@@ -191,48 +191,48 @@ Return the following markdown block — filled in with real data:
 |   Opportunity Hygiene   | [X]/10 |       [n] stale/overdue open opps       |
 
 ### Contact Completeness Scorecard
-| Field | Total Records | Null Count | Null Rate | Score |
-|-------|--------------|------------|-----------|-------|
-| Email | [n] | [n] | [x]% | [X]/10 |
-| Phone / Mobile | [n] | [n] | [x]% | [X]/10 |
-| Account (orphaned) | [n] | [n] | [x]% | [X]/10 |
+|       Field        | Total Records | Null Count | Null Rate | Score  |
+|:------------------:|:-------------:|:----------:|:---------:|:------:|
+|       Email        |      [n]      |    [n]     |   [x]%    | [X]/10 |
+|   Phone / Mobile   |      [n]      |    [n]     |   [x]%    | [X]/10 |
+| Account (orphaned) |      [n]      |    [n]     |   [x]%    | [X]/10 |
 
 ### Account Completeness Scorecard
-| Field | Total Records | Null Count | Null Rate | Score |
-|-------|--------------|------------|-----------|-------|
-| Industry | [n] | [n] | [x]% | [X]/10 |
-| Type | [n] | [n] | [x]% | [X]/10 |
-| Phone | [n] | [n] | [x]% | [X]/10 |
-| BillingCity | [n] | [n] | [x]% | [X]/10 |
+|    Field    | Total Records | Null Count | Null Rate | Score  |
+|:-----------:|:-------------:|:----------:|:---------:|:------:|
+|  Industry   |      [n]      |    [n]     |   [x]%    | [X]/10 |
+|    Type     |      [n]      |    [n]     |   [x]%    | [X]/10 |
+|    Phone    |      [n]      |    [n]     |   [x]%    | [X]/10 |
+| BillingCity |      [n]      |    [n]     |   [x]%    | [X]/10 |
 
 ### Lead Hygiene
-| Metric | Count | Rate | Status |
-|--------|-------|------|--------|
-| Total Open Leads | [n] | 100% | — |
-| Stale Leads (>90 days, no activity) | [n] | [x]% | [OK/WARN/CRITICAL] |
-| Leads Missing Email | [n] | [x]% | [OK/WARN/CRITICAL] |
+|               Metric                | Count | Rate |       Status       |
+|:-----------------------------------:|:-----:|:----:|:------------------:|
+|          Total Open Leads           |  [n]  | 100% |         —          |
+| Stale Leads (>90 days, no activity) |  [n]  | [x]% | [OK/WARN/CRITICAL] |
+|         Leads Missing Email         |  [n]  | [x]% | [OK/WARN/CRITICAL] |
 
 ### Opportunity Hygiene
-| Metric | Count | Rate | Status |
-|--------|-------|------|--------|
-| Total Open Opportunities | [n] | 100% | — |
-| Stale Open Opps (>90 days no activity) | [n] | [x]% | [OK/WARN/CRITICAL] |
-| Overdue Close Date (past today) | [n] | [x]% | [OK/WARN/CRITICAL] |
+|                 Metric                 | Count | Rate |       Status       |
+|:--------------------------------------:|:-----:|:----:|:------------------:|
+|        Total Open Opportunities        |  [n]  | 100% |         —          |
+| Stale Open Opps (>90 days no activity) |  [n]  | [x]% | [OK/WARN/CRITICAL] |
+|    Overdue Close Date (past today)     |  [n]  | [x]% | [OK/WARN/CRITICAL] |
 
 ### Duplicate Risk
-| Status | Detail |
-|--------|--------|
-| Active Duplicate Rules | [n] rules covering: [list objects] |
-| Duplicate Record Sets Detected | [n] |
-| Risk Level | [LOW / MEDIUM / HIGH] |
+|             Status             |               Detail               |
+|:------------------------------:|:----------------------------------:|
+|     Active Duplicate Rules     | [n] rules covering: [list objects] |
+| Duplicate Record Sets Detected |                [n]                 |
+|           Risk Level           |       [LOW / MEDIUM / HIGH]        |
 
 [If no active duplicate rules: "WARNING: No active duplicate rules configured. Duplicates are accumulating without detection."]
 
 ### Orphaned & Unlinked Records
-| Object | Issue | Count | Impact |
-|--------|-------|-------|--------|
-| Contact | No Account linked | [n] | Reporting gaps, incomplete 360 view |
-| Case | No Contact or Account | [n] | Support history gaps |
+| Object  |         Issue         | Count |               Impact                |
+|:-------:|:---------------------:|:-----:|:-----------------------------------:|
+| Contact |   No Account linked   |  [n]  | Reporting gaps, incomplete 360 view |
+|  Case   | No Contact or Account |  [n]  |        Support history gaps         |
 
 ### Recommendations
 **Critical:**

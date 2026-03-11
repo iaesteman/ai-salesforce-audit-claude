@@ -152,13 +152,13 @@ rm -f /tmp/sf_report_data.json
 
 ## PDF Contents
 
-| Page | Content |
-|------|---------|
-| 1 | Cover — org name, score gauge, grade, executive summary |
-| 2 | Domain Scores — horizontal bar chart + score table with weights |
-| 3 | Key Findings — severity-coded findings table |
-| 4 | Action Plan — Critical / Important / Strategic with timeline guidance |
-| 5 | Methodology — scoring weights, grade scale, audit metadata |
+| Page |                                Content                                |
+|:----:|:---------------------------------------------------------------------:|
+|  1   |        Cover — org name, score gauge, grade, executive summary        |
+|  2   |    Domain Scores — horizontal bar chart + score table with weights    |
+|  3   |             Key Findings — severity-coded findings table              |
+|  4   | Action Plan — Critical / Important / Strategic with timeline guidance |
+|  5   |      Methodology — scoring weights, grade scale, audit metadata       |
 
 ---
 
@@ -174,9 +174,9 @@ rm -f /tmp/sf_report_data.json
 
 ## Troubleshooting
 
-| Problem | Solution |
-|---------|----------|
-| `reportlab` not found | Run `pip3 install reportlab` |
-| Script not found | Ensure `scripts/generate_sf_pdf_report.py` exists — re-run `./install.sh` |
-| Empty PDF | Validate JSON: `python3 -c "import json; json.load(open('/tmp/sf_report_data.json'))"` |
-| No audit data | Run `/sf-audit [org]` first, then `/sf-audit report-pdf [org]` |
+|        Problem        |                                        Solution                                        |
+|:---------------------:|:--------------------------------------------------------------------------------------:|
+| `reportlab` not found |                              Run `pip3 install reportlab`                              |
+|   Script not found    |       Ensure `scripts/generate_sf_pdf_report.py` exists — re-run `./install.sh`        |
+|       Empty PDF       | Validate JSON: `python3 -c "import json; json.load(open('/tmp/sf_report_data.json'))"` |
+|     No audit data     |             Run `/sf-audit [org]` first, then `/sf-audit report-pdf [org]`             |

@@ -89,26 +89,26 @@ Cross-reference trigger IDs against coverage records. Flag triggers < 75%.
 
 **Scoring (0–10 per dimension):**
 
-| Dimension | Weight | Thresholds |
-|-----------|--------|------------|
-| Org-wide coverage % | 35% | ≥90%=10, 80-89%=8, 75-79%=6, 60-74%=4, <60%=1 |
-| Classes below 75% | 25% | 0=10, 1-2=8, 3-5=6, 6-10=4, >10=2 |
-| Test class quality | 20% | Ratio ≥1:3 + recent runs passing = 10; ratio ok = 7; low ratio = 4; no tests = 0 |
-| Trigger coverage | 20% | All ≥75%=10, 1 below=6, 2+ below=3, untested triggers=1 |
+|      Dimension      | Weight |                                    Thresholds                                    |
+|:-------------------:|:------:|:--------------------------------------------------------------------------------:|
+| Org-wide coverage % |  35%   |                  ≥90%=10, 80-89%=8, 75-79%=6, 60-74%=4, <60%=1                   |
+|  Classes below 75%  |  25%   |                        0=10, 1-2=8, 3-5=6, 6-10=4, >10=2                         |
+| Test class quality  |  20%   | Ratio ≥1:3 + recent runs passing = 10; ratio ok = 7; low ratio = 4; no tests = 0 |
+|  Trigger coverage   |  20%   |             All ≥75%=10, 1 below=6, 2+ below=3, untested triggers=1              |
 
 ```
 section_score = (org_score×0.35 + below_score×0.25 + quality_score×0.20 + trigger_score×0.20) × 10
 ```
 
 **Grade:**
-| Score | Grade |
-|-------|-------|
-| 90–100 | A+ |
-| 80–89 | A |
-| 70–79 | B |
-| 60–69 | C |
-| 50–59 | D |
-| < 50 | F |
+| Score  | Grade |
+|:------:|:-----:|
+| 90–100 |  A+   |
+| 80–89  |   A   |
+| 70–79  |   B   |
+| 60–69  |   C   |
+| 50–59  |   D   |
+|  < 50  |   F   |
 
 ---
 
@@ -127,15 +127,15 @@ Write this file to the current directory with the following structure:
 ## Score: [XX]/100 — Grade [X]
 
 ### Coverage Summary
-| Metric | Value | Threshold | Status |
-|--------|-------|-----------|--------|
-| Org-Wide Coverage | [x]% | 75% (Salesforce minimum) | PASS/WARN/FAIL |
-| Total Lines Covered | [n] | — | — |
-| Total Lines Uncovered | [n] | — | — |
-| Classes Below 75% | [n] ([x]% of total) | 0 | PASS/WARN/FAIL |
-| Triggers Below 75% | [n] | 0 | PASS/WARN/FAIL |
-| Recent Test Failures | [n] | 0 | PASS/WARN/FAIL |
-| Test Class Ratio | 1:[x] | ≤ 1:3 | PASS/WARN/FAIL |
+|        Metric         |        Value        |        Threshold         |     Status     |
+|:---------------------:|:-------------------:|:------------------------:|:--------------:|
+|   Org-Wide Coverage   |        [x]%         | 75% (Salesforce minimum) | PASS/WARN/FAIL |
+|  Total Lines Covered  |         [n]         |            —             |       —        |
+| Total Lines Uncovered |         [n]         |            —             |       —        |
+|   Classes Below 75%   | [n] ([x]% of total) |            0             | PASS/WARN/FAIL |
+|  Triggers Below 75%   |         [n]         |            0             | PASS/WARN/FAIL |
+| Recent Test Failures  |         [n]         |            0             | PASS/WARN/FAIL |
+|   Test Class Ratio    |        1:[x]        |          ≤ 1:3           | PASS/WARN/FAIL |
 
 ### Dimension Scores
 |      Dimension      | Score  |       Finding       |
@@ -146,20 +146,20 @@ Write this file to the current directory with the following structure:
 |  Trigger Coverage   | [X]/10 |      [finding]      |
 
 ### Classes Requiring Attention (Coverage < 75%)
-| Class / Trigger | Coverage % | Covered | Uncovered | Risk |
-|-----------------|------------|---------|-----------|------|
-| [Name] | [x]% | [n] | [n] | HIGH/MEDIUM |
+| Class / Trigger | Coverage % | Covered | Uncovered |    Risk     |
+|:---------------:|:----------:|:-------:|:---------:|:-----------:|
+|     [Name]      |    [x]%    |   [n]   |    [n]    | HIGH/MEDIUM |
 [Sorted by uncovered lines descending. Triggers marked HIGH.]
 
 ### Recent Test Runs
-| Date | Status | Classes Passed | Classes Failed | Methods Passed | Methods Failed |
-|------|--------|---------------|----------------|----------------|----------------|
-| [date] | [status] | [n] | [n] | [n] | [n] |
+|  Date  |  Status  | Classes Passed | Classes Failed | Methods Passed | Methods Failed |
+|:------:|:--------:|:--------------:|:--------------:|:--------------:|:--------------:|
+| [date] | [status] |      [n]       |      [n]       |      [n]       |      [n]       |
 
 ### Test Failures
 [If failures exist:]
-| Class | Method | Error |
-|-------|--------|-------|
+| Class  |  Method  |   Error   |
+|:------:|:--------:|:---------:|
 | [name] | [method] | [message] |
 
 [If none: "No recent test failures detected."]

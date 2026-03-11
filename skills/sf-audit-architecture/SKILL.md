@@ -102,14 +102,14 @@ usage_pct = Current / Max × 100
 Status: <50% = OK | 50-79% = WARN | 80-94% = HIGH | ≥95% = CRITICAL
 
 **API version scoring:**
-| API Version | Status |
-|------------|--------|
-| v60+ | Current |
-| v55-59 | Recent — OK |
-| v50-54 | Aging — WARN |
-| v40-49 | Legacy — HIGH |
-| v30-39 | Very Legacy — CRITICAL |
-| <v30 | Ancient — CRITICAL |
+| API Version |         Status         |
+|:-----------:|:----------------------:|
+|    v60+     |        Current         |
+|   v55-59    |      Recent — OK       |
+|   v50-54    |      Aging — WARN      |
+|   v40-49    |     Legacy — HIGH      |
+|   v30-39    | Very Legacy — CRITICAL |
+|    <v30     |   Ancient — CRITICAL   |
 
 Score: All v55+=10 | majority v50+, none <v40=8 | some v40-49=5 | any v30-39=3 | any <v30=1
 
@@ -121,27 +121,27 @@ Score by usage %: <25%=10 | 25-49%=8 | 50-74%=6 | 75-89%=4 | ≥90%=1
 
 **Scoring (0–10 per dimension):**
 
-| Dimension | Weight | Criteria |
-|-----------|--------|----------|
-| Object/field sprawl | 25% | See usage % table |
-| Governor limits | 25% | All <50%=10; any 50-79%=7; any 80-94%=4; any ≥95%=1 |
-| Apex API version | 20% | See version table |
-| Package health | 15% | No unused licenses, all active=10; minor issues=7; unused/overlicensed=4 |
-| Custom settings vs CMDT | 15% | 0 custom settings, using CMDT=10; few=7; heavy custom settings=3 |
+|        Dimension        | Weight |                                 Criteria                                 |
+|:-----------------------:|:------:|:------------------------------------------------------------------------:|
+|   Object/field sprawl   |  25%   |                            See usage % table                             |
+|     Governor limits     |  25%   |           All <50%=10; any 50-79%=7; any 80-94%=4; any ≥95%=1            |
+|    Apex API version     |  20%   |                            See version table                             |
+|     Package health      |  15%   | No unused licenses, all active=10; minor issues=7; unused/overlicensed=4 |
+| Custom settings vs CMDT |  15%   |     0 custom settings, using CMDT=10; few=7; heavy custom settings=3     |
 
 ```
 section_score = (sprawl×0.25 + limits×0.25 + api×0.20 + packages×0.15 + config×0.15) × 10
 ```
 
 **Grade:**
-| Score | Grade |
-|-------|-------|
-| 90–100 | A+ |
-| 80–89 | A |
-| 70–79 | B |
-| 60–69 | C |
-| 50–59 | D |
-| < 50 | F |
+| Score  | Grade |
+|:------:|:-----:|
+| 90–100 |  A+   |
+| 80–89  |   A   |
+| 70–79  |   B   |
+| 60–69  |   C   |
+| 50–59  |   D   |
+|  < 50  |   F   |
 
 ---
 
@@ -167,12 +167,12 @@ section_score = (sprawl×0.25 + limits×0.25 + api×0.20 + packages×0.15 + conf
 | Custom Settings vs. CMDT | [X]/10 | [n] custom settings; [n] metadata types |
 
 ### Org Limits Dashboard
-| Limit | Used | Maximum | % Used | Status |
-|-------|------|---------|--------|--------|
-| Daily API Calls | [n] | [n] | [x]% | OK/WARN/HIGH/CRITICAL |
-| Data Storage | [n] MB | [n] MB | [x]% | OK/WARN/HIGH/CRITICAL |
-| File Storage | [n] MB | [n] MB | [x]% | OK/WARN/HIGH/CRITICAL |
-| Active Flows | [n] | [n] | [x]% | OK/WARN/HIGH/CRITICAL |
+|      Limit      |  Used  | Maximum | % Used |        Status         |
+|:---------------:|:------:|:-------:|:------:|:---------------------:|
+| Daily API Calls |  [n]   |   [n]   |  [x]%  | OK/WARN/HIGH/CRITICAL |
+|  Data Storage   | [n] MB | [n] MB  |  [x]%  | OK/WARN/HIGH/CRITICAL |
+|  File Storage   | [n] MB | [n] MB  |  [x]%  | OK/WARN/HIGH/CRITICAL |
+|  Active Flows   |  [n]   |   [n]   |  [x]%  | OK/WARN/HIGH/CRITICAL |
 [All available limits...]
 
 ### Custom Object Analysis
@@ -180,37 +180,37 @@ section_score = (sprawl×0.25 + limits×0.25 + api×0.20 + packages×0.15 + conf
 **Total active Apex classes:** [n]
 
 **Most field-heavy objects:**
-| Object | Field Count | Notes |
-|--------|------------|-------|
-| [Object] | [n] | [flag if >100 custom fields] |
+|  Object  | Field Count |            Notes             |
+|:--------:|:-----------:|:----------------------------:|
+| [Object] |     [n]     | [flag if >100 custom fields] |
 
 ### Apex API Version Distribution
-| API Version | Count | Release Era | Status |
-|------------|-------|-------------|--------|
-| v60+ | [n] | 2024+ | Current |
-| v55–59 | [n] | 2022–2023 | OK |
-| v50–54 | [n] | 2020–2021 | WARN |
-| v40–49 | [n] | 2018–2019 | HIGH |
-| v30–39 | [n] | 2015–2017 | CRITICAL |
-| <v30 | [n] | Pre-2015 | CRITICAL |
+| API Version | Count | Release Era |  Status  |
+|:-----------:|:-----:|:-----------:|:--------:|
+|    v60+     |  [n]  |    2024+    | Current  |
+|   v55–59    |  [n]  |  2022–2023  |    OK    |
+|   v50–54    |  [n]  |  2020–2021  |   WARN   |
+|   v40–49    |  [n]  |  2018–2019  |   HIGH   |
+|   v30–39    |  [n]  |  2015–2017  | CRITICAL |
+|    <v30     |  [n]  |  Pre-2015   | CRITICAL |
 
 **Classes not modified in 2+ years (potential dead code):**
-| Class | API Version | Last Modified | Lines |
-|-------|------------|---------------|-------|
-| [Name] | v[n] | [date] | [n] |
+| Class  | API Version | Last Modified | Lines |
+|:------:|:-----------:|:-------------:|:-----:|
+| [Name] |    v[n]     |    [date]     |  [n]  |
 
 ### Installed Packages
-| Namespace | Version | Status | Licenses Used/Total |
-|-----------|---------|--------|---------------------|
-| [namespace] | [v] | Active | [n]/[n] |
+|  Namespace  | Version | Status | Licenses Used/Total |
+|:-----------:|:-------:|:------:|:-------------------:|
+| [namespace] |   [v]   | Active |       [n]/[n]       |
 [Or: "No managed packages installed."]
 
 ### Configuration Patterns
-| Pattern | Count | Recommendation |
-|---------|-------|----------------|
-| Custom Settings | [n] | Migrate to Custom Metadata Types |
-| Custom Metadata Types | [n] | Current — continue using |
-| Large Static Resources (>1MB) | [n] | Review for CDN or compression |
+|            Pattern            | Count |          Recommendation          |
+|:-----------------------------:|:-----:|:--------------------------------:|
+|        Custom Settings        |  [n]  | Migrate to Custom Metadata Types |
+|     Custom Metadata Types     |  [n]  |     Current — continue using     |
+| Large Static Resources (>1MB) |  [n]  |  Review for CDN or compression   |
 
 ### Recommendations
 [Critical / Important / Best Practices with specific names and counts]

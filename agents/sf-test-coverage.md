@@ -92,12 +92,12 @@ Count classes containing "Test" in their name vs. total non-test classes. Health
 
 ## Step 3: Score Each Dimension (0–10)
 
-| Dimension | Weight | Scoring Criteria |
-|-----------|--------|-----------------|
-| Org-wide coverage % | 35% | ≥90% = 10, 80-89% = 8, 75-79% = 6, 60-74% = 4, <60% = 1 |
-| Classes below 75% threshold | 25% | 0 classes = 10, 1-2 = 8, 3-5 = 6, 6-10 = 4, >10 = 2 |
-| Test class quality & ratio | 20% | ≥1:3 ratio + asserts present = 10, ratio ok = 7, low ratio = 4, no test classes = 0 |
-| Trigger coverage | 20% | All triggers ≥75% = 10, 1 trigger below = 6, 2+ below = 3, untested triggers = 1 |
+|          Dimension          | Weight |                                  Scoring Criteria                                   |
+|:---------------------------:|:------:|:-----------------------------------------------------------------------------------:|
+|     Org-wide coverage %     |  35%   |               ≥90% = 10, 80-89% = 8, 75-79% = 6, 60-74% = 4, <60% = 1               |
+| Classes below 75% threshold |  25%   |                 0 classes = 10, 1-2 = 8, 3-5 = 6, 6-10 = 4, >10 = 2                 |
+| Test class quality & ratio  |  20%   | ≥1:3 ratio + asserts present = 10, ratio ok = 7, low ratio = 4, no test classes = 0 |
+|      Trigger coverage       |  20%   |  All triggers ≥75% = 10, 1 trigger below = 6, 2+ below = 3, untested triggers = 1   |
 
 **Section score (0–100):**
 ```
@@ -120,15 +120,15 @@ Return the following markdown block — filled in with real data:
 **Score: [XX]/100 | Weight: 15%**
 
 ### Coverage Summary
-| Metric | Value | Threshold | Status |
-|--------|-------|-----------|--------|
-| Org-Wide Coverage | [x]% | 75% minimum | [PASS/WARN/FAIL] |
-| Total Lines Covered | [n] | — | — |
-| Total Lines Uncovered | [n] | — | — |
-| Classes Below 75% | [n] ([x]% of total) | 0 | [PASS/WARN/FAIL] |
-| Triggers Below 75% | [n] | 0 | [PASS/WARN/FAIL] |
-| Recent Test Failures | [n] | 0 | [PASS/WARN/FAIL] |
-| Test Class Ratio | 1:[x] | ≤ 1:3 | [PASS/WARN/FAIL] |
+|        Metric         |        Value        |  Threshold  |      Status      |
+|:---------------------:|:-------------------:|:-----------:|:----------------:|
+|   Org-Wide Coverage   |        [x]%         | 75% minimum | [PASS/WARN/FAIL] |
+|  Total Lines Covered  |         [n]         |      —      |        —         |
+| Total Lines Uncovered |         [n]         |      —      |        —         |
+|   Classes Below 75%   | [n] ([x]% of total) |      0      | [PASS/WARN/FAIL] |
+|  Triggers Below 75%   |         [n]         |      0      | [PASS/WARN/FAIL] |
+| Recent Test Failures  |         [n]         |      0      | [PASS/WARN/FAIL] |
+|   Test Class Ratio    |        1:[x]        |    ≤ 1:3    | [PASS/WARN/FAIL] |
 
 ### Dimension Scores
 |      Dimension      | Score  |       Finding       |
@@ -139,21 +139,21 @@ Return the following markdown block — filled in with real data:
 |  Trigger Coverage   | [X]/10 |      [finding]      |
 
 ### Classes Requiring Immediate Attention (Coverage < 75%)
-| Class / Trigger | Coverage % | Covered Lines | Uncovered Lines | Risk |
-|-----------------|------------|---------------|-----------------|------|
-| [Name] | [x]% | [n] | [n] | [HIGH if trigger / MEDIUM if large class] |
+| Class / Trigger | Coverage % | Covered Lines | Uncovered Lines |                   Risk                    |
+|:---------------:|:----------:|:-------------:|:---------------:|:-----------------------------------------:|
+|     [Name]      |    [x]%    |      [n]      |       [n]       | [HIGH if trigger / MEDIUM if large class] |
 [... list all, sorted by uncovered lines descending ...]
 
 ### Recent Test Run Summary
-| Run | Status | Classes Passed | Classes Failed | Methods Passed | Methods Failed |
-|-----|--------|---------------|----------------|----------------|----------------|
-| [date] | [status] | [n] | [n] | [n] | [n] |
+|  Run   |  Status  | Classes Passed | Classes Failed | Methods Passed | Methods Failed |
+|:------:|:--------:|:--------------:|:--------------:|:--------------:|:--------------:|
+| [date] | [status] |      [n]       |      [n]       |      [n]       |      [n]       |
 [... up to 5 most recent ...]
 
 ### Test Failures Detected
 [If any failures in last 30 days, list:]
-| Class | Method | Error Message |
-|-------|--------|---------------|
+|    Class    |    Method    |   Error Message   |
+|:-----------:|:------------:|:-----------------:|
 | [ClassName] | [methodName] | [truncated error] |
 
 [If no failures: "No test failures detected in recent runs."]

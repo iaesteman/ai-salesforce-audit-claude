@@ -100,13 +100,13 @@ null_rate = null_count / total × 100
 
 **Score per field (0–10):**
 | Null Rate | Score |
-|-----------|-------|
-| < 5% | 10 |
-| 5–14% | 8 |
-| 15–29% | 6 |
-| 30–49% | 4 |
-| 50–74% | 2 |
-| ≥ 75% | 0 |
+|:---------:|:-----:|
+|   < 5%    |  10   |
+|   5–14%   |   8   |
+|  15–29%   |   6   |
+|  30–49%   |   4   |
+|  50–74%   |   2   |
+|   ≥ 75%   |   0   |
 
 **Status thresholds:**
 - OK = < 15% null
@@ -125,14 +125,14 @@ section_score = (contact×0.25 + account×0.20 + lead×0.20 + duplicate×0.20 + 
 ```
 
 **Grade:**
-| Score | Grade |
-|-------|-------|
-| 90–100 | A+ |
-| 80–89 | A |
-| 70–79 | B |
-| 60–69 | C |
-| 50–59 | D |
-| < 50 | F |
+| Score  | Grade |
+|:------:|:-----:|
+| 90–100 |  A+   |
+| 80–89  |   A   |
+| 70–79  |   B   |
+| 60–69  |   C   |
+| 50–59  |   D   |
+|  < 50  |   F   |
 
 ---
 
@@ -158,46 +158,46 @@ section_score = (contact×0.25 + account×0.20 + lead×0.20 + duplicate×0.20 + 
 |   Opportunity Hygiene   | [X]/10 | [n] stale/overdue opps |
 
 ### Contact Completeness
-| Field | Total | Null | Null Rate | Score | Status |
-|-------|-------|------|-----------|-------|--------|
-| Email | [n] | [n] | [x]% | [X]/10 | OK/WARN/CRITICAL |
-| Phone / Mobile | [n] | [n] | [x]% | [X]/10 | OK/WARN/CRITICAL |
-| Account (orphaned) | [n] | [n] | [x]% | [X]/10 | OK/WARN/CRITICAL |
+|       Field        | Total | Null | Null Rate | Score  |      Status      |
+|:------------------:|:-----:|:----:|:---------:|:------:|:----------------:|
+|       Email        |  [n]  | [n]  |   [x]%    | [X]/10 | OK/WARN/CRITICAL |
+|   Phone / Mobile   |  [n]  | [n]  |   [x]%    | [X]/10 | OK/WARN/CRITICAL |
+| Account (orphaned) |  [n]  | [n]  |   [x]%    | [X]/10 | OK/WARN/CRITICAL |
 
 ### Account Completeness
-| Field | Total | Null | Null Rate | Score | Status |
-|-------|-------|------|-----------|-------|--------|
-| Industry | [n] | [n] | [x]% | [X]/10 | OK/WARN/CRITICAL |
-| Type | [n] | [n] | [x]% | [X]/10 | OK/WARN/CRITICAL |
-| Phone | [n] | [n] | [x]% | [X]/10 | OK/WARN/CRITICAL |
-| BillingCity | [n] | [n] | [x]% | [X]/10 | OK/WARN/CRITICAL |
+|    Field    | Total | Null | Null Rate | Score  |      Status      |
+|:-----------:|:-----:|:----:|:---------:|:------:|:----------------:|
+|  Industry   |  [n]  | [n]  |   [x]%    | [X]/10 | OK/WARN/CRITICAL |
+|    Type     |  [n]  | [n]  |   [x]%    | [X]/10 | OK/WARN/CRITICAL |
+|    Phone    |  [n]  | [n]  |   [x]%    | [X]/10 | OK/WARN/CRITICAL |
+| BillingCity |  [n]  | [n]  |   [x]%    | [X]/10 | OK/WARN/CRITICAL |
 
 ### Lead Hygiene
-| Metric | Count | Rate | Status |
-|--------|-------|------|--------|
-| Total Open Leads | [n] | 100% | — |
-| Stale Leads (>90 days) | [n] | [x]% | OK/WARN/CRITICAL |
-| Leads Missing Email | [n] | [x]% | OK/WARN/CRITICAL |
+|         Metric         | Count | Rate |      Status      |
+|:----------------------:|:-----:|:----:|:----------------:|
+|    Total Open Leads    |  [n]  | 100% |        —         |
+| Stale Leads (>90 days) |  [n]  | [x]% | OK/WARN/CRITICAL |
+|  Leads Missing Email   |  [n]  | [x]% | OK/WARN/CRITICAL |
 
 ### Opportunity Hygiene
-| Metric | Count | Rate | Status |
-|--------|-------|------|--------|
-| Total Open Opportunities | [n] | 100% | — |
-| Stale Open Opps (>90 days) | [n] | [x]% | OK/WARN/CRITICAL |
-| Overdue Close Date | [n] | [x]% | OK/WARN/CRITICAL |
+|           Metric           | Count | Rate |      Status      |
+|:--------------------------:|:-----:|:----:|:----------------:|
+|  Total Open Opportunities  |  [n]  | 100% |        —         |
+| Stale Open Opps (>90 days) |  [n]  | [x]% | OK/WARN/CRITICAL |
+|     Overdue Close Date     |  [n]  | [x]% | OK/WARN/CRITICAL |
 
 ### Duplicate Risk
-| Status | Detail |
-|--------|--------|
+|         Status         |         Detail          |
+|:----------------------:|:-----------------------:|
 | Active Duplicate Rules | [n] covering: [objects] |
-| Duplicate Record Sets | [n] |
-| Risk Level | LOW / MEDIUM / HIGH |
+| Duplicate Record Sets  |           [n]           |
+|       Risk Level       |   LOW / MEDIUM / HIGH   |
 
 ### Orphaned Records
-| Object | Issue | Count |
-|--------|-------|-------|
-| Contact | No Account linked | [n] |
-| Case | No Contact or Account | [n] |
+| Object  |         Issue         | Count |
+|:-------:|:---------------------:|:-----:|
+| Contact |   No Account linked   |  [n]  |
+|  Case   | No Contact or Account |  [n]  |
 
 ### Recommendations
 [Critical / Important / Best Practices with specific counts and field names]
