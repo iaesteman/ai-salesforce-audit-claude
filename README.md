@@ -142,7 +142,7 @@ Each domain is scored 0–100, then weighted into a composite Org Health Score:
 
 |  Score  | Grade |                    Label                     |
 |:-------:|:-----:|:--------------------------------------------:|
-| 90–100  |  A+   |     Excellent — Production-grade org         |
+| 90–100  |   A+  |     Excellent — Production-grade org         |
 |  80–89  |   A   |   Strong — Minor improvements recommended    |
 |  70–79  |   B   |       Good — Some areas need attention       |
 |  60–69  |   C   |    Fair — Multiple risk areas identified     |
@@ -168,7 +168,7 @@ ai-salesforce-audit-claude/
 │   ├── sf-data-quality.md               ← Data quality agent
 │   ├── sf-automation.md                 ← Automation agent
 │   ├── sf-architecture.md               ← Architecture agent
-│   └── sf-test-coverage.md              ← Test coverage agent
+│   └── sf-coverage.md              ← Test coverage agent
 ├── scripts/
 │   └── generate_sf_pdf_report.py        ← PDF generation (requires reportlab)
 ├── install.sh

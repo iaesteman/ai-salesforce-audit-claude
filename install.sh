@@ -128,7 +128,7 @@ AGENTS=(
   "sf-data-quality"
   "sf-automation"
   "sf-architecture"
-  "sf-test-coverage"
+  "sf-coverage"
   "sf-naming"
   "sf-orphaned"
   "sf-descriptions"

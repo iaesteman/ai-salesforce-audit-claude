@@ -36,7 +36,7 @@ Dispatches 9 specialized subagents in parallel — each auditing a specific doma
 | `sf-data-quality` | Data Quality & Completeness | 15% |
 | `sf-automation` | Automation Health & Legacy Debt | 15% |
 | `sf-architecture` | Org Architecture & Limits | 12% |
-| `sf-test-coverage` | Apex Test Coverage | 8% |
+| `sf-coverage` | Apex Test Coverage | 8% |
 | `sf-naming` | Naming Conventions | 8% |
 | `sf-orphaned` | Orphaned Metadata | 8% |
 | `sf-descriptions` | Description Completeness | 7% |
@@ -119,7 +119,7 @@ Do not truncate or summarize — return the full section.
 2. Agent: `sf-data-quality` — prompt as above
 3. Agent: `sf-automation` — prompt as above
 4. Agent: `sf-architecture` — prompt as above
-5. Agent: `sf-test-coverage` — prompt as above
+5. Agent: `sf-coverage` — prompt as above
 6. Agent: `sf-naming` — prompt as above
 7. Agent: `sf-orphaned` — prompt as above
 8. Agent: `sf-descriptions` — prompt as above
@@ -218,7 +218,7 @@ Write this complete file to the current working directory:
 [PASTE FULL SECTION 2 from sf-data-quality agent]
 [PASTE FULL SECTION 3 from sf-automation agent]
 [PASTE FULL SECTION 4 from sf-architecture agent]
-[PASTE FULL SECTION 5 from sf-test-coverage agent]
+[PASTE FULL SECTION 5 from sf-coverage agent]
 [PASTE FULL SECTION 6 from sf-naming agent]
 [PASTE FULL SECTION 7 from sf-orphaned agent]
 [PASTE FULL SECTION 8 from sf-descriptions agent]
