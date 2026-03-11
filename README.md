@@ -60,30 +60,34 @@ The installer overwrites existing skill and agent files without removing your or
 
 ## Usage
 
-### Full Org Audit (all 5 domains in parallel)
+### Full Org Audit (all 9 domains in parallel)
 
 ```
 /sf-audit [org-alias]
 ```
 
-Runs all 5 agents simultaneously and produces a comprehensive `SF-AUDIT.md` with:
+Runs all 9 agents simultaneously and produces a comprehensive `SF-AUDIT.md` plus an auto-generated `SF-AUDIT-REPORT.pdf` with:
 - Weighted Org Health Score (0–100) with letter grade
 - Executive summary (non-technical)
 - Priority Action Matrix (Critical / Important / Strategic)
-- Detailed findings for all 5 domains
+- Detailed findings for all 9 domains
 
 ### Standalone Domain Audits
 
 Run any single domain for a focused, faster report:
 
-| Command | Output | Domain |
-|---------|--------|--------|
-| `/sf-audit-security [org]` | `SF-SECURITY.md` | Profiles, perm sets, sharing model, MFA, login activity |
-| `/sf-audit-data [org]` | `SF-DATA-QUALITY.md` | Contact/Account/Lead completeness, duplicates, stale records |
-| `/sf-audit-automation [org]` | `SF-AUTOMATION.md` | Flows, Process Builder, Workflow Rules, Apex triggers |
-| `/sf-audit-architecture [org]` | `SF-ARCHITECTURE.md` | Limits, custom objects, Apex API versions, packages |
-| `/sf-audit-coverage [org]` | `SF-TEST-COVERAGE.md` | Apex test coverage %, classes below 75%, test failures |
-| `/sf-audit-report-pdf [org]` | `SF-AUDIT-REPORT.pdf` | Generate a clean PDF report from any prior audit data |
+|             Command              |        Output         |                       Domain                        |
+|:--------------------------------:|:---------------------:|:---------------------------------------------------:|
+| `/sf-audit-security [org]`       | `SF-SECURITY.md`      | Profiles, perm sets, sharing model, MFA, login activity |
+| `/sf-audit-data [org]`           | `SF-DATA-QUALITY.md`  | Contact/Account/Lead completeness, duplicates, stale records |
+| `/sf-audit-automation [org]`     | `SF-AUTOMATION.md`    | Flows, Process Builder, Workflow Rules, Apex triggers |
+| `/sf-audit-architecture [org]`   | `SF-ARCHITECTURE.md`  | Limits, custom objects, Apex API versions, packages |
+| `/sf-audit-coverage [org]`       | `SF-TEST-COVERAGE.md` | Apex test coverage %, classes below 75%, test failures |
+| `/sf-audit-naming [org]`         | `SF-NAMING.md`        | Apex class/trigger/field/flow/validation rule naming |
+| `/sf-audit-orphaned [org]`       | `SF-ORPHANED.md`      | Inactive flows, dead validation/workflow rules, stale fields |
+| `/sf-audit-descriptions [org]`   | `SF-DESCRIPTIONS.md`  | Missing help text on fields, flows, objects, classes |
+| `/sf-audit-field-sprawl [org]`   | `SF-FIELD-SPRAWL.md`  | Objects with 100+ fields, stale fields, duplicate-purpose fields |
+| `/sf-audit-report-pdf [org]`     | `SF-AUDIT-REPORT.pdf` | Generate a PDF report from any prior audit data |
 
 The `[org-alias]` is optional — omit to audit your default authenticated org.
 
