@@ -1,0 +1,17 @@
+# Generated audit reports — never commit these
+SF-AUDIT.md
+SF-SECURITY.md
+SF-DATA-QUALITY.md
+SF-AUTOMATION.md
+SF-ARCHITECTURE.md
+SF-TEST-COVERAGE.md
+SF-NAMING.md
+SF-ORPHANED.md
+SF-DESCRIPTIONS.md
+SF-FIELD-SPRAWL.md
+
+# Generated PDF reports
+*.pdf
+
+# Temporary PDF data
+/tmp/sf_report_data.json
