@@ -36,6 +36,28 @@ Then start a new Claude Code session.
 
 ---
 
+## Updating
+
+If you already have the tool installed, re-running the installer updates all skills, agents, and scripts to the latest version:
+
+### Option A — One-line update (remote)
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/iaesteman/ai-salesforce-audit-claude/main/install.sh | bash
+```
+
+### Option B — From a local clone
+
+```bash
+cd ai-salesforce-audit-claude
+git pull
+./install.sh
+```
+
+The installer overwrites existing skill and agent files without removing your org authentication or audit reports. After updating, **start a new Claude Code session** so the updated skills are loaded.
+
+---
+
 ## Usage
 
 ### Full Org Audit (all 5 domains in parallel)
