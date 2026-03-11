@@ -9,12 +9,13 @@ Run a comprehensive Salesforce org health audit across all 5 domains simultaneou
 
 | Command | Output | Description |
 |---------|--------|-------------|
-| `/sf-audit [org-alias]` | `SF-AUDIT.md` | Full audit — all 5 domains in parallel |
+| `/sf-audit [org-alias]` | `SF-AUDIT.md` | Full audit — all 6 domains in parallel |
 | `/sf-audit-security [org-alias]` | `SF-SECURITY.md` | Security & access controls |
 | `/sf-audit-data [org-alias]` | `SF-DATA-QUALITY.md` | Data quality & completeness |
 | `/sf-audit-automation [org-alias]` | `SF-AUTOMATION.md` | Automation health & legacy debt |
 | `/sf-audit-architecture [org-alias]` | `SF-ARCHITECTURE.md` | Org architecture & limits |
 | `/sf-audit-coverage [org-alias]` | `SF-TEST-COVERAGE.md` | Apex test coverage |
+| `/sf-audit-naming [org-alias]` | `SF-NAMING.md` | Naming conventions audit |
 | `/sf-audit-report-pdf [org-alias]` | `SF-AUDIT-REPORT.pdf` | Generate PDF from audit data |
 
 The `[org-alias]` is optional — if omitted, the default authenticated org is used.
@@ -23,16 +24,17 @@ The `[org-alias]` is optional — if omitted, the default authenticated org is u
 
 ## What This Skill Does
 
-Dispatches 5 specialized subagents in parallel — each auditing a specific domain of the Salesforce org. Synthesizes results into a weighted Org Health Score (0–100) and produces a comprehensive `SF-AUDIT.md` report with executive summary and prioritized action matrix.
+Dispatches 6 specialized subagents in parallel — each auditing a specific domain of the Salesforce org. Synthesizes results into a weighted Org Health Score (0–100) and produces a comprehensive `SF-AUDIT.md` report with executive summary and prioritized action matrix.
 
-**The 5 domains audited in parallel:**
+**The 6 domains audited in parallel:**
 | Agent | Domain | Weight |
 |-------|--------|--------|
-| `sf-security` | Security & Access Controls | 30% |
+| `sf-security` | Security & Access Controls | 25% |
 | `sf-data-quality` | Data Quality & Completeness | 20% |
 | `sf-automation` | Automation Health & Legacy Debt | 20% |
 | `sf-architecture` | Org Architecture & Limits | 15% |
-| `sf-test-coverage` | Apex Test Coverage | 15% |
+| `sf-test-coverage` | Apex Test Coverage | 10% |
+| `sf-naming` | Naming Conventions | 10% |
 
 ---
 
@@ -86,7 +88,7 @@ Print to terminal:
 
 ## Phase 2: Parallel Agent Dispatch
 
-**CRITICAL: Launch all 5 agents simultaneously using the Task tool. Do NOT run them sequentially.**
+**CRITICAL: Launch all 6 agents simultaneously using the Task tool. Do NOT run them sequentially.**
 
 Dispatch each Task with the following prompt structure:
 
@@ -112,8 +114,9 @@ Do not truncate or summarize — return the full section.
 3. Agent: `sf-automation` — prompt as above
 4. Agent: `sf-architecture` — prompt as above
 5. Agent: `sf-test-coverage` — prompt as above
+6. Agent: `sf-naming` — prompt as above
 
-Wait for all 5 agents to complete before proceeding to Phase 3.
+Wait for all 6 agents to complete before proceeding to Phase 3.
 
 ---
 
@@ -123,11 +126,12 @@ Wait for all 5 agents to complete before proceeding to Phase 3.
 
 ```
 org_health_score = (
-  security_score      × 0.30 +
+  security_score      × 0.25 +
   data_quality_score  × 0.20 +
   automation_score    × 0.20 +
   architecture_score  × 0.15 +
-  test_coverage_score × 0.15
+  test_coverage_score × 0.10 +
+  naming_score        × 0.10
 )
 ```
 
@@ -170,13 +174,14 @@ Write this complete file to the current working directory:
 ║   Grade: [X]  —  [Label]             ║
 ╚═══════════════════════════════════════╝
 
-| Domain            | Weight |  Score  | Grade |  Status |
-|-------------------|--------|---------|-------|---------|
-| Security & Access |   30%  |[XX]/100 |  [X]  | ✅/⚠️/❌ |
-| Data Quality      |   20%  |[XX]/100 |  [X]  | ✅/⚠️/❌ |
-| Automation Health |   20%  |[XX]/100 |  [X]  | ✅/⚠️/❌ |
-| Org Architecture  |   15%  |[XX]/100 |  [X]  | ✅/⚠️/❌ |
-| Test Coverage     |   15%  |[XX]/100 |  [X]  | ✅/⚠️/❌ |
+| Domain               | Weight |  Score  | Grade |  Status |
+|----------------------|--------|---------|-------|---------|
+| Security & Access    |   25%  |[XX]/100 |  [X]  | ✅/⚠️/❌ |
+| Data Quality         |   20%  |[XX]/100 |  [X]  | ✅/⚠️/❌ |
+| Automation Health    |   20%  |[XX]/100 |  [X]  | ✅/⚠️/❌ |
+| Org Architecture     |   15%  |[XX]/100 |  [X]  | ✅/⚠️/❌ |
+| Test Coverage        |   10%  |[XX]/100 |  [X]  | ✅/⚠️/❌ |
+| Naming Conventions   |   10%  |[XX]/100 |  [X]  | ✅/⚠️/❌ |
 
 *✅ PASS ≥ 70 | ⚠️ WARN 50–69 | ❌ FAIL < 50*
 
@@ -199,6 +204,7 @@ Write this complete file to the current working directory:
 [PASTE FULL SECTION 3 from sf-automation agent]
 [PASTE FULL SECTION 4 from sf-architecture agent]
 [PASTE FULL SECTION 5 from sf-test-coverage agent]
+[PASTE FULL SECTION 6 from sf-naming agent]
 
 ---
 
@@ -207,7 +213,7 @@ Write this complete file to the current working directory:
 |------|-------|
 | sf CLI version | [sf --version] |
 | API version | v62.0 |
-| Execution mode | Parallel (5 agents) |
+| Execution mode | Parallel (6 agents) |
 | Report generated | [timestamp] |
 | Limitations | [any skipped queries] |
 
@@ -218,6 +224,7 @@ Write this complete file to the current working directory:
 - `/sf-audit-automation [org]` → SF-AUTOMATION.md
 - `/sf-audit-architecture [org]` → SF-ARCHITECTURE.md
 - `/sf-audit-coverage [org]` → SF-TEST-COVERAGE.md
+- `/sf-audit-naming [org]` → SF-NAMING.md
 - `/sf-audit-report-pdf [org]` → SF-AUDIT-REPORT.pdf
 ```
 
@@ -236,11 +243,12 @@ Write this complete file to the current working directory:
   ┌─────────────────────────┬────────┬────────┐
   │ Domain                  │ Weight │ Score  │
   ├─────────────────────────┼────────┼────────┤
-  │ Security & Access       │  30%   │ [XX]   │
+  │ Security & Access       │  25%   │ [XX]   │
   │ Data Quality            │  20%   │ [XX]   │
   │ Automation Health       │  20%   │ [XX]   │
   │ Org Architecture        │  15%   │ [XX]   │
-  │ Test Coverage           │  15%   │ [XX]   │
+  │ Test Coverage           │  10%   │ [XX]   │
+  │ Naming Conventions      │  10%   │ [XX]   │
   └─────────────────────────┴────────┴────────┘
 
   TOP PRIORITIES:
@@ -256,7 +264,7 @@ Write this complete file to the current working directory:
 
 ## Output Standards
 
-- Phase 2 MUST dispatch all 5 agents simultaneously — parallel execution is required
+- Phase 2 MUST dispatch all 6 agents simultaneously — parallel execution is required
 - Paste full agent sections verbatim into SF-AUDIT.md — do not summarize
 - Executive summary must be in plain language — no SOQL, no technical jargon
 - Score thresholds: ✅ PASS ≥ 70 | ⚠️ WARN 50–69 | ❌ FAIL < 50

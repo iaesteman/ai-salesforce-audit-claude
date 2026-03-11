@@ -85,6 +85,7 @@ mkdir -p "$SKILLS_DIR/sf-audit-data"
 mkdir -p "$SKILLS_DIR/sf-audit-automation"
 mkdir -p "$SKILLS_DIR/sf-audit-architecture"
 mkdir -p "$SKILLS_DIR/sf-audit-coverage"
+mkdir -p "$SKILLS_DIR/sf-audit-naming"
 mkdir -p "$SKILLS_DIR/sf-audit-report-pdf"
 mkdir -p "$AGENTS_DIR"
 
@@ -101,6 +102,7 @@ SKILLS=(
   "sf-audit-automation:skills/sf-audit-automation/SKILL.md"
   "sf-audit-architecture:skills/sf-audit-architecture/SKILL.md"
   "sf-audit-coverage:skills/sf-audit-coverage/SKILL.md"
+  "sf-audit-naming:skills/sf-audit-naming/SKILL.md"
   "sf-audit-report-pdf:skills/sf-audit-report-pdf/SKILL.md"
 )
 
@@ -121,6 +123,7 @@ AGENTS=(
   "sf-automation"
   "sf-architecture"
   "sf-test-coverage"
+  "sf-naming"
 )
 
 for agent in "${AGENTS[@]}"; do
@@ -190,7 +193,7 @@ echo -e "${GREEN}${BOLD}━━━━━━━━━━━━━━━━━━�
 echo -e "${GREEN}${BOLD}  Installation complete!                              ${NC}"
 echo -e "${GREEN}${BOLD}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo ""
-echo -e "  Installed: 1 router + 7 skills + 5 agents + 1 PDF script"
+echo -e "  Installed: 1 router + 8 skills + 6 agents + 1 PDF script"
 echo ""
 echo -e "  Start a new Claude Code session, then use:"
 echo ""
@@ -200,6 +203,7 @@ echo -e "  ${CYAN}/sf-audit data [org]${NC}         Data quality & completeness"
 echo -e "  ${CYAN}/sf-audit automation [org]${NC}   Automation health & legacy debt"
 echo -e "  ${CYAN}/sf-audit architecture [org]${NC} Org architecture & limits"
 echo -e "  ${CYAN}/sf-audit coverage [org]${NC}     Apex test coverage"
+echo -e "  ${CYAN}/sf-audit naming [org]${NC}       Naming conventions audit"
 echo -e "  ${CYAN}/sf-audit report-pdf [org]${NC}   Generate PDF report → SF-AUDIT-REPORT.pdf"
 echo ""
 echo -e "  ${YELLOW}[org]${NC} is optional — omit to use the default authenticated org"
