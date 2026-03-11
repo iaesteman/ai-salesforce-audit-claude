@@ -1,6 +1,6 @@
 # AI Salesforce Audit — Claude Code
 
-AI-powered Salesforce org health auditing tool for [Claude Code](https://claude.ai/code). Runs 5 parallel AI agents to audit your org across security, data quality, automation health, architecture, and test coverage — producing a scored health report in seconds.
+AI-powered Salesforce org health auditing tool for [Claude Code](https://claude.ai/code). Runs 9 parallel AI agents to audit your org across security, data quality, automation health, architecture, and test coverage — producing a scored health report in seconds.
 
 ---
 
@@ -140,14 +140,14 @@ The `[org-alias]` is optional — omit to audit your default authenticated org.
 
 Each domain is scored 0–100, then weighted into a composite Org Health Score:
 
-| Score | Grade | Label |
-|-------|-------|-------|
-| 90–100 | A+ | Excellent — Production-grade org |
-| 80–89 | A | Strong — Minor improvements recommended |
-| 70–79 | B | Good — Some areas need attention |
-| 60–69 | C | Fair — Multiple risk areas identified |
-| 50–59 | D | Poor — Significant remediation required |
-| < 50 | F | Critical — Immediate action required |
+|  Score  | Grade |                    Label                     |
+|:-------:|:-----:|:--------------------------------------------:|
+| 90–100  |  A+   |     Excellent — Production-grade org         |
+|  80–89  |   A   |   Strong — Minor improvements recommended    |
+|  70–79  |   B   |       Good — Some areas need attention       |
+|  60–69  |   C   |    Fair — Multiple risk areas identified     |
+|  50–59  |   D   |  Poor — Significant remediation required     |
+|  < 50   |   F   |      Critical — Immediate action required    |
 
 ---
 
