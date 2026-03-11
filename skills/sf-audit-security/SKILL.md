@@ -147,7 +147,7 @@ section_score = (profile×0.20 + permset×0.20 + sharing×0.20 + mfa×0.15 + ip�
 
 ### Dimension Scores
 | Dimension | Score | Key Finding |
-|-----------|-------|-------------|
+|:---------:|:-----:|:-----------:|
 | Profile Hygiene | [X]/10 | [n] profiles with elevated permissions |
 | Permission Set Sprawl | [X]/10 | [n] users with >5 perm sets |
 | Sharing Model | [X]/10 | [n] objects with Public Read/Write |

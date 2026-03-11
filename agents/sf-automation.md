@@ -177,7 +177,7 @@ Return the following markdown block — filled in with real data:
 
 ### Dimension Scores
 | Dimension | Score | Key Finding |
-|-----------|-------|-------------|
+|:---------:|:-----:|:-----------:|
 | Flow Health | [X]/10 | [n] active flows; [n] errors in last 30 days |
 | Process Builder (Legacy) | [X]/10 | [n] active processes — DEPRECATED technology |
 | Workflow Rules (Legacy) | [X]/10 | [n] active rules — DEPRECATED technology |

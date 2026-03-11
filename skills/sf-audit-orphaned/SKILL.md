@@ -75,14 +75,14 @@ sf data query --target-org [org-alias] --use-tooling-api \
 
 Apply violation rate → score table to each dimension:
 
-| Violation Rate | Score |
-|----------------|-------|
-| < 5% | 10 |
-| 5–14% | 8 |
-| 15–29% | 6 |
-| 30–49% | 4 |
-| 50–74% | 2 |
-| ≥ 75% | 0 |
+| Violation Rate |  Score  |
+|:--------------:|:-------:|
+|     < 5%       |   10    |
+|    5–14%       |    8    |
+|   15–29%       |    6    |
+|   30–49%       |    4    |
+|   50–74%       |    2    |
+|    ≥ 75%       |    0    |
 
 **Inactive flows:** inactive / total flows × 100
 **Dead validation rules:** inactive / total rules × 100
@@ -99,14 +99,14 @@ section_score = (
 ```
 
 **Grade:**
-| Score | Grade |
-|-------|-------|
-| 90–100 | A+ |
-| 80–89 | A |
-| 70–79 | B |
-| 60–69 | C |
-| 50–59 | D |
-| < 50 | F |
+|  Score  | Grade |
+|:-------:|:-----:|
+| 90–100  |  A+   |
+|  80–89  |   A   |
+|  70–79  |   B   |
+|  60–69  |   C   |
+|  50–59  |   D   |
+|  < 50   |   F   |
 
 ---
 
@@ -124,7 +124,7 @@ section_score = (
 
 ### Dimension Scores
 | Dimension | Score | Key Finding |
-|-----------|-------|-------------|
+|:---------:|:-----:|:-----------:|
 | Inactive Flows | [X]/10 | [n] inactive flows out of [n] total ([x]%) |
 | Dead Validation Rules | [X]/10 | [n] deactivated rules out of [n] total ([x]%) |
 | Deactivated Workflow Rules | [X]/10 | [n] deactivated rules out of [n] total ([x]%) |

@@ -183,7 +183,7 @@ Return the following markdown block — filled in with real data:
 
 ### Dimension Scores
 | Dimension | Score | Key Finding |
-|-----------|-------|-------------|
+|:---------:|:-----:|:-----------:|
 | Contact Completeness | [X]/10 | [x]% avg null rate across key fields |
 | Account Completeness | [X]/10 | [x]% avg null rate across key fields |
 | Lead Hygiene | [X]/10 | [n] stale leads ([x]% of open pipeline) |

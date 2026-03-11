@@ -85,14 +85,14 @@ sf data query --target-org [org-alias] --use-tooling-api \
 
 Apply this missing rate → score table:
 
-| Missing Rate | Score |
-|--------------|-------|
-| < 10% | 10 |
-| 10–24% | 8 |
-| 25–39% | 6 |
-| 40–59% | 4 |
-| 60–79% | 2 |
-| ≥ 80% | 0 |
+| Missing Rate |  Score  |
+|:------------:|:-------:|
+|    < 10%     |   10    |
+|   10–24%     |    8    |
+|   25–39%     |    6    |
+|   40–59%     |    4    |
+|   60–79%     |    2    |
+|    ≥ 80%     |    0    |
 
 Apex class doc comment check: class has a comment if `Body` contains `/**` or first non-blank line starts with `//`.
 
@@ -107,14 +107,14 @@ section_score = (
 ```
 
 **Grade:**
-| Score | Grade |
-|-------|-------|
-| 90–100 | A+ |
-| 80–89 | A |
-| 70–79 | B |
-| 60–69 | C |
-| 50–59 | D |
-| < 50 | F |
+|  Score  | Grade |
+|:-------:|:-----:|
+| 90–100  |  A+   |
+|  80–89  |   A   |
+|  70–79  |   B   |
+|  60–69  |   C   |
+|  50–59  |   D   |
+|  < 50   |   F   |
 
 ---
 
@@ -132,7 +132,7 @@ section_score = (
 
 ### Dimension Scores
 | Dimension | Score | Key Finding |
-|-----------|-------|-------------|
+|:---------:|:-----:|:-----------:|
 | Custom Field Help Text | [X]/10 | [n] of [n] fields missing description ([x]%) |
 | Flow Descriptions | [X]/10 | [n] of [n] active flows missing description ([x]%) |
 | Validation Rule Descriptions | [X]/10 | [n] of [n] active rules missing description ([x]%) |

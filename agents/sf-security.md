@@ -176,7 +176,7 @@ Return the following markdown block — filled in with real data:
 
 ### Dimension Scores
 | Dimension | Score | Key Finding |
-|-----------|-------|-------------|
+|:---------:|:-----:|:-----------:|
 | Profile Hygiene | [X]/10 | [n] profiles with elevated permissions |
 | Permission Set Sprawl | [X]/10 | [n] users with >5 perm sets; [n] dangerous perm sets |
 | Sharing Model | [X]/10 | [n] objects with Public Read/Write OWD |

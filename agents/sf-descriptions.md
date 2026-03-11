@@ -95,14 +95,14 @@ sf data query --target-org ORG_ALIAS --use-tooling-api \
 
 Apply this null/missing rate → score table:
 
-| Missing Rate | Score |
-|--------------|-------|
-| < 10% | 10 |
-| 10–24% | 8 |
-| 25–39% | 6 |
-| 40–59% | 4 |
-| 60–79% | 2 |
-| ≥ 80% | 0 |
+| Missing Rate |  Score  |
+|:------------:|:-------:|
+|    < 10%     |   10    |
+|   10–24%     |    8    |
+|   25–39%     |    6    |
+|   40–59%     |    4    |
+|   60–79%     |    2    |
+|    ≥ 80%     |    0    |
 
 **Custom field help text score:**
 - `field_missing_rate` = fields missing InlineHelpText / total custom fields × 100 → apply table
@@ -145,7 +145,7 @@ Return the following markdown block — filled in with real data:
 
 ### Dimension Scores
 | Dimension | Score | Key Finding |
-|-----------|-------|-------------|
+|:---------:|:-----:|:-----------:|
 | Custom Field Help Text | [X]/10 | [n] of [n] fields missing description ([x]%) |
 | Flow Descriptions | [X]/10 | [n] of [n] active flows missing description ([x]%) |
 | Validation Rule Descriptions | [X]/10 | [n] of [n] active rules missing description ([x]%) |

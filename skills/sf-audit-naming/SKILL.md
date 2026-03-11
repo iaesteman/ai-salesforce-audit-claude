@@ -99,14 +99,14 @@ Flag if:
 
 Apply violation rate → score table:
 
-| Violation Rate | Score |
-|----------------|-------|
-| < 5% | 10 |
-| 5–14% | 8 |
-| 15–29% | 6 |
-| 30–49% | 4 |
-| 50–74% | 2 |
-| ≥ 75% | 0 |
+| Violation Rate |  Score  |
+|:--------------:|:-------:|
+|     < 5%       |   10    |
+|    5–14%       |    8    |
+|   15–29%       |    6    |
+|   30–49%       |    4    |
+|   50–74%       |    2    |
+|    ≥ 75%       |    0    |
 
 ```
 section_score = (
@@ -119,14 +119,14 @@ section_score = (
 ```
 
 **Grade:**
-| Score | Grade |
-|-------|-------|
-| 90–100 | A+ |
-| 80–89 | A |
-| 70–79 | B |
-| 60–69 | C |
-| 50–59 | D |
-| < 50 | F |
+|  Score  | Grade |
+|:-------:|:-----:|
+| 90–100  |  A+   |
+|  80–89  |   A   |
+|  70–79  |   B   |
+|  60–69  |   C   |
+|  50–59  |   D   |
+|  < 50   |   F   |
 
 ---
 
@@ -144,7 +144,7 @@ section_score = (
 
 ### Dimension Scores
 | Dimension | Score | Key Finding |
-|-----------|-------|-------------|
+|:---------:|:-----:|:-----------:|
 | Apex Class Naming | [X]/10 | [n] violations out of [n] classes ([x]%) |
 | Apex Trigger Naming | [X]/10 | [n] non-standard; [n] objects with multiple triggers |
 | Custom Field Naming | [X]/10 | [n] fields with generic or non-standard names ([x]%) |

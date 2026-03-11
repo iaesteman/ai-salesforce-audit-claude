@@ -150,7 +150,7 @@ section_score = (contact×0.25 + account×0.20 + lead×0.20 + duplicate×0.20 + 
 
 ### Dimension Scores
 | Dimension | Score | Key Finding |
-|-----------|-------|-------------|
+|:---------:|:-----:|:-----------:|
 | Contact Completeness | [X]/10 | [x]% avg null rate |
 | Account Completeness | [X]/10 | [x]% avg null rate |
 | Lead Hygiene | [X]/10 | [n] stale leads |

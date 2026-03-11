@@ -159,7 +159,7 @@ section_score = (flow×0.25 + pb×0.20 + wf×0.20 + trigger×0.20 + validation×
 
 ### Dimension Scores
 | Dimension | Score | Key Finding |
-|-----------|-------|-------------|
+|:---------:|:-----:|:-----------:|
 | Flow Health | [X]/10 | [n] active flows; [n] errors in 30 days |
 | Process Builder (Legacy) | [X]/10 | [n] active — DEPRECATED |
 | Workflow Rules (Legacy) | [X]/10 | [n] active — DEPRECATED |

@@ -200,7 +200,7 @@ Return the following markdown block — filled in with real data:
 
 ### Dimension Scores
 | Dimension | Score | Key Finding |
-|-----------|-------|-------------|
+|:---------:|:-----:|:-----------:|
 | Object / Field Sprawl | [X]/10 | [n] custom objects, [n] fields on largest object |
 | Governor Limits Usage | [X]/10 | Highest: [limit name] at [x]% |
 | Apex API Version Debt | [X]/10 | [n] classes on v<50; oldest: v[n] |

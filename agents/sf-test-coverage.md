@@ -132,7 +132,7 @@ Return the following markdown block — filled in with real data:
 
 ### Dimension Scores
 | Dimension | Score | Finding |
-|-----------|-------|---------|
+|:---------:|:-----:|:-------:|
 | Org-Wide Coverage % | [X]/10 | [x]% coverage |
 | Classes Below 75% | [X]/10 | [n] classes at risk |
 | Test Class Quality | [X]/10 | [finding] |

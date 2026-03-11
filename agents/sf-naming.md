@@ -105,14 +105,14 @@ Flag a validation rule if:
 
 Apply this violation rate → score table:
 
-| Violation Rate | Score |
-|----------------|-------|
-| < 5% | 10 |
-| 5–14% | 8 |
-| 15–29% | 6 |
-| 30–49% | 4 |
-| 50–74% | 2 |
-| ≥ 75% | 0 |
+| Violation Rate |  Score  |
+|:--------------:|:-------:|
+|     < 5%       |   10    |
+|    5–14%       |    8    |
+|   15–29%       |    6    |
+|   30–49%       |    4    |
+|   50–74%       |    2    |
+|    ≥ 75%       |    0    |
 
 If a dimension has 0 records, score it 10 and note it.
 
@@ -139,7 +139,7 @@ Return the following markdown block — filled in with real data:
 
 ### Dimension Scores
 | Dimension | Score | Key Finding |
-|-----------|-------|-------------|
+|:---------:|:-----:|:-----------:|
 | Apex Class Naming | [X]/10 | [n] violations out of [n] classes ([x]%) |
 | Apex Trigger Naming | [X]/10 | [n] non-standard triggers; [n] objects with multiple triggers |
 | Custom Field Naming | [X]/10 | [n] fields with generic or non-standard names ([x]%) |

@@ -83,14 +83,14 @@ sf data query --target-org ORG_ALIAS --use-tooling-api \
 
 Apply this violation rate → score table to each dimension:
 
-| Violation Rate | Score |
-|----------------|-------|
-| < 5% | 10 |
-| 5–14% | 8 |
-| 15–29% | 6 |
-| 30–49% | 4 |
-| 50–74% | 2 |
-| ≥ 75% | 0 |
+| Violation Rate |  Score  |
+|:--------------:|:-------:|
+|     < 5%       |   10    |
+|    5–14%       |    8    |
+|   15–29%       |    6    |
+|   30–49%       |    4    |
+|   50–74%       |    2    |
+|    ≥ 75%       |    0    |
 
 **Inactive flows score:**
 - `inactive_flow_rate` = inactive flows / total flows × 100 → apply table
@@ -128,7 +128,7 @@ Return the following markdown block — filled in with real data:
 
 ### Dimension Scores
 | Dimension | Score | Key Finding |
-|-----------|-------|-------------|
+|:---------:|:-----:|:-----------:|
 | Inactive Flows | [X]/10 | [n] inactive flows out of [n] total ([x]%) |
 | Dead Validation Rules | [X]/10 | [n] deactivated rules out of [n] total ([x]%) |
 | Deactivated Workflow Rules | [X]/10 | [n] deactivated workflow rules out of [n] total ([x]%) |
