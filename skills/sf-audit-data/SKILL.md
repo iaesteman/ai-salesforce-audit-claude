@@ -149,13 +149,13 @@ section_score = (contact×0.25 + account×0.20 + lead×0.20 + duplicate×0.20 + 
 ## Score: [XX]/100 — Grade [X]
 
 ### Dimension Scores
-| Dimension | Score | Key Finding |
-|:---------:|:-----:|:-----------:|
-| Contact Completeness | [X]/10 | [x]% avg null rate |
-| Account Completeness | [X]/10 | [x]% avg null rate |
-| Lead Hygiene | [X]/10 | [n] stale leads |
-| Duplicate Rule Coverage | [X]/10 | [n] active rules |
-| Opportunity Hygiene | [X]/10 | [n] stale/overdue opps |
+|        Dimension        | Score  |      Key Finding       |
+|:-----------------------:|:------:|:----------------------:|
+|  Contact Completeness   | [X]/10 |   [x]% avg null rate   |
+|  Account Completeness   | [X]/10 |   [x]% avg null rate   |
+|      Lead Hygiene       | [X]/10 |    [n] stale leads     |
+| Duplicate Rule Coverage | [X]/10 |    [n] active rules    |
+|   Opportunity Hygiene   | [X]/10 | [n] stale/overdue opps |
 
 ### Contact Completeness
 | Field | Total | Null | Null Rate | Score | Status |

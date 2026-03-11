@@ -127,12 +127,12 @@ Return the following markdown block — filled in with real data:
 **Score: [XX]/100 | Weight: 8%**
 
 ### Dimension Scores
-| Dimension | Score | Key Finding |
-|:---------:|:-----:|:-----------:|
-| Inactive Flows | [X]/10 | [n] inactive flows out of [n] total ([x]%) |
-| Dead Validation Rules | [X]/10 | [n] deactivated rules out of [n] total ([x]%) |
+|         Dimension          | Score  |                      Key Finding                       |
+|:--------------------------:|:------:|:------------------------------------------------------:|
+|       Inactive Flows       | [X]/10 |       [n] inactive flows out of [n] total ([x]%)       |
+|   Dead Validation Rules    | [X]/10 |     [n] deactivated rules out of [n] total ([x]%)      |
 | Deactivated Workflow Rules | [X]/10 | [n] deactivated workflow rules out of [n] total ([x]%) |
-| Stale Custom Fields | [X]/10 | [n] fields unmodified >365 days ([x]% of total) |
+|    Stale Custom Fields     | [X]/10 |    [n] fields unmodified >365 days ([x]% of total)     |
 
 ### Inactive Flows
 **Total flows:** [n] | **Inactive (no active version):** [n] ([x]%)

@@ -158,12 +158,12 @@ section_score = (sprawl×0.25 + limits×0.25 + api×0.20 + packages×0.15 + conf
 ## Score: [XX]/100 — Grade [X]
 
 ### Dimension Scores
-| Dimension | Score | Key Finding |
-|:---------:|:-----:|:-----------:|
-| Object / Field Sprawl | [X]/10 | [n] custom objects ([x]% of limit) |
-| Governor Limits | [X]/10 | Highest: [limit] at [x]% |
-| Apex API Version Debt | [X]/10 | [n] classes on v<50 |
-| Package Health | [X]/10 | [n] packages; [n] with unused licenses |
+|        Dimension         | Score  |               Key Finding               |
+|:------------------------:|:------:|:---------------------------------------:|
+|  Object / Field Sprawl   | [X]/10 |   [n] custom objects ([x]% of limit)    |
+|     Governor Limits      | [X]/10 |        Highest: [limit] at [x]%         |
+|  Apex API Version Debt   | [X]/10 |           [n] classes on v<50           |
+|      Package Health      | [X]/10 | [n] packages; [n] with unused licenses  |
 | Custom Settings vs. CMDT | [X]/10 | [n] custom settings; [n] metadata types |
 
 ### Org Limits Dashboard

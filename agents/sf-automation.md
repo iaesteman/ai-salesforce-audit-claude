@@ -176,13 +176,13 @@ Return the following markdown block — filled in with real data:
 **Score: [XX]/100 | Weight: 20%**
 
 ### Dimension Scores
-| Dimension | Score | Key Finding |
-|:---------:|:-----:|:-----------:|
-| Flow Health | [X]/10 | [n] active flows; [n] errors in last 30 days |
+|        Dimension         | Score  |                 Key Finding                  |
+|:------------------------:|:------:|:--------------------------------------------:|
+|       Flow Health        | [X]/10 | [n] active flows; [n] errors in last 30 days |
 | Process Builder (Legacy) | [X]/10 | [n] active processes — DEPRECATED technology |
-| Workflow Rules (Legacy) | [X]/10 | [n] active rules — DEPRECATED technology |
-| Apex Trigger Hygiene | [X]/10 | [n] triggers; [n] without handler pattern |
-| Validation Rule Quality | [X]/10 | [n] active rules; [n] undocumented |
+| Workflow Rules (Legacy)  | [X]/10 |   [n] active rules — DEPRECATED technology   |
+|   Apex Trigger Hygiene   | [X]/10 |  [n] triggers; [n] without handler pattern   |
+| Validation Rule Quality  | [X]/10 |      [n] active rules; [n] undocumented      |
 
 ### Automation Inventory
 | Technology | Active | Inactive | Status | Risk |

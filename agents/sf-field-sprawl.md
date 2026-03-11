@@ -133,12 +133,12 @@ Return the following markdown block — filled in with real data:
 **Score: [XX]/100 | Weight: 7%**
 
 ### Dimension Scores
-| Dimension | Score | Key Finding |
-|:---------:|:-----:|:-----------:|
-| Objects ≥100 Custom Fields | [X]/10 | [n] objects over critical threshold |
-| Objects 50–99 Custom Fields | [X]/10 | [n] objects in warning zone |
-| Stale Fields (>730 days) | [X]/10 | [n] fields not modified in 2+ years ([x]%) |
-| Duplicate-Purpose Fields | [X]/10 | [n] objects with potentially duplicate fields |
+|          Dimension          | Score  |                  Key Finding                  |
+|:---------------------------:|:------:|:---------------------------------------------:|
+| Objects ≥100 Custom Fields  | [X]/10 |      [n] objects over critical threshold      |
+| Objects 50–99 Custom Fields | [X]/10 |          [n] objects in warning zone          |
+|  Stale Fields (>730 days)   | [X]/10 |  [n] fields not modified in 2+ years ([x]%)   |
+|  Duplicate-Purpose Fields   | [X]/10 | [n] objects with potentially duplicate fields |
 
 ### Field Density — Top Objects
 | Object | Label | Custom Field Count | Status |

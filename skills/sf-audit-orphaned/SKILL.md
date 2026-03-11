@@ -123,12 +123,12 @@ section_score = (
 ## Score: [XX]/100 — Grade [X]
 
 ### Dimension Scores
-| Dimension | Score | Key Finding |
-|:---------:|:-----:|:-----------:|
-| Inactive Flows | [X]/10 | [n] inactive flows out of [n] total ([x]%) |
-| Dead Validation Rules | [X]/10 | [n] deactivated rules out of [n] total ([x]%) |
+|         Dimension          | Score  |                  Key Finding                  |
+|:--------------------------:|:------:|:---------------------------------------------:|
+|       Inactive Flows       | [X]/10 |  [n] inactive flows out of [n] total ([x]%)   |
+|   Dead Validation Rules    | [X]/10 | [n] deactivated rules out of [n] total ([x]%) |
 | Deactivated Workflow Rules | [X]/10 | [n] deactivated rules out of [n] total ([x]%) |
-| Stale Custom Fields | [X]/10 | [n] fields unmodified >365 days ([x]%) |
+|    Stale Custom Fields     | [X]/10 |    [n] fields unmodified >365 days ([x]%)     |
 
 ### Inactive Flows
 [table of inactive flows or "All flows have an active version."]

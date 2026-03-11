@@ -158,13 +158,13 @@ section_score = (flow×0.25 + pb×0.20 + wf×0.20 + trigger×0.20 + validation×
 ## Score: [XX]/100 — Grade [X]
 
 ### Dimension Scores
-| Dimension | Score | Key Finding |
-|:---------:|:-----:|:-----------:|
-| Flow Health | [X]/10 | [n] active flows; [n] errors in 30 days |
-| Process Builder (Legacy) | [X]/10 | [n] active — DEPRECATED |
-| Workflow Rules (Legacy) | [X]/10 | [n] active — DEPRECATED |
-| Apex Trigger Hygiene | [X]/10 | [n] triggers; [n] without handler pattern |
-| Validation Rule Quality | [X]/10 | [n] rules; [n] undocumented |
+|        Dimension         | Score  |                Key Finding                |
+|:------------------------:|:------:|:-----------------------------------------:|
+|       Flow Health        | [X]/10 |  [n] active flows; [n] errors in 30 days  |
+| Process Builder (Legacy) | [X]/10 |          [n] active — DEPRECATED          |
+| Workflow Rules (Legacy)  | [X]/10 |          [n] active — DEPRECATED          |
+|   Apex Trigger Hygiene   | [X]/10 | [n] triggers; [n] without handler pattern |
+| Validation Rule Quality  | [X]/10 |        [n] rules; [n] undocumented        |
 
 ### Automation Inventory
 | Technology | Active | Inactive | Status | Risk |

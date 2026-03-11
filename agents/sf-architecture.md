@@ -199,13 +199,13 @@ Return the following markdown block — filled in with real data:
 **Score: [XX]/100 | Weight: 15%**
 
 ### Dimension Scores
-| Dimension | Score | Key Finding |
-|:---------:|:-----:|:-----------:|
-| Object / Field Sprawl | [X]/10 | [n] custom objects, [n] fields on largest object |
-| Governor Limits Usage | [X]/10 | Highest: [limit name] at [x]% |
-| Apex API Version Debt | [X]/10 | [n] classes on v<50; oldest: v[n] |
-| Package Health | [X]/10 | [n] managed packages installed |
-| Custom Settings vs. CMDT | [X]/10 | [n] custom settings; [n] custom metadata types |
+|        Dimension         | Score  |                   Key Finding                    |
+|:------------------------:|:------:|:------------------------------------------------:|
+|  Object / Field Sprawl   | [X]/10 | [n] custom objects, [n] fields on largest object |
+|  Governor Limits Usage   | [X]/10 |          Highest: [limit name] at [x]%           |
+|  Apex API Version Debt   | [X]/10 |        [n] classes on v<50; oldest: v[n]         |
+|      Package Health      | [X]/10 |          [n] managed packages installed          |
+| Custom Settings vs. CMDT | [X]/10 |  [n] custom settings; [n] custom metadata types  |
 
 ### Org Limits Dashboard
 | Limit | Used | Maximum | % Used | Status |

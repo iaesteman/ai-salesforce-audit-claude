@@ -138,12 +138,12 @@ Write this file to the current directory with the following structure:
 | Test Class Ratio | 1:[x] | ≤ 1:3 | PASS/WARN/FAIL |
 
 ### Dimension Scores
-| Dimension | Score | Finding |
-|:---------:|:-----:|:-------:|
-| Org-Wide Coverage % | [X]/10 | [x]% coverage |
-| Classes Below 75% | [X]/10 | [n] classes at risk |
-| Test Class Quality | [X]/10 | [finding] |
-| Trigger Coverage | [X]/10 | [finding] |
+|      Dimension      | Score  |       Finding       |
+|:-------------------:|:------:|:-------------------:|
+| Org-Wide Coverage % | [X]/10 |    [x]% coverage    |
+|  Classes Below 75%  | [X]/10 | [n] classes at risk |
+| Test Class Quality  | [X]/10 |      [finding]      |
+|  Trigger Coverage   | [X]/10 |      [finding]      |
 
 ### Classes Requiring Attention (Coverage < 75%)
 | Class / Trigger | Coverage % | Covered | Uncovered | Risk |

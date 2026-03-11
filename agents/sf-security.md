@@ -175,14 +175,14 @@ Return the following markdown block — filled in with real data:
 **Score: [XX]/100 | Weight: 30%**
 
 ### Dimension Scores
-| Dimension | Score | Key Finding |
-|:---------:|:-----:|:-----------:|
-| Profile Hygiene | [X]/10 | [n] profiles with elevated permissions |
-| Permission Set Sprawl | [X]/10 | [n] users with >5 perm sets; [n] dangerous perm sets |
-| Sharing Model | [X]/10 | [n] objects with Public Read/Write OWD |
-| MFA Enforcement | [X]/10 | [finding] |
-| IP / Session Restrictions | [X]/10 | [n] admin profiles with IP restrictions |
-| Field-Level Security | [X]/10 | [finding] |
+|         Dimension         | Score  |                     Key Finding                      |
+|:-------------------------:|:------:|:----------------------------------------------------:|
+|      Profile Hygiene      | [X]/10 |        [n] profiles with elevated permissions        |
+|   Permission Set Sprawl   | [X]/10 | [n] users with >5 perm sets; [n] dangerous perm sets |
+|       Sharing Model       | [X]/10 |        [n] objects with Public Read/Write OWD        |
+|      MFA Enforcement      | [X]/10 |                      [finding]                       |
+| IP / Session Restrictions | [X]/10 |       [n] admin profiles with IP restrictions        |
+|   Field-Level Security    | [X]/10 |                      [finding]                       |
 
 ### Profile Analysis
 | Profile | Users | ModifyAll | ViewAll | ManageUsers | Risk |

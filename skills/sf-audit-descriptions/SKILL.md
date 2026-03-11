@@ -131,13 +131,13 @@ section_score = (
 ## Score: [XX]/100 — Grade [X]
 
 ### Dimension Scores
-| Dimension | Score | Key Finding |
-|:---------:|:-----:|:-----------:|
-| Custom Field Help Text | [X]/10 | [n] of [n] fields missing description ([x]%) |
-| Flow Descriptions | [X]/10 | [n] of [n] active flows missing description ([x]%) |
-| Validation Rule Descriptions | [X]/10 | [n] of [n] active rules missing description ([x]%) |
-| Custom Object Descriptions | [X]/10 | [n] of [n] objects missing description ([x]%) |
-| Apex Class Doc Comments | [X]/10 | [n] of [n] sampled classes without doc comment ([x]%) |
+|          Dimension           | Score  |                      Key Finding                      |
+|:----------------------------:|:------:|:-----------------------------------------------------:|
+|    Custom Field Help Text    | [X]/10 |     [n] of [n] fields missing description ([x]%)      |
+|      Flow Descriptions       | [X]/10 |  [n] of [n] active flows missing description ([x]%)   |
+| Validation Rule Descriptions | [X]/10 |  [n] of [n] active rules missing description ([x]%)   |
+|  Custom Object Descriptions  | [X]/10 |     [n] of [n] objects missing description ([x]%)     |
+|   Apex Class Doc Comments    | [X]/10 | [n] of [n] sampled classes without doc comment ([x]%) |
 
 ### Custom Field Help Text
 [table or "All custom fields have help text."]

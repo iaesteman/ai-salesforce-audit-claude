@@ -138,13 +138,13 @@ Return the following markdown block — filled in with real data:
 **Score: [XX]/100 | Weight: 8%**
 
 ### Dimension Scores
-| Dimension | Score | Key Finding |
-|:---------:|:-----:|:-----------:|
-| Apex Class Naming | [X]/10 | [n] violations out of [n] classes ([x]%) |
-| Apex Trigger Naming | [X]/10 | [n] non-standard triggers; [n] objects with multiple triggers |
-| Custom Field Naming | [X]/10 | [n] fields with generic or non-standard names ([x]%) |
-| Flow Naming | [X]/10 | [n] flows with non-descriptive names ([x]%) |
-| Validation Rule Naming | [X]/10 | [n] rules with non-descriptive names ([x]%) |
+|       Dimension        | Score  |                          Key Finding                          |
+|:----------------------:|:------:|:-------------------------------------------------------------:|
+|   Apex Class Naming    | [X]/10 |           [n] violations out of [n] classes ([x]%)            |
+|  Apex Trigger Naming   | [X]/10 | [n] non-standard triggers; [n] objects with multiple triggers |
+|  Custom Field Naming   | [X]/10 |     [n] fields with generic or non-standard names ([x]%)      |
+|      Flow Naming       | [X]/10 |          [n] flows with non-descriptive names ([x]%)          |
+| Validation Rule Naming | [X]/10 |          [n] rules with non-descriptive names ([x]%)          |
 
 ### Apex Class Naming
 **Total active classes:** [n] | **Violations:** [n] ([x]%) | **Managed (excluded):** [n]

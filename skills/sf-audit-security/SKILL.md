@@ -146,14 +146,14 @@ section_score = (profile×0.20 + permset×0.20 + sharing×0.20 + mfa×0.15 + ip�
 ## Score: [XX]/100 — Grade [X]
 
 ### Dimension Scores
-| Dimension | Score | Key Finding |
-|:---------:|:-----:|:-----------:|
-| Profile Hygiene | [X]/10 | [n] profiles with elevated permissions |
-| Permission Set Sprawl | [X]/10 | [n] users with >5 perm sets |
-| Sharing Model | [X]/10 | [n] objects with Public Read/Write |
-| MFA Enforcement | [X]/10 | [finding] |
+|         Dimension         | Score  |               Key Finding               |
+|:-------------------------:|:------:|:---------------------------------------:|
+|      Profile Hygiene      | [X]/10 | [n] profiles with elevated permissions  |
+|   Permission Set Sprawl   | [X]/10 |       [n] users with >5 perm sets       |
+|       Sharing Model       | [X]/10 |   [n] objects with Public Read/Write    |
+|      MFA Enforcement      | [X]/10 |                [finding]                |
 | IP / Session Restrictions | [X]/10 | [n] admin profiles with IP restrictions |
-| Field-Level Security | [X]/10 | [finding] |
+|   Field-Level Security    | [X]/10 |                [finding]                |
 
 ### Profile Analysis
 | Profile | Users | ModifyAll | ViewAll | ManageUsers | Risk |
