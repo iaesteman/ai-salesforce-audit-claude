@@ -40,7 +40,8 @@ Parse the available audit markdown files and extract:
 - **Org name, username, edition, audit date** (from report header)
 - **Overall score** (0–100) and grade (if SF-AUDIT.md exists)
 - **Per-domain scores** (Security, Data Quality, Automation, Architecture, Test Coverage, Naming Conventions, Orphaned Metadata, Description Completeness, Custom Field Sprawl)
-- **Top findings per domain** (Critical and Important items from recommendations sections)
+- **Per-domain dimension scores** (extract the Dimension Scores table from each domain section — values 0–10 per dimension)
+- **Per-domain top findings** (up to 3 Critical/Important findings per domain)
 - **Priority Action Matrix items** (Critical / Important / Strategic)
 
 If the full composite score doesn't exist (individual reports only), calculate it:
@@ -64,15 +65,51 @@ Write a temporary JSON file at `/tmp/sf_report_data.json` with this exact struct
   "grade": "B",
   "executive_summary": "2-4 sentence summary of org health, top risk, top strength, and immediate priority.",
   "domains": {
-    "Security & Access": {"score": 65, "weight": "20%"},
-    "Data Quality": {"score": 78, "weight": "15%"},
-    "Automation Health": {"score": 70, "weight": "15%"},
-    "Org Architecture": {"score": 82, "weight": "12%"},
-    "Test Coverage": {"score": 68, "weight": "8%"},
-    "Naming Conventions": {"score": 74, "weight": "8%"},
-    "Orphaned Metadata": {"score": 72, "weight": "8%"},
-    "Description Completeness": {"score": 55, "weight": "7%"},
-    "Custom Field Sprawl": {"score": 80, "weight": "7%"}
+    "Security & Access": {
+      "score": 65, "weight": "20%",
+      "dimension_scores": {"Profile Hygiene": 6, "Permission Set Sprawl": 7, "Sharing Model": 8, "MFA Enforcement": 5, "IP/Session Restrictions": 4, "Field-Level Security": 7},
+      "top_findings": ["2 non-admin profiles with Modify All Data", "14 users inactive 90+ days"]
+    },
+    "Data Quality": {
+      "score": 78, "weight": "15%",
+      "dimension_scores": {"Contact Completeness": 8, "Account Completeness": 7, "Lead Hygiene": 6, "Duplicate Rule Coverage": 9, "Opportunity Hygiene": 7},
+      "top_findings": ["Contact Email null rate 18%"]
+    },
+    "Automation Health": {
+      "score": 70, "weight": "15%",
+      "dimension_scores": {"Flow Health": 7, "Process Builder Debt": 5, "Workflow Rules": 4, "Trigger Hygiene": 8, "Validation Quality": 8},
+      "top_findings": ["6 active Workflow Rules", "3 Process Builder processes"]
+    },
+    "Org Architecture": {
+      "score": 82, "weight": "12%",
+      "dimension_scores": {"Object/Field Sprawl": 8, "Governor Limits": 9, "Apex API Version Debt": 7, "Package Health": 9, "Custom Settings vs CMDT": 6},
+      "top_findings": ["8 classes on API v45"]
+    },
+    "Test Coverage": {
+      "score": 68, "weight": "8%",
+      "dimension_scores": {"Org-Wide Coverage %": 7, "Classes Below 75%": 6, "Test Class Quality": 7, "Trigger Coverage": 8},
+      "top_findings": ["4 classes below 75% coverage"]
+    },
+    "Naming Conventions": {
+      "score": 74, "weight": "8%",
+      "dimension_scores": {"Apex Class Naming": 7, "Apex Trigger Naming": 8, "Custom Field Naming": 7, "Flow Naming": 6, "Validation Rule Naming": 7},
+      "top_findings": ["28% of classes missing type suffix"]
+    },
+    "Orphaned Metadata": {
+      "score": 72, "weight": "8%",
+      "dimension_scores": {"Inactive Flows": 8, "Dead Validation Rules": 7, "Deactivated Workflow Rules": 6, "Stale Custom Fields": 7},
+      "top_findings": ["12 inactive flows", "5 deactivated validation rules"]
+    },
+    "Description Completeness": {
+      "score": 55, "weight": "7%",
+      "dimension_scores": {"Custom Field Help Text": 4, "Flow Descriptions": 5, "Validation Rule Descriptions": 6, "Object Descriptions": 5, "Apex Class Doc Comments": 6},
+      "top_findings": ["62% of fields missing help text", "38% of flows undocumented"]
+    },
+    "Custom Field Sprawl": {
+      "score": 80, "weight": "7%",
+      "dimension_scores": {"Objects >=100 Fields": 8, "Objects 50-99 Fields": 7, "Stale Fields >730 days": 8, "Duplicate-Purpose Fields": 8},
+      "top_findings": ["1 object at 127 custom fields"]
+    }
   },
   "findings": [
     {"severity": "Critical", "domain": "Security", "finding": "Specific finding text"},
@@ -144,7 +181,7 @@ rm -f /tmp/sf_report_data.json
   Score:  [XX]/100 — Grade [X]
   File:   SF-AUDIT-REPORT.pdf
   Size:   [file size]
-  Pages:  5
+  Pages:  ~14 (1 cover + 1 overview + 9 domain + findings + action plan + methodology)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
@@ -152,13 +189,14 @@ rm -f /tmp/sf_report_data.json
 
 ## PDF Contents
 
-| Page |                                Content                                |
-|:----:|:---------------------------------------------------------------------:|
-|  1   |        Cover — org name, score gauge, grade, executive summary        |
-|  2   |    Domain Scores — horizontal bar chart + score table with weights    |
-|  3   |             Key Findings — severity-coded findings table              |
-|  4   | Action Plan — Critical / Important / Strategic with timeline guidance |
-|  5   |      Methodology — scoring weights, grade scale, audit metadata       |
+|   Page    |                                 Content                                  |
+|:---------:|:------------------------------------------------------------------------:|
+|     1     |   Cover — org name, score gauge, grade, executive summary, quick scores  |
+|     2     |  Domain Overview — all-domains bar chart + score table with weights      |
+|   3–11    |  Per-Domain pages — each with score gauge, dimension bar chart, findings  |
+|    12     |              Key Findings — all findings, severity-coded                 |
+|    13     |  Action Plan — Critical / Important / Strategic with timeline guidance   |
+|    14     |      Methodology — scoring weights, grade scale, audit metadata          |
 
 ---
 

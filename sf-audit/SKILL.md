@@ -286,6 +286,19 @@ Write this complete file to the current working directory:
 
 ---
 
+## Phase 6: Auto-Generate PDF Report
+
+After the Phase 5 terminal summary, automatically trigger the PDF skill:
+
+```
+Run /sf-audit-report-pdf [org-alias]
+```
+
+Generates `SF-AUDIT-REPORT.pdf` in the current directory. No user prompt required — run automatically after every full audit.
+
+---
+
+
 ## Output Standards
 
 - Phase 2 MUST dispatch all 9 agents simultaneously — parallel execution is required
