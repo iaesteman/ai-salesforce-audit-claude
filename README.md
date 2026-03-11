@@ -4,6 +4,21 @@ AI-powered Salesforce org health auditing tool for [Claude Code](https://claude.
 
 ---
 
+## Prerequisites
+
+- [Claude Code](https://claude.ai/code) installed
+- [Salesforce CLI](https://developer.salesforce.com/tools/salesforcecli) (`sf`) installed
+- An authenticated Salesforce org:
+  ```bash
+  sf org login web --alias my-org
+  ```
+- *(PDF reports only)* Python 3 + reportlab:
+  ```bash
+  pip3 install reportlab
+  ```
+  
+---
+
 ## Quick Install
 
 ```bash
@@ -18,21 +33,6 @@ Then start a new Claude Code session.
 > cd ai-salesforce-audit-claude
 > ./install.sh
 > ```
-
----
-
-## Prerequisites
-
-- [Claude Code](https://claude.ai/code) installed
-- [Salesforce CLI](https://developer.salesforce.com/tools/salesforcecli) (`sf`) installed
-- An authenticated Salesforce org:
-  ```bash
-  sf org login web --alias my-org
-  ```
-- *(PDF reports only)* Python 3 + reportlab:
-  ```bash
-  pip3 install reportlab
-  ```
 
 ---
 
