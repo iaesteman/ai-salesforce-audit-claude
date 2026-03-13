@@ -43,3 +43,6 @@ node_modules/
 # Temp
 *.tmp
 *.bak
+
+# Wiki pages (copy-paste into GitHub Wiki, not committed to repo)
+wiki/
