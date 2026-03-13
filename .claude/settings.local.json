@@ -2,11 +2,7 @@
   "permissions": {
     "allow": [
       "WebFetch(domain:github.com)",
-      "WebFetch(domain:raw.githubusercontent.com)",
-      "Bash(curl -s \"https://raw.githubusercontent.com/zubair-trabzada/ai-marketing-claude/main/agents/market-competitive.md\")",
-      "Bash(curl -s \"https://raw.githubusercontent.com/zubair-trabzada/ai-marketing-claude/main/agents/market-content.md\")",
-      "Bash(curl -s \"https://raw.githubusercontent.com/zubair-trabzada/ai-marketing-claude/main/install.sh\")",
-      "Bash(curl -s \"https://raw.githubusercontent.com/zubair-trabzada/ai-marketing-claude/main/uninstall.sh\")"
+      "WebFetch(domain:raw.githubusercontent.com)"
     ]
   }
 }

@@ -175,6 +175,7 @@ Start a new Claude Code session after updating.
 | `/sf-audit-descriptions [org]`   | `SF-DESCRIPTIONS.md`  | Missing help text on fields, flows, objects, classes         |
 | `/sf-audit-field-sprawl [org]`   | `SF-FIELD-SPRAWL.md`  | Objects with 100+ fields, stale fields, duplicate-purpose    |
 | `/sf-audit-report-pdf [org]`     | `SF-AUDIT-REPORT.pdf` | Generate PDF from any prior audit data                       |
+| `/sf-audit-all`                  | Terminal summary      | Audit all authenticated orgs + comparison table              |
 
 The `[org]` alias is optional — omit to use your default authenticated org.
 
@@ -187,6 +188,49 @@ The `[org]` alias is optional — omit to use your default authenticated org.
 ```
 
 This removes all installed skills, agents, and scripts from `~/.claude/`. Your Salesforce org authentication and any generated reports are not affected.
+
+---
+
+## Troubleshooting
+
+### `sf: command not found`
+Salesforce CLI is not installed or not in PATH. Install it from [developer.salesforce.com/tools/salesforcecli](https://developer.salesforce.com/tools/salesforcecli), then open a new terminal.
+
+### `No orgs found` or authentication expired
+Re-authenticate:
+```bash
+sf org login web --alias my-org
+```
+If the token has expired you will see `RefreshTokenAuthError` — log in again with the command above.
+
+### `API_DISABLED_FOR_ORG` or permission denied mid-audit
+The authenticated user is missing **API Enabled** or **View Setup and Configuration** permissions. Either switch to a System Administrator user or create a dedicated audit user with those permissions (see Step 3).
+
+### No test coverage data — all zeros
+The org has no stored test run results. Run the test suite first:
+```bash
+sf apex run test --target-org my-org --wait 10
+```
+Then re-run `/sf-audit-coverage`.
+
+### PDF not generated
+Check each of these in order:
+1. Python 3 is installed: `python3 --version`
+2. reportlab is installed: `python3 -c "import reportlab; print(reportlab.Version)"`
+3. `SF-AUDIT.md` exists in your current directory
+4. If reportlab is missing: `pip3 install reportlab`
+
+### One domain shows `N/A` in the report
+That agent encountered an error (e.g. a Tooling API timeout or a missing object). The overall score is recalculated without that domain. Re-run the individual skill to investigate:
+```bash
+/sf-audit-security my-org   # or whichever domain was N/A
+```
+
+### `generate_sf_pdf_report.py: No such file or directory`
+The PDF script was not found in the current directory or `~/.claude/scripts/`. Re-run the installer to restore it:
+```bash
+curl -fsSL https://raw.githubusercontent.com/iaesteman/ai-salesforce-audit-claude/main/install.sh | bash
+```
 
 ---
 

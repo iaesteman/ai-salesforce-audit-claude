@@ -1,0 +1,45 @@
+# sf-audit Domain Weights Configuration
+#
+# Copy this file to sf-audit-weights-config.md and edit the values.
+# The file is detected automatically by /sf-audit at runtime.
+# It is excluded from git so your settings stay local.
+#
+# Rules:
+# - All weights must be positive numbers
+# - Weights do NOT need to sum to 100 — they are normalised automatically
+# - Remove or comment out any domain to use its default weight
+# - Set a domain weight to 0 to exclude it from scoring entirely
+
+## Domain Weights
+
+| Domain          | Default Weight | Your Weight |
+|:----------------|:--------------:|:-----------:|
+| security        |      20        |     20      |
+| data            |      15        |     15      |
+| automation      |      15        |     15      |
+| architecture    |      12        |     12      |
+| coverage        |       8        |      8      |
+| naming          |       8        |      8      |
+| orphaned        |       8        |      8      |
+| descriptions    |       7        |      7      |
+| field-sprawl    |       7        |      7      |
+
+## Example: Prioritise security and data for a regulated industry org
+#
+# | Domain          | Your Weight |
+# |:----------------|:-----------:|
+# | security        |     35      |
+# | data            |     25      |
+# | automation      |     15      |
+# | architecture    |     10      |
+# | coverage        |      5      |
+# | naming          |      3      |
+# | orphaned        |      3      |
+# | descriptions    |      2      |
+# | field-sprawl    |      2      |
+
+## Example: Exclude domains you don't want scored
+#
+# Set weight to 0 to exclude a domain from the composite score:
+# | descriptions    |      0      |   ← excluded
+# | field-sprawl    |      0      |   ← excluded

@@ -1,8 +1,19 @@
 #!/usr/bin/env bash
 # install.sh — Salesforce Org Audit Tool for Claude Code
-# Installs /sf-audit skill and 5 parallel audit agents
+# Installs /sf-audit skill and 9 parallel audit agents
 
 set -e
+
+VERSION="1.2.0"
+
+# ─── Dry-run mode ─────────────────────────────────────────────────────────────
+DRY_RUN=false
+if [ "${1:-}" = "--dry-run" ]; then
+  DRY_RUN=true
+  echo ""
+  echo "DRY RUN MODE — no files will be written"
+  echo ""
+fi
 
 # ─── Colors ───────────────────────────────────────────────────────────────────
 GREEN='\033[0;32m'
@@ -79,18 +90,21 @@ fi
 echo ""
 echo -e "${CYAN}Creating install directories...${NC}"
 
-mkdir -p "$SKILLS_DIR/sf-audit"
-mkdir -p "$SKILLS_DIR/sf-audit-security"
-mkdir -p "$SKILLS_DIR/sf-audit-data"
-mkdir -p "$SKILLS_DIR/sf-audit-automation"
-mkdir -p "$SKILLS_DIR/sf-audit-architecture"
-mkdir -p "$SKILLS_DIR/sf-audit-coverage"
-mkdir -p "$SKILLS_DIR/sf-audit-naming"
-mkdir -p "$SKILLS_DIR/sf-audit-orphaned"
-mkdir -p "$SKILLS_DIR/sf-audit-descriptions"
-mkdir -p "$SKILLS_DIR/sf-audit-field-sprawl"
-mkdir -p "$SKILLS_DIR/sf-audit-report-pdf"
-mkdir -p "$AGENTS_DIR"
+if [ "$DRY_RUN" = false ]; then
+  mkdir -p "$SKILLS_DIR/sf-audit"
+  mkdir -p "$SKILLS_DIR/sf-audit-security"
+  mkdir -p "$SKILLS_DIR/sf-audit-data"
+  mkdir -p "$SKILLS_DIR/sf-audit-automation"
+  mkdir -p "$SKILLS_DIR/sf-audit-architecture"
+  mkdir -p "$SKILLS_DIR/sf-audit-coverage"
+  mkdir -p "$SKILLS_DIR/sf-audit-naming"
+  mkdir -p "$SKILLS_DIR/sf-audit-orphaned"
+  mkdir -p "$SKILLS_DIR/sf-audit-descriptions"
+  mkdir -p "$SKILLS_DIR/sf-audit-field-sprawl"
+  mkdir -p "$SKILLS_DIR/sf-audit-report-pdf"
+  mkdir -p "$SKILLS_DIR/sf-audit-all"
+  mkdir -p "$AGENTS_DIR"
+fi
 
 echo -e "${GREEN}✓ Directories ready${NC}"
 
@@ -110,13 +124,18 @@ SKILLS=(
   "sf-audit-descriptions:skills/sf-audit-descriptions/SKILL.md"
   "sf-audit-field-sprawl:skills/sf-audit-field-sprawl/SKILL.md"
   "sf-audit-report-pdf:skills/sf-audit-report-pdf/SKILL.md"
+  "sf-audit-all:skills/sf-audit-all/SKILL.md"
 )
 
 for entry in "${SKILLS[@]}"; do
   skill_name="${entry%%:*}"
   skill_src="${entry##*:}"
-  cp "$SOURCE_DIR/$skill_src" "$SKILLS_DIR/$skill_name/SKILL.md"
-  echo -e "${GREEN}✓ Installed skill:${NC} $skill_name"
+  if [ "$DRY_RUN" = true ]; then
+    echo -e "  [dry-run] Would install skill: $skill_name"
+  else
+    cp "$SOURCE_DIR/$skill_src" "$SKILLS_DIR/$skill_name/SKILL.md"
+    echo -e "${GREEN}✓ Installed skill:${NC} $skill_name"
+  fi
 done
 
 # ─── Install agents ───────────────────────────────────────────────────────────
@@ -136,8 +155,12 @@ AGENTS=(
 )
 
 for agent in "${AGENTS[@]}"; do
-  cp "$SOURCE_DIR/agents/$agent.md" "$AGENTS_DIR/$agent.md"
-  echo -e "${GREEN}✓ Installed agent:${NC} $agent"
+  if [ "$DRY_RUN" = true ]; then
+    echo -e "  [dry-run] Would install agent: $agent"
+  else
+    cp "$SOURCE_DIR/agents/$agent.md" "$AGENTS_DIR/$agent.md"
+    echo -e "${GREEN}✓ Installed agent:${NC} $agent"
+  fi
 done
 
 # ─── Install Python scripts ───────────────────────────────────────────────────
@@ -148,12 +171,16 @@ SCRIPTS_DEST="$HOME/.claude/scripts"
 mkdir -p "$SCRIPTS_DEST"
 
 if [ -f "$SOURCE_DIR/scripts/generate_sf_pdf_report.py" ]; then
-  cp "$SOURCE_DIR/scripts/generate_sf_pdf_report.py" "$SCRIPTS_DEST/generate_sf_pdf_report.py"
-  chmod +x "$SCRIPTS_DEST/generate_sf_pdf_report.py"
-  echo -e "${GREEN}✓ Installed script:${NC} generate_sf_pdf_report.py"
+  if [ "$DRY_RUN" = true ]; then
+    echo -e "  [dry-run] Would install script: generate_sf_pdf_report.py"
+  else
+    cp "$SOURCE_DIR/scripts/generate_sf_pdf_report.py" "$SCRIPTS_DEST/generate_sf_pdf_report.py"
+    chmod +x "$SCRIPTS_DEST/generate_sf_pdf_report.py"
+    echo -e "${GREEN}✓ Installed script:${NC} generate_sf_pdf_report.py"
 
-  # Also copy to current working directory so /sf-audit report-pdf can find it
-  cp "$SOURCE_DIR/scripts/generate_sf_pdf_report.py" "./generate_sf_pdf_report.py" 2>/dev/null || true
+    # Also copy to current working directory so /sf-audit report-pdf can find it
+    cp "$SOURCE_DIR/scripts/generate_sf_pdf_report.py" "./generate_sf_pdf_report.py" 2>/dev/null || true
+  fi
 fi
 
 # Check for Python 3 and reportlab
@@ -202,11 +229,12 @@ echo -e "${GREEN}${BOLD}━━━━━━━━━━━━━━━━━━�
 echo -e "${GREEN}${BOLD}  Installation complete!                              ${NC}"
 echo -e "${GREEN}${BOLD}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo ""
-echo -e "  Installed: 1 router + 11 skills + 9 agents + 1 PDF script"
+echo -e "  Version:   ${CYAN}${VERSION}${NC}"
+echo -e "  Installed: 1 router + 12 skills + 9 agents + 1 PDF script"
 echo ""
 echo -e "  Start a new Claude Code session, then use:"
 echo ""
-echo -e "  ${CYAN}/sf-audit [org]${NC}              Full audit — all 5 domains in parallel"
+echo -e "  ${CYAN}/sf-audit [org]${NC}              Full audit — all 9 domains in parallel"
 echo -e "  ${CYAN}/sf-audit security [org]${NC}     Security & access controls"
 echo -e "  ${CYAN}/sf-audit data [org]${NC}         Data quality & completeness"
 echo -e "  ${CYAN}/sf-audit automation [org]${NC}   Automation health & legacy debt"
@@ -217,6 +245,7 @@ echo -e "  ${CYAN}/sf-audit orphaned [org]${NC}     Orphaned & inactive metadata
 echo -e "  ${CYAN}/sf-audit descriptions [org]${NC} Description completeness"
 echo -e "  ${CYAN}/sf-audit field-sprawl [org]${NC} Custom field sprawl"
 echo -e "  ${CYAN}/sf-audit report-pdf [org]${NC}   Generate PDF report → SF-AUDIT-REPORT.pdf"
+echo -e "  ${CYAN}/sf-audit-all${NC}                Audit all authenticated orgs + comparison table"
 echo ""
 echo -e "  ${YELLOW}[org]${NC} is optional — omit to use the default authenticated org"
 echo ""

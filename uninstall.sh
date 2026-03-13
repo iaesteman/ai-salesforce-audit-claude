@@ -30,7 +30,12 @@ SKILL_DIRS=(
   "sf-audit-automation"
   "sf-audit-architecture"
   "sf-audit-coverage"
+  "sf-audit-naming"
+  "sf-audit-orphaned"
+  "sf-audit-descriptions"
+  "sf-audit-field-sprawl"
   "sf-audit-report-pdf"
+  "sf-audit-all"
 )
 
 for skill in "${SKILL_DIRS[@]}"; do
@@ -52,6 +57,10 @@ AGENTS=(
   "sf-automation"
   "sf-architecture"
   "sf-coverage"
+  "sf-naming"
+  "sf-orphaned"
+  "sf-descriptions"
+  "sf-field-sprawl"
 )
 
 for agent in "${AGENTS[@]}"; do
@@ -62,6 +71,18 @@ for agent in "${AGENTS[@]}"; do
     echo -e "${YELLOW}  (not found, skipping):${NC} $agent"
   fi
 done
+
+# ─── Remove PDF script ────────────────────────────────────────────────────────
+echo ""
+echo -e "${CYAN}Removing scripts...${NC}"
+
+SCRIPTS_DIR="$HOME/.claude/scripts"
+if [ -f "$SCRIPTS_DIR/generate_sf_pdf_report.py" ]; then
+  rm -f "$SCRIPTS_DIR/generate_sf_pdf_report.py"
+  echo -e "${GREEN}✓ Removed script:${NC} generate_sf_pdf_report.py"
+else
+  echo -e "${YELLOW}  (not found, skipping):${NC} generate_sf_pdf_report.py"
+fi
 
 # ─── Done ─────────────────────────────────────────────────────────────────────
 echo ""

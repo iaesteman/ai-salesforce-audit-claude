@@ -92,8 +92,22 @@ Run any single domain for a focused, faster report:
 | `/sf-audit-descriptions [org]`   | `SF-DESCRIPTIONS.md`  | Missing help text on fields, flows, objects, classes |
 | `/sf-audit-field-sprawl [org]`   | `SF-FIELD-SPRAWL.md`  | Objects with 100+ fields, stale fields, duplicate-purpose fields |
 | `/sf-audit-report-pdf [org]`     | `SF-AUDIT-REPORT.pdf` | Generate a PDF report from any prior audit data |
+| `/sf-audit-all`                  | Terminal summary      | Audit all authenticated orgs + comparison table |
 
 The `[org-alias]` is optional — omit to audit your default authenticated org.
+
+---
+
+## Customising Domain Weights
+
+> **Want to change how domains are weighted in the composite score?** Create a local config file to override any domain weight without editing installed files.
+>
+> **How to set it up:**
+> ```bash
+> cp sf-audit-weights-config.md.example sf-audit-weights-config.md
+> # Open sf-audit-weights-config.md and adjust the weight values.
+> ```
+> The skill detects this file automatically at runtime. Weights are normalised so they don't need to sum to 100. Set a weight to `0` to exclude a domain from scoring. See [sf-audit-weights-config.md.example](sf-audit-weights-config.md.example) for examples.
 
 ---
 
@@ -113,7 +127,7 @@ The `[org-alias]` is optional — omit to audit your default authenticated org.
 
 ## What Gets Audited
 
-### Security & Access (30% weight)
+### Security & Access (20% weight)
 - Profiles with dangerous permissions (Modify All Data, View All Data)
 - Permission set sprawl and over-permissioned users
 - Object-wide default sharing settings
@@ -122,7 +136,7 @@ The `[org-alias]` is optional — omit to audit your default authenticated org.
 - Login failure patterns and suspicious activity
 - Stale active users (no login in 90+ days)
 
-### Data Quality (20% weight)
+### Data Quality (15% weight)
 - Contact completeness: Email, Phone, Account linkage
 - Account completeness: Industry, Type, Phone, BillingCity
 - Lead hygiene: Stale open leads, missing email
@@ -130,7 +144,7 @@ The `[org-alias]` is optional — omit to audit your default authenticated org.
 - Active duplicate rules coverage
 - Orphaned and unlinked records
 
-### Automation Health (20% weight)
+### Automation Health (15% weight)
 - Active Flows inventory and error analysis
 - Process Builder processes (deprecated — migration required)
 - Workflow Rules (deprecated — migration required)
@@ -138,7 +152,7 @@ The `[org-alias]` is optional — omit to audit your default authenticated org.
 - Validation rule documentation quality
 - Legacy automation debt score
 
-### Org Architecture (15% weight)
+### Org Architecture (12% weight)
 - Governor limit consumption (API calls, data storage, file storage)
 - Custom object and field sprawl vs. edition limits
 - Apex class API version distribution
@@ -146,11 +160,34 @@ The `[org-alias]` is optional — omit to audit your default authenticated org.
 - Installed managed packages and license utilization
 - Custom Settings vs. Custom Metadata Types usage
 
-### Test Coverage (15% weight)
+### Test Coverage (8% weight)
 - Org-wide Apex test coverage percentage
 - Classes and triggers below 75% deployment threshold
 - Recent test run results and failure analysis
 - Test class quality and test-to-production ratio
+
+### Naming Conventions (8% weight)
+- Apex class suffix compliance (Controller, Service, Handler, Batch, etc.)
+- Trigger naming pattern (`[Object]Trigger`)
+- Custom field naming quality (no generic or single-character names)
+- Flow and validation rule naming standards
+
+### Orphaned Metadata (8% weight)
+- Inactive flows with no active version
+- Deactivated validation rules and workflow rules
+- Custom fields unmodified for 365+ days
+
+### Description Completeness (7% weight)
+- Missing inline help text on custom fields
+- Flows and validation rules without descriptions
+- Custom objects without descriptions
+- Apex classes without doc comments
+
+### Custom Field Sprawl (7% weight)
+- Objects with 100+ custom fields (critical)
+- Objects with 50–99 custom fields (warning)
+- Fields unmodified for 2+ years
+- Duplicate-purpose fields on the same object
 
 ---
 
@@ -166,6 +203,22 @@ Each domain is scored 0–100, then weighted into a composite Org Health Score:
 |  60–69  |   C   |    Fair — Multiple risk areas identified     |
 |  50–59  |   D   |  Poor — Significant remediation required     |
 |  < 50   |   F   |      Critical — Immediate action required    |
+
+### Why these weights?
+
+| Domain | Weight | Rationale |
+|--------|:------:|-----------|
+| Security & Access | 20% | Access control failures have immediate, high-blast-radius impact — a misconfigured profile or overprivileged user can expose all org data |
+| Data Quality | 15% | Poor data directly degrades CRM value and every downstream process that depends on it |
+| Automation Health | 15% | Broken or deprecated automation (Process Builder, Workflow Rules) causes silent failures and blocks migration to modern Flows |
+| Org Architecture | 12% | Governor limit breaches and API version debt create deployment blockers and performance degradation |
+| Test Coverage | 8% | Low coverage blocks deployments and masks regressions — important, but only relevant once automation/architecture are stable |
+| Naming Conventions | 8% | Inconsistent naming slows onboarding and makes metadata harder to govern at scale |
+| Orphaned Metadata | 8% | Dead flows, rules, and fields add cognitive overhead and deployment risk without delivering value |
+| Description Completeness | 7% | Missing documentation is a quality signal but rarely causes operational failures |
+| Custom Field Sprawl | 7% | High field counts indicate design debt but rarely block operations directly |
+
+> **Custom weights:** Create `sf-audit-weights-config.md` in your project directory to override any domain weight. See `sf-audit-weights-config.md.example` for the template.
 
 ---
 
@@ -184,7 +237,8 @@ ai-salesforce-audit-claude/
 │   ├── sf-audit-orphaned/SKILL.md           ← /sf-audit-orphaned
 │   ├── sf-audit-descriptions/SKILL.md       ← /sf-audit-descriptions
 │   ├── sf-audit-field-sprawl/SKILL.md       ← /sf-audit-field-sprawl
-│   └── sf-audit-report-pdf/SKILL.md         ← /sf-audit-report-pdf
+│   ├── sf-audit-report-pdf/SKILL.md         ← /sf-audit-report-pdf
+│   └── sf-audit-all/SKILL.md               ← /sf-audit-all (batch)
 ├── agents/
 │   ├── sf-security.md                       ← Security agent
 │   ├── sf-data-quality.md                   ← Data quality agent
@@ -198,11 +252,14 @@ ai-salesforce-audit-claude/
 ├── scripts/
 │   └── generate_sf_pdf_report.py            ← PDF generation (requires reportlab)
 ├── sf-audit-naming-config.md.example        ← Naming convention config template
+├── sf-audit-weights-config.md.example      ← Domain weight override template
 ├── GETTING_STARTED.md                       ← Setup guide for new users
 ├── NAMING-CONVENTION-GUIDE.md               ← Detailed naming skill guide
 ├── install.sh
 └── uninstall.sh
 ```
+
+Additional documentation and how-to guides are available in the [GitHub Wiki](https://github.com/iaesteman/ai-salesforce-audit-claude/wiki).
 
 **How it works:**
 1. `/sf-audit [org]` runs Phase 1 (discovery) → Phase 2 (dispatches 9 agents in parallel) → Phase 3 (synthesis)

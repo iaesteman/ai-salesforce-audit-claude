@@ -1,9 +1,32 @@
 # SF Audit — Full Org Health Audit
 
-Run a comprehensive Salesforce org health audit across all 5 domains simultaneously. And create a synthesized `SF-AUDIT.md` report with an overall health score, executive summary, and prioritized action matrix.
+Run a comprehensive Salesforce org health audit across all 9 domains simultaneously. And create a synthesized `SF-AUDIT.md` report with an overall health score, executive summary, and prioritized action matrix.
 
 ## Activated by
 `/sf-audit [org-alias]`
+
+## Special commands
+- `/sf-audit --version` — print the installed version and exit
+- `/sf-audit help` — print all available commands and exit
+
+If either flag is passed, print the following and stop:
+```
+sf-audit v1.2.0
+Available commands:
+  /sf-audit [org]                Full audit — all 9 domains in parallel
+  /sf-audit-security [org]       Security & access controls
+  /sf-audit-data [org]           Data quality & completeness
+  /sf-audit-automation [org]     Automation health & legacy debt
+  /sf-audit-architecture [org]   Org architecture & limits
+  /sf-audit-coverage [org]       Apex test coverage
+  /sf-audit-naming [org]         Naming convention enforcement
+  /sf-audit-orphaned [org]       Orphaned & inactive metadata
+  /sf-audit-descriptions [org]   Description completeness
+  /sf-audit-field-sprawl [org]   Custom field sprawl
+  /sf-audit-report-pdf [org]     Generate PDF report
+  /sf-audit-all                  Audit all authenticated orgs
+  /sf-audit --version            Show version
+```
 
 ## Available Commands
 
@@ -58,6 +81,23 @@ If this fails:
 - Do not proceed until confirmed
 
 Extract and store: `ORG_NAME`, `ORG_ID`, `ORG_EDITION`, `ORG_USERNAME`, `ORG_INSTANCE_URL`
+
+**Pre-flight permission check:** Run the following to verify API access before dispatching agents:
+
+```bash
+sf data query --target-org [org-alias] --use-tooling-api \
+  --query "SELECT Id FROM ApexClass LIMIT 1" --json
+```
+
+If this fails with `API_DISABLED_FOR_ORG` or a permissions error, stop and instruct the user:
+> The authenticated user does not have API Enabled on their profile. Grant **API Enabled** and **View Setup and Configuration** permissions before running the audit.
+
+Also check for a custom weights config file in the current directory:
+```bash
+# If sf-audit-weights-config.md exists, read and apply custom domain weights.
+# Otherwise use defaults: Security=20%, Data=15%, Automation=15%, Architecture=12%,
+# Coverage=8%, Naming=8%, Orphaned=8%, Descriptions=7%, FieldSprawl=7%
+```
 
 ### Step 1b — Gather shared context
 
@@ -127,6 +167,12 @@ Do not truncate or summarize — return the full section.
 
 Wait for all 9 agents to complete before proceeding to Phase 3.
 
+**Graceful degradation:** If any agent returns an error, times out, or produces no output:
+- Mark that domain as `N/A` in the score table
+- Exclude it from the weighted composite (redistribute its weight proportionally across remaining domains)
+- Add a note in the Audit Metadata section: `[domain] — unavailable: [reason]`
+- Do NOT abort the entire audit — partial results are still valuable
+
 ---
 
 ## Phase 3: Synthesis
@@ -168,7 +214,11 @@ org_health_score = (
 
 ## Phase 4: Write SF-AUDIT.md
 
-Write this complete file to the current working directory:
+Write **two files** to the current working directory:
+1. `SF-AUDIT-[YYYY-MM-DD].md` — dated archive (e.g. `SF-AUDIT-2026-03-13.md`)
+2. `SF-AUDIT.md` — latest report (always overwritten; used by PDF generation)
+
+Both files have identical content. The dated file allows tracking org health over time.
 
 ```markdown
 # Salesforce Org Health Audit
