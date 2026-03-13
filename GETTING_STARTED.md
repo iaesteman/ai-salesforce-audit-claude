@@ -113,11 +113,34 @@ To run a single domain:
 | Check | Recommendation |
 |:-----:|:---------------|
 | **Use a sandbox first** | Run against a sandbox before auditing production — real customer record data is never in scope for metadata audits, but org names and class names still leave your machine |
-| **Claude plan** | If using Teams or Enterprise Claude, opt out of data retention in your account settings so conversation data is not used for training |
+| **Claude plan** | API and Claude Code usage is NOT used for training by default. If you also use claude.ai, opt out in account settings — see [Protecting Your Data](#protecting-your-data-from-claude-training) below |
 | **Dedicated audit user** | Create a minimum-permission Salesforce user (API Enabled + View Setup) instead of running as System Administrator |
 | **Store reports safely** | Generated `SF-*.md` and `SF-AUDIT-REPORT.pdf` files contain org metadata — keep them out of cloud-synced folders (iCloud, Dropbox, Google Drive) |
 | **Delete reports when done** | Run `rm SF-*.md SF-AUDIT-REPORT.pdf` after reviewing — the `.gitignore` already excludes them from source control |
 | **Token security** | Salesforce CLI tokens live in `~/.sf/` — ensure that directory has restricted permissions (`chmod 700 ~/.sf`) |
+
+---
+
+## Protecting Your Data from Claude Training
+
+sf-audit uses Claude Code, which calls the **Anthropic API**. API usage is **not used for model training by default** — your Salesforce metadata and audit results are not fed back into Claude's training data.
+
+If you also use **claude.ai** (the web interface), a separate opt-out is required:
+
+1. Log in to [claude.ai](https://claude.ai)
+2. Go to **Settings → Privacy**
+3. Disable **"Improve Claude for everyone"** (or equivalent option)
+4. Save the setting
+
+|           Context            | Used for training by default |            Action needed             |
+|:----------------------------:|:----------------------------:|:------------------------------------:|
+| Claude Code (this tool)      |              No              |                 None                 |
+| Anthropic API                |              No              |                 None                 |
+| claude.ai Free               |             Yes              |    Opt out in Settings → Privacy     |
+| claude.ai Pro / Team         |             Yes              |    Opt out in Settings → Privacy     |
+| claude.ai Enterprise         |   Governed by org agreement  |        Check with your admin         |
+
+> For Enterprise API customers, data retention and training use can be fully customised through a data processing agreement with Anthropic. Contact your Anthropic account manager for details.
 
 ---
 
